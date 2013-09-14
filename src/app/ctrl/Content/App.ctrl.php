@@ -40,9 +40,22 @@ class Controller_Content_App extends ControllerApp {
 		return $this->GetDefaultOutput();
 	}
 
-	public function Info() {
+	public function Display() {
 
-		return $this->GetDefaultOutput(__('Info'));
+		$this->Init();
+		
+		$data = $this->Module()->GetData($this->_mRequest);
+		
+		$content_id = !empty($data['query']['c']) ? $data['query']['c'] : NULL;
+		
+		if (!empty($content_id)) {
+			
+			$content = $this->Module()->GetAppContent($content_id);
+			
+			return $this->GetDefaultContentOutput($content);
+		}
+		
+		return FALSE;
 	}
 
 	public function Debug() {

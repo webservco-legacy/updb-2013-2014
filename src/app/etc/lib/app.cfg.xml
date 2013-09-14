@@ -39,9 +39,9 @@
 				</item>
 				<item>
 					<title>Info</title>
-					<link>Content/App/Info</link>
+					<link>Content/App/Display/c/1</link>
 					<url></url>
-					<resource>Content/App/Info</resource>
+					<resource>Content/App/Display/c/1</resource>
 				</item>
 				<item>
 					<title>Account</title>

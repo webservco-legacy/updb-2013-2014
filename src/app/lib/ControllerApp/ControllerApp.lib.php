@@ -35,6 +35,8 @@ if (!defined('_WEB')) {
  */
 class ControllerApp extends Controller {
 
+	private $_mPub = NULL;
+
 	/**
 	 * Controller initialization.
 	 * 
@@ -208,6 +210,18 @@ class ControllerApp extends Controller {
 		return FALSE;
 	}
 
+	public function CheckUserAccess($user) {
+
+		if (empty($user['Logged'])) {
+			
+			Core::Router()->Redirect("Users/App/Account");
+			
+			exit();
+		}
+		
+		return TRUE;
+	}
+
 	public function GetDefaultOutput($title = NULL) {
 
 		$this->Init();
@@ -222,6 +236,37 @@ class ControllerApp extends Controller {
 		echo $this->GetOutput($data);
 		
 		return TRUE;
+	}
+
+	public function GetDefaultContentOutput($content = array()) {
+
+		$this->Init();
+		
+		$data = $this->Module()->GetData($this->_mRequest);
+		
+		if (!empty($content['content_title'])) {
+			
+			$data['strings']['title'] = $content['content_title'];
+		}
+		
+		if (!empty($content['content_data'])) {
+			
+			$data['strings']['data'] = $content['content_data'];
+		}
+		
+		echo $this->GetOutput($data, 'db_content');
+		
+		return TRUE;
+	}
+
+	public function Pub() {
+
+		if (NULL == $this->_mPub) {
+			
+			$this->_mPub = Core::Get('Library_Pub');
+		}
+		
+		return $this->_mPub;
 	}
 }
 ?>
