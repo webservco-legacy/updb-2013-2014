@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- Configuration -->
+<config>
+	<!-- Development Environment -->
+	<dev>
+	</dev>
+	<!-- Test Environment -->
+	<test>
+	</test>
+	<!-- Production Environment -->
+	<prod>
+	    <path>
+			<core>/var/www/developer.webserv.co/opt/WEb7/</core>
+			<app>/var/www/updb.webserv.co/opt/app/</app>
+			<www>/var/www/updb.webserv.co/web/</www>
+		</path>
+		<url>
+			<www>http://updb.webserv.co/</www>
+		</url>
+	</prod>
+</config>
+<!-- $Id$ -->
