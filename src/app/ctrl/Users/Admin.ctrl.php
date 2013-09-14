@@ -9,7 +9,7 @@
  * @author     Radu Maier <radu@webserv.co>
  * @copyright  Copyright (c) 2008 - 2013, Radu Maier
  * @license    http://www.opensource.org/licenses/bsd-license.php
- * @package    DefaultApp
+ * @package    UpdbApp
  * @subpackage UsersModule
  * @version    $Revision$
  * @since      Version 7
@@ -26,7 +26,7 @@ if (!defined('_WEB')) {
  * Admin Controller for Users module.
  * 
  * @author Radu Maier <radu@webserv.co>
- * @package DefaultApp
+ * @package UpdbApp
  * @subpackage UsersModule
  */
 class Controller_Users_Admin extends ControllerApp {

@@ -12,53 +12,53 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;___:1,2;text\n"
 "X-Poedit-Basepath: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/"
-"DefaultApp/app/etc/lib/\n"
+"UpdbApp/app/etc/lib/\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/"
-"DefaultApp/app/etc/obj\n"
+"UpdbApp/app/etc/obj\n"
 "X-Poedit-SearchPath-2: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/"
-"DefaultApp/app/obj\n"
+"UpdbApp/app/obj\n"
 "X-Poedit-SearchPath-3: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/"
-"DefaultApp/app/lib\n"
+"UpdbApp/app/lib\n"
 "X-Poedit-SearchPath-4: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/"
-"DefaultApp/app/opt/tpl/Webapp/_main\n"
+"UpdbApp/app/opt/tpl/Webapp/_main\n"
 
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/lib/ModuleApp/ModuleApp.lib.php:84
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/lib/ModuleApp/ModuleApp.lib.php:84
 msgid "No data to display"
 msgstr "No data to display"
 
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/lib/ControllerApp/ControllerApp.lib.php:201
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/lib/ControllerApp/ControllerApp.lib.php:201
 msgid "Error"
 msgstr "Error"
 
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/lib/ControllerApp/ControllerApp.lib.php:201
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/lib/ControllerApp/ControllerApp.lib.php:201
 msgid "You don't have permission to access this resource."
 msgstr "You don't have permission to access this resource."
 
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/opt/tpl/Webapp/_main/admin_header.tpl.php:8
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/opt/tpl/Webapp/_main/header.tpl.php:6
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/opt/tpl/Webapp/_main/admin_header.tpl.php:8
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/opt/tpl/Webapp/_main/header.tpl.php:6
 msgid "Logout"
 msgstr "Logout"
 
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/opt/tpl/Webapp/_main/admin_header.tpl.php:9
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/opt/tpl/Webapp/_main/admin_header.tpl.php:9
 msgid "Administration area"
 msgstr "Administration area"
 
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/opt/tpl/Webapp/_main/admin_header.tpl.php:11
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/opt/tpl/Webapp/_main/header.tpl.php:8
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/opt/tpl/Webapp/_main/admin_header.tpl.php:11
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/opt/tpl/Webapp/_main/header.tpl.php:8
 msgid "Login"
 msgstr "Login"
 
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/opt/tpl/Webapp/_main/admin_header.tpl.php:17
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/opt/tpl/Webapp/_main/admin_layout.tpl.php:12
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/opt/tpl/Webapp/_main/admin_header.tpl.php:17
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/opt/tpl/Webapp/_main/admin_layout.tpl.php:12
 #: app.cfg.xml:47 app.cfg.xml:156
 msgid "Admin"
 msgstr "Admin"
 
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/opt/tpl/Webapp/_main/footer.tpl.php:2
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/opt/tpl/Webapp/_main/footer.tpl.php:2
 msgid "Italy"
 msgstr "Italy"
 

@@ -9,7 +9,7 @@
  * @author     Radu Maier <radu@webserv.co>
  * @copyright  Copyright (c) 2008 - 2013, Radu Maier
  * @license    http://www.opensource.org/licenses/bsd-license.php
- * @package    DefaultApp
+ * @package    UpdbApp
  * @subpackage ContentModule
  * @version    $Revision$
  * @since      Version 7
@@ -26,7 +26,7 @@ if (!defined('_WEB')) {
  * Admin Controller for Content module.
  * 
  * @author Radu Maier <radu@webserv.co>
- * @package DefaultApp
+ * @package UpdbApp
  * @subpackage ContentModule
  */
 class Controller_Content_Admin extends ControllerApp {

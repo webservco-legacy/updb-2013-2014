@@ -9,7 +9,7 @@
  * @author     Radu Maier <radu@webserv.co>
  * @copyright  Copyright (c) 2008 - 2013, Radu Maier
  * @license    http://www.opensource.org/licenses/bsd-license.php
- * @package    DefaultApp
+ * @package    UpdbApp
  * @subpackage OupsModule
  * @version    $Revision$
  * @since      Version 5
@@ -27,7 +27,7 @@ if (!defined('_WEB')) {
  * Core Controller for Oups module.
  * 
  * @author Radu Maier <radu@webserv.co>
- * @package DefaultApp
+ * @package UpdbApp
  * @subpackage OupsModule
  */
 class Controller_Oups_Core extends ControllerApp {

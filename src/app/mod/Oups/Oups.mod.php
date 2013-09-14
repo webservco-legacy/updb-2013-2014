@@ -7,7 +7,7 @@
  * @author     Radu Maier <radu@webserv.co>
  * @copyright  Copyright (c) 2013, Radu Maier
  * @license    http://www.opensource.org/licenses/bsd-license.php
- * @package    DefaultApp
+ * @package    UpdbApp
  * @subpackage OupsModule
  * @version    $Revision$
  * @since      Version 1
@@ -31,7 +31,7 @@ if (!defined('_WEB')) {
  * Model class for Oups module.
  *
  * @author     Radu Maier <radu@webserv.co>
- * @package    DefaultApp
+ * @package    UpdbApp
  * @subpackage OupsModule
  *
  */

@@ -13,26 +13,26 @@ msgstr ""
 "X-Poedit-KeywordsList: _;gettext;gettext_noop;__;___:1,2;title;description;"
 "keywords;content\n"
 "X-Poedit-Basepath: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/"
-"DefaultApp/app/mod/Content/\n"
+"UpdbApp/app/mod/Content/\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/"
-"DefaultApp/app/ctrl/Content\n"
+"UpdbApp/app/ctrl/Content\n"
 "X-Poedit-SearchPath-2: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/"
-"DefaultApp/app/etc/mod/Content\n"
+"UpdbApp/app/etc/mod/Content\n"
 "X-Poedit-SearchPath-3: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/"
-"DefaultApp/app/opt/tpl/Webapp/Content\n"
+"UpdbApp/app/opt/tpl/Webapp/Content\n"
 
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/ctrl/Content/App.ctrl.php:25
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/ctrl/Content/App.ctrl.php:25
 msgid "Credits"
 msgstr "Credits"
 
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/ctrl/Content/Admin.ctrl.php:26
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/ctrl/Content/Admin.ctrl.php:26
 msgid "Home"
 msgstr "Home"
 
-#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/DefaultApp/app/opt/tpl/Webapp/Content/credits.tpl.php:32
+#: /home/radu/Documents/Projects/Eclipse/ws_WEb/src/apps/UpdbApp/app/opt/tpl/Webapp/Content/credits.tpl.php:32
 msgid "install_button"
 msgstr "install_button"
