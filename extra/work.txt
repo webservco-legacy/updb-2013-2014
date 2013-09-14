@@ -1,0 +1,26 @@
+--------------------------------------------------------------------------------
+http://punkzinearchive.blogspot.hu/
+http://punksishippies.blogspot.hu/
+http://ukzinelibrary.blogspot.hu/
+http://thepunkrockfanzinearchive.tk/
+
+http://archive.org/details/digitalfanzinepreservationsociety
+--------------------------------------------------------------------------------
+underground press database (UPDb) yupeee! Db!
+--------------------------------------------------------------------------------
+_issues_
+type?print/copy
+
+_pub_images_
+order (1st=main)
+
+_pb_issues_imagges_
+order (1st=main)
+
+_authors_?
+
+_issuetopics_?
+
+_issuebands_?
+
+_keywords_
