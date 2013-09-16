@@ -35,6 +35,13 @@ if (!defined('_WEB')) {
  */
 class ModuleApp extends Module {
 
+	/**
+	 * Pub library object.
+	 * 
+	 * @var mixed
+	 */
+	private $_mPub = NULL;
+
 	public $_mDbExtra = NULL;
 
 	/**
@@ -249,6 +256,31 @@ class ModuleApp extends Module {
 		$data['url']['items_admin'] = !empty($data['info']['url_next']) ? "{$data['url']['www']}{$data['info']['url_next']}" : "{$data['url']['www']}Items/Admin/Items";
 		
 		return $data;
+	}
+
+	/**
+	 * Pub library object.
+	 * 
+	 * @return mixed
+	 */
+	public function Pub() {
+
+		if (NULL == $this->_mPub) {
+			
+			$this->_mPub = Core::Get('Library_Pub');
+		}
+		
+		return $this->_mPub;
+	}
+
+	public function UpdateEditLog($userId, $itemId, $itemType, $editAction) {
+
+		$q = "INSERT INTO up_edit_log (user_id, item_id, item_type, edit_action)
+			VALUES ('{$userId}', '{$itemId}', '{$itemType}', '{$editAction}')";
+		
+		Core::Database()->Query($q);
+		
+		return Core::Database()->GetAffectedRows();
 	}
 }
 ?>

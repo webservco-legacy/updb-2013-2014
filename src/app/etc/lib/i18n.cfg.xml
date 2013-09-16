@@ -12,7 +12,7 @@
 	<prod>
 		<!-- I18n library settings -->
 		<i18n>
-			<locale>it_IT.UTF8</locale>
+			<locale>en_US</locale>
 			<keys>title,description,keywords,content</keys>
 			<keys_app>text</keys_app>
 			<langs>
@@ -20,10 +20,10 @@
 					<lang>en</lang>
 					<locale>en_US</locale>
 				</item>
-				<!--<item>
+				<item>
 					<lang>ro</lang>
 					<locale>ro_RO.UTF8</locale>
-				</item>-->
+				</item>
 			</langs>
 		</i18n>
 	</prod>

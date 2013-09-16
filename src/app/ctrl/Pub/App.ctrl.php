@@ -31,21 +31,17 @@ if (!defined('_WEB')) {
  */
 class Controller_Pub_App extends ControllerApp {
 
-	public function Test() {
+	public function PubList() {
 
 		$this->Init();
 		
 		$data = $this->Module()->GetData($this->_mRequest);
 		
-		$data['pub']['types'] = $this->Pub()->GetPubTypes();
-		$data['pub']['formats'] = $this->Pub()->GetPubFormats();
-		//$data['pub']['countries'] = Core::Geo()->GetCountries();;
+		$data['strings']['title'] = __('Publications list');
 		
-		echo '<pre>';
-		var_dump($data['pub']);
-		echo '</pre>';
+		$data['publications'] = $this->Pub()->GetPublications();
 		
-		// echo $this->GetOutput($data);
+		echo $this->GetOutput($data);
 		
 		return TRUE;
 	}

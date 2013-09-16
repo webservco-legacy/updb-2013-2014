@@ -35,6 +35,11 @@ if (!defined('_WEB')) {
  */
 class ControllerApp extends Controller {
 
+	/**
+	 * Pub library object.
+	 * 
+	 * @var mixed
+	 */
 	private $_mPub = NULL;
 
 	/**
@@ -183,31 +188,64 @@ class ControllerApp extends Controller {
 
 	public function CheckAdminAccess($data) {
 
-		if (!empty($data['user']['Logged']) && !empty($data['info']['location'])) {
+		$allow = FALSE;
+		
+		$redirect = 'Content/App/Restricted';
+		
+		if (!empty($data['user']['Logged'])) {
 			
-			if (Core::Acl()->Check($data['user']['Id'], $data['info']['location'])) {
+			if (!empty($data['info']['location'])) {
 				
-				return TRUE;
-			
-			} else {
-				
-				$data['strings']['message'] = __('Error') . ': ' . __('You don\'t have permission to access this resource.');
-				
-				echo $this->GetOutput($data, 'error', TRUE);
-				
-				return FALSE;
+				if (Core::Acl()->Check($data['user']['Id'], $data['info']['location'])) {
+					
+					$allow = TRUE;
+				}
 			}
 		
 		} else {
 			
-			$next = Core::String()->EncodeUrlString($data['info']['location']);
+			$redirect = "Users/App/Account/next/{$next}";
+		}
+		
+		if (TRUE !== $allow) {
 			
-			Core::Router()->Redirect("Users/App/Account/next/{$next}");
+			Core::Router()->Redirect("Content/App/Restricted");
 			
 			exit();
 		}
 		
-		return FALSE;
+		return TRUE;
+	}
+
+	public function CheckEditorAccess($data) {
+
+		$allow = FALSE;
+		
+		$redirect = 'Content/App/Restricted';
+		
+		if (!empty($data['user']['Logged'])) {
+			
+			if (!empty($data['info']['location'])) {
+				
+				if (Core::Acl()->Check($data['user']['Id'], $data['info']['location'])) {
+					
+					$allow = TRUE;
+				}
+			}
+		
+		} else {
+			
+			$redirect = "Users/App/Account/next/{$next}";
+		}
+		
+		if (TRUE !== $allow) {
+			
+			Core::Router()->Redirect("Content/App/Restricted");
+			
+			exit();
+		}
+		
+		return TRUE;
 	}
 
 	public function CheckUserAccess($user) {
@@ -259,6 +297,11 @@ class ControllerApp extends Controller {
 		return TRUE;
 	}
 
+	/**
+	 * Pub library object.
+	 * 
+	 * @return mixed
+	 */
 	public function Pub() {
 
 		if (NULL == $this->_mPub) {

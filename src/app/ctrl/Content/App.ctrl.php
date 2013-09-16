@@ -40,6 +40,11 @@ class Controller_Content_App extends ControllerApp {
 		return $this->GetDefaultOutput();
 	}
 
+	public function Restricted() {
+
+		return $this->GetDefaultOutput(__('Restricted'));
+	}
+
 	public function Display() {
 
 		$this->Init();

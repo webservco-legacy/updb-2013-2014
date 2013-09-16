@@ -20,6 +20,12 @@
 		<link rel="stylesheet" href="<?php echo $url['skin']; ?>css/main.css">
 		<link rel="stylesheet" href="<?php echo $url['skin']; ?>css/layout.css">
 		
+		<?php /* ?>
+		<link rel="stylesheet" href="<?php echo $url['skin']; ?>ui-lightness/jquery-ui-1.10.3.custom.css">
+		
+		<link rel="stylesheet" href="<?php echo $url['skin']; ?>css/photoswipe.css">
+		<?php */ ?>
+		
 		<script src="<?php echo $url['scripts']; ?>vendor/modernizr-2.6.2.min.js"></script>
 		
 	</head>

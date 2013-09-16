@@ -10,8 +10,8 @@
 		
 		</article>
 		
-		<h1><?php echo $strings['title']; ?></h1>
-			
+		<h1><?php echo $strings['title_app']; ?></h1>
+		
 		<nav>
 		<?php
 		if (!empty($menu['web'])) {

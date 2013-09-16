@@ -13,7 +13,7 @@
 		<!-- Application settings -->
 		<app>
 		    <id></id>
-			<title>UPDb</title>
+			<title>Underground Press Database (UPDb)</title>
 			<prefix>up_</prefix>
 		</app>
 		<options>
@@ -36,6 +36,24 @@
 					<link>index</link>
 					<url></url>
 					<resource>/</resource>
+				</item>
+				<item>
+					<title>Publications list</title>
+					<link>Pub/App/PubList</link>
+					<url></url>
+					<resource>Pub/App/PubList</resource>
+				</item>
+				<item>
+					<title>Add publication</title>
+					<link>Pub/Edit/PubAdd</link>
+					<url></url>
+					<resource>Pub/Edit/PubAdd</resource>
+				</item>
+				<item>
+					<title>Add issue</title>
+					<link>Pub/Edit/PubIssueAdd</link>
+					<url></url>
+					<resource>Pub/Edit/PubIssueAdd</resource>
 				</item>
 				<item>
 					<title>Info</title>
