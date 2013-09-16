@@ -6,8 +6,7 @@
 if (!empty($publications)) {
 	
 	foreach ($publications as $pub) {
-		echo "<p><strong>{$pub['pub_title']}</strong> / <i>{$pub['pub_type_title']}</i> / {$pub['country_name']}";
-		echo " (<a href=\"{$url['www']}Pub/Edit/PubModify/pub/{$pub['pub_id']}\">edit</a>)";
+		echo "<p><strong><a href=\"{$url['www']}Pub/App/PubView/pub/{$pub['pub_id']}\">{$pub['pub_title']}</a></strong> / <i>{$pub['pub_type_title']}</i> / {$pub['country_name']}";
 		echo "</p>";	
 	}
 	
@@ -15,6 +14,8 @@ if (!empty($publications)) {
 	
 	echo "<p class=\"ko\">{$strings['no_data']}</p>";
 }
+
+	echo "<p><a href=\"{$url['www']}Pub/Edit/PubAdd\">" . __('Add publication') . "<a></p>";
 ?>
 
 </article>

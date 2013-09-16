@@ -28,10 +28,9 @@ class Pub extends Library {
 		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
 		
 		$q = "SELECT M.pub_type_id, D.pub_type_title
-			FROM up_pub_types_main AS M
-			LEFT JOIN up_pub_types_details AS D ON (D.pub_type_id = M.pub_type_id AND D.i18n_locale = '{$i18n_locale}')
-			ORDER BY D.pub_type_title
-			";
+				FROM up_pub_types_main AS M
+				LEFT JOIN up_pub_types_details AS D ON (D.pub_type_id = M.pub_type_id AND D.i18n_locale = '{$i18n_locale}')
+				ORDER BY D.pub_type_title";
 		
 		$rs = Core::Database()->Query($q);
 		
@@ -55,10 +54,10 @@ class Pub extends Library {
 		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
 		
 		$q = "SELECT M.pub_content_type_id, M.contains_data, D.pub_content_type_title
-			FROM up_pub_content_types_main AS M
-			LEFT JOIN up_pub_content_types_details AS D ON (D.pub_content_type_id = M.pub_content_type_id AND D.i18n_locale = '{$i18n_locale}')
-			ORDER BY D.pub_content_type_title
-			";
+				FROM up_pub_content_types_main AS M
+				LEFT JOIN up_pub_content_types_details AS D ON 
+				(D.pub_content_type_id = M.pub_content_type_id AND D.i18n_locale = '{$i18n_locale}')
+				ORDER BY D.pub_content_type_title";
 		
 		$rs = Core::Database()->Query($q);
 		
@@ -80,9 +79,8 @@ class Pub extends Library {
 		$data = array();
 		
 		$q = "SELECT M.pub_format_id, M.pub_format_title
-		FROM up_pub_formats_main AS M
-		ORDER BY M.pub_format_id
-		";
+				FROM up_pub_formats_main AS M
+				ORDER BY M.pub_format_id";
 		
 		$rs = Core::Database()->Query($q);
 		
@@ -106,12 +104,11 @@ class Pub extends Library {
 		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
 		
 		$q = "SELECT M.pub_id, M.pub_title, T.pub_type_title, C.country_name 
-			FROM up_pub_main AS M
-			LEFT JOIN up_pub_types_details AS T ON (T.pub_type_id = M.pub_type_id AND T.i18n_locale = '{$i18n_locale}')
-			LEFT JOIN up_geo_countries AS C ON (C.country_code = M.country_code)
-			WHERE 1
-			ORDER BY M.pub_title_sort
-			";
+				FROM up_pub_main AS M
+				LEFT JOIN up_pub_types_details AS T ON (T.pub_type_id = M.pub_type_id AND T.i18n_locale = '{$i18n_locale}')
+				LEFT JOIN up_geo_countries AS C ON (C.country_code = M.country_code)
+				WHERE 1
+				ORDER BY M.pub_title_sort";
 		
 		$rs = Core::Database()->Query($q);
 		
@@ -126,6 +123,326 @@ class Pub extends Library {
 		}
 		
 		return $data;
+	}
+
+	public function GetPublication($pubId, $i18nLocale = NULL) {
+
+		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
+		
+		$q = "SELECT M.pub_id, M.pub_title, T.pub_type_title, C.country_name, D.pub_description
+		FROM up_pub_main AS M
+		LEFT JOIN up_pub_details AS D ON (D.pub_id = M.pub_id AND D.i18n_locale = '{$i18n_locale}')
+		LEFT JOIN up_pub_types_details AS T ON (T.pub_type_id = M.pub_type_id AND T.i18n_locale = '{$i18n_locale}')
+		LEFT JOIN up_geo_countries AS C ON (C.country_code = M.country_code)
+		WHERE M.pub_id = '{$pubId}'
+		LIMIT 1";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (1 == $t) {
+			
+			$pub = $rs->fetch_assoc();
+			
+			/**
+			 * add issue count
+			 */
+			
+			return $pub;
+		}
+		
+		return FALSE;
+	}
+
+	public function GetPubMain($pubId) {
+
+		$q = "SELECT pub_title, pub_title_sort, pub_type_id, country_code
+				FROM up_pub_main
+				WHERE pub_id = '{$pubId}' LIMIT 1";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (1 == $t) {
+			
+			return $rs->fetch_assoc();
+		}
+		
+		return FALSE;
+	}
+
+	public function GetPubDetails($pubId) {
+
+		$data = array();
+		
+		$q = "SELECT i18n_locale, pub_description FROM up_pub_details WHERE pub_id = '{$pubId}'";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['i18n_locale']] = $r;
+			}
+		}
+		
+		return $data;
+	}
+
+	public function GetPubIssues($pubId) {
+
+		$data = array();
+		
+		$q = "SELECT M.pub_issue_id, M.pub_id, P.pub_title, F.pub_format_title, M.pub_issue_number, M.pub_issue_year, M.pub_issue_pages
+		FROM up_pub_issues_main AS M
+		LEFT JOIN up_pub_main AS P ON (P.pub_id = M.pub_id)
+		LEFT JOIN up_pub_formats_main AS F ON (F.pub_format_id = M.pub_format_id)
+		WHERE 1
+		AND M.pub_id = '{$pubId}'
+		ORDER BY P.pub_title_sort";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['pub_issue_id']] = $r;
+			}
+		}
+		
+		return $data;
+	}
+
+	public function GetPubIssue($pubIssueId, $i18nLocale = NULL) {
+
+		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
+		
+		$q = "SELECT M.pub_issue_id, M.pub_id, P.pub_title, F.pub_format_title, M.pub_issue_number, M.pub_issue_year, M.pub_issue_pages
+		, D.pub_issue_description
+		FROM up_pub_issues_main AS M
+		LEFT JOIN up_pub_main AS P ON (P.pub_id = M.pub_id)
+		LEFT JOIN up_pub_issues_details AS D ON (D.pub_issue_id = M.pub_issue_id AND D.i18n_locale = '{$i18n_locale}')
+		LEFT JOIN up_pub_formats_main AS F ON (F.pub_format_id = M.pub_format_id)
+		WHERE  M.pub_issue_id = '{$pubIssueId}'
+		LIMIT 1";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			$issue = $rs->fetch_assoc();
+			
+			$pub_content_types = $this->GetPubContentTypes();
+			
+			foreach ($pub_content_types as $pub_content_type) {
+				
+				if (!empty($pub_content_type['contains_data'])) {
+					
+					$issue['content_data'][$pub_content_type['pub_content_type_title']] = $this->GetPubIssueContentData($pubIssueId, $pub_content_type['pub_content_type_id']);
+				
+				} else {
+					
+					$issue['content_values'][$pub_content_type['pub_content_type_title']] = $this->GetPubIssueContentValue($pubIssueId, $pub_content_type['pub_content_type_id']);
+				}
+			}
+			
+			return $issue;
+		}
+		
+		return FALSE;
+	}
+
+	public function GetPubIssueMain($pubIssueId) {
+
+		$q = "SELECT pub_id, pub_format_id, pub_issue_number, pub_issue_year, pub_issue_pages
+		FROM up_pub_issues_main
+		WHERE pub_issue_id = '{$pubIssueId}' LIMIT 1";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (1 == $t) {
+			
+			return $rs->fetch_assoc();
+		}
+		
+		return FALSE;
+	}
+
+	public function GetPubIssueDetails($pubIssueId) {
+
+		$data = array();
+		
+		$q = "SELECT i18n_locale, pub_issue_description FROM up_pub_issues_details WHERE pub_issue_id = '{$pubIssueId}'";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['i18n_locale']] = $r;
+			}
+		}
+		
+		return $data;
+	}
+
+	public function GetPubIssueContentValue($pubIssueId, $pubContentTypeId) {
+
+		$q = "SELECT pub_issue_content_value 
+				FROM up_pub_issues_content
+				WHERE pub_issue_id = '{$pubIssueId}' AND pub_content_type_id = '{$pubContentTypeId}'
+				LIMIT 1";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (1 == $t) {
+			
+			$r = $rs->fetch_assoc();
+			
+			return $r['pub_issue_content_value'];
+		}
+		
+		return FALSE;
+	
+	}
+
+	public function GetPubIssueContentData($pubIssueId, $pubContentTypeId) {
+
+		$data = array();
+		
+		$q = "SELECT pub_issue_content_id, pub_issue_content_data
+				FROM up_pub_issues_content
+				WHERE pub_issue_id = '{$pubIssueId}' AND pub_content_type_id = '{$pubContentTypeId}'";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['pub_issue_content_id']] = $r['pub_issue_content_data'];
+			}
+		}
+		
+		return $data;
+	}
+
+	public function PubMainAdd($data) {
+
+		$q = "INSERT INTO up_pub_main (pub_title, pub_title_sort, pub_type_id, country_code) VALUES
+				('{$data['pub_title']}', '{$data['pub_title_sort']}', '{$data['pub_type_id']}', '{$data['country_code']}')";
+		
+		return Core::Database()->Query($q) ? Core::Database()->GetInsertId() : FALSE;
+	}
+
+	public function PubMainModify($pubId, $data) {
+
+		$q = "UPDATE up_pub_main SET
+				pub_title = '{$data['pub_title']}',
+				pub_title_sort = '{$data['pub_title_sort']}',
+				pub_type_id = '{$data['pub_type_id']}',
+				country_code = '{$data['country_code']}'
+				WHERE pub_id = '{$pubId}' LIMIT 1";
+		
+		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
+	}
+
+	public function PubDetailsAddModify($pubId, $i18nLocale, $pubDescription) {
+
+		$q = "INSERT INTO up_pub_details (pub_id, i18n_locale, pub_description) VALUES
+				('{$pubId}', '{$i18nLocale}', '{$pubDescription}')
+				ON DUPLICATE KEY UPDATE pub_description = '{$pubDescription}'";
+		
+		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
+	}
+
+	public function PubIssueMainAdd($pubId, $data) {
+
+		$q = "INSERT INTO up_pub_issues_main (pub_id, pub_format_id, pub_issue_number, pub_issue_year, pub_issue_pages) VALUES
+				('{$pubId}', '{$data['pub_format_id']}', '{$data['pub_issue_number']}'
+				, '{$data['pub_issue_year']}', '{$data['pub_issue_pages']}')";
+		
+		return Core::Database()->Query($q) ? Core::Database()->GetInsertId() : FALSE;
+	}
+
+	public function PubIssueMainModify($pubIssueId, $data) {
+
+		$q = "UPDATE up_pub_issues_main SET
+				pub_format_id = '{$data['pub_format_id']}',
+				pub_issue_number = '{$data['pub_issue_number']}',
+				pub_issue_year = '{$data['pub_issue_year']}',
+				pub_issue_pages = '{$data['pub_issue_pages']}'
+				WHERE pub_issue_id = '{$pubIssueId}' LIMIT 1";
+		
+		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
+	}
+
+	public function PubIssueDetailsAddModify($pubIssueId, $i18nLocale, $pubIssueDescription) {
+
+		$q = "INSERT INTO up_pub_issues_details (pub_issue_id, i18n_locale, pub_issue_description) VALUES
+				('{$pubIssueId}', '{$i18nLocale}', '{$pubIssueDescription}')
+				ON DUPLICATE KEY UPDATE pub_issue_description = '{$pubIssueDescription}'";
+		
+		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
+	}
+
+	public function PubIssueContentDelete($pubIssueId, $pubContentTypeId) {
+
+		$q = "DELETE FROM up_pub_issues_content WHERE pub_issue_id = '{$pubIssueId}' AND pub_content_type_id = '{$pubContentTypeId}'";
+		
+		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
+	}
+
+	public function PubIssueContentAddValue($pubIssueId, $pubContentTypeId, $pubIssueContentValue) {
+
+		$q = "INSERT INTO up_pub_issues_content (pub_issue_id, pub_content_type_id, pub_issue_content_value)
+			VALUES ('{$pubIssueId}', '{$pubContentTypeId}', '{$pubIssueContentValue}')";
+		
+		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
+	
+	}
+
+	public function PubIssueContentAddData($pubIssueId, $pubContentTypeId, $pubIssueContentData) {
+
+		$affected_rows = 0;
+		
+		if (is_array($pubIssueContentData)) {
+			foreach ($pubIssueContentData as $data) {
+				
+				$q = "INSERT INTO up_pub_issues_content (pub_issue_id, pub_content_type_id, pub_issue_content_data)
+							VALUES ('{$pubIssueId}', '{$pubContentTypeId}', '{$data}')";
+				
+				Core::Database()->Query($q);
+				
+				$affected_rows += Core::Database()->GetAffectedRows();
+			}
+		} else {
+			
+			$pub_issue_content_data = array_map('trim', explode(',', $pubIssueContentData));
+			
+			return $this->PubIssueContentAddModifyData($pubIssueId, $pubContentTypeId, $pub_issue_content_data);
+		}
+		
+		return $affected_rows;
 	}
 }
 ?>

@@ -75,9 +75,35 @@ class Controller_Pub_Edit extends ControllerApp {
 		
 		$this->CheckEditorAccess($data);
 		
-		$data['strings']['title'] = __('Add a publication issue to the database.');
+		$data['pub_id'] = !empty($data['query']['pub']) ? $data['query']['pub'] : NULL;
 		
-		$data['form'] = $this->Module()->GetPubIssueAddForm($data['user']['Id']);
+		if (!empty($data['pub_id'])) {
+			
+			$data['pub'] = $this->Pub()->GetPublication($data['pub_id']);
+
+			$data['strings']['title'] = "{$data['pub']['pub_title']}: " . __('Add issue');
+			
+			$data['form'] = $this->Module()->GetPubIssueAddForm($data['user']['Id'], $data['pub_id']);
+		}
+		
+		echo $this->GetOutput($data, 'pub_edit');
+		
+		return TRUE;
+	}
+
+	public function PubIssueModify() {
+
+		$this->Init();
+		
+		$data = $this->Module()->GetData($this->_mRequest);
+		
+		$this->CheckEditorAccess($data);
+		
+		$data['pub_issue_id'] = !empty($data['query']['issue']) ? $data['query']['issue'] : NULL;
+		
+		$data['strings']['title'] = __('Edit publication issue.');
+		
+		$data['form'] = $this->Module()->GetPubIssueModifyForm($data['user']['Id'], $data['pub_issue_id']);
 		
 		echo $this->GetOutput($data, 'pub_edit');
 		

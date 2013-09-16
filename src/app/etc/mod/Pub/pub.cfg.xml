@@ -58,14 +58,6 @@
 					</pub_description>
 				</pub>
 				<pub_issue>
-				    <pub_id>
-				        <type>select</type>
-						<title>Publication</title>
-						<description>Publication the issue belongs to.</description>
-						<required>1</required>
-						<filters></filters>
-						<conditions></conditions>
-				    </pub_id>
 				    <pub_format_id>
 				        <type>select</type>
 						<title>Format</title>
@@ -98,6 +90,15 @@
 						<filters>StripTags|RemoveBadChars</filters>
 						<conditions></conditions>
 				    </pub_issue_pages>
+				    <pub_issue_description>
+						<type>textarea</type>
+						<title>Description</title>
+						<description>Notes about the current issue.</description>
+						<required></required>
+						<i18n>1</i18n>
+						<filters>StripTags</filters>
+						<conditions></conditions>
+					</pub_issue_description>
 				</pub_issue>
 			</form>
 		</pub>

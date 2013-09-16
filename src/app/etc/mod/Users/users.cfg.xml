@@ -29,7 +29,7 @@
 						<description>Your password</description>
 						<required>1</required>
 						<conditions>HasLengthMin[4]|HasLengthMax[20]</conditions>
-					</password>
+					</password><!-- 
 					<captcha>
 						<type>text</type>
 						<title>Security Code</title>
@@ -43,7 +43,7 @@
 						<title>Remember me</title>
 						<description>Check to stay logged in</description>
 						<required>0</required>
-					</remember>
+					</remember>-->
 					<send>
 						<type>submit</type>
 						<title></title>

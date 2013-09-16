@@ -45,5 +45,46 @@ class Controller_Pub_App extends ControllerApp {
 		
 		return TRUE;
 	}
+
+	public function PubView() {
+
+		$this->Init();
+		
+		$data = $this->Module()->GetData($this->_mRequest);
+		
+		$data['strings']['title'] = __('Issues list');
+		
+		$data['pub_id'] = !empty($data['query']['pub']) ? $data['query']['pub'] : NULL;
+		
+		$data['pub'] = $this->Pub()->GetPublication($data['pub_id']);
+		
+		$data['pub_issues'] = $this->Pub()->GetPubIssues($data['pub_id']);
+		
+		echo $this->GetOutput($data);
+		
+		return TRUE;
+	}
+
+	public function PubIssueView() {
+
+		$this->Init();
+		
+		$data = $this->Module()->GetData($this->_mRequest);
+		
+		$data['strings']['title'] = __('Issues list');
+		
+		$data['pub_issue_id'] = !empty($data['query']['issue']) ? $data['query']['issue'] : NULL;
+		
+		$data['issue'] = $this->Pub()->GetPubIssue($data['pub_issue_id']);
+		
+		if (!empty($data['issue']['pub_issue_id'])) {
+			
+			$data['pub'] = $this->Pub()->GetPublication($data['issue']['pub_issue_id']);
+		}
+		
+		echo $this->GetOutput($data);
+		
+		return TRUE;
+	}
 }
 ?>

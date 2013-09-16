@@ -79,10 +79,8 @@ class Module_Users extends ModuleApp {
 				 */
 				$form['data'] = Core::Form()->GetEscapedFilteredData();
 				
-				/**
-				 *
-				 * @var bool
-				 */
+				$form['data']['remember'] = 1;
+				
 				$result_login = Core::User()->Login($form['data']['email'], $form['data']['password'], (bool) $form['data']['remember']);
 				
 				if (TRUE !== $result_login) {

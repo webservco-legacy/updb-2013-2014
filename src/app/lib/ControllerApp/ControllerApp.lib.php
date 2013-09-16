@@ -204,12 +204,14 @@ class ControllerApp extends Controller {
 		
 		} else {
 			
+			$next = Core::String()->EncodeUrlString($data['info']['location']);
+			
 			$redirect = "Users/App/Account/next/{$next}";
 		}
 		
 		if (TRUE !== $allow) {
 			
-			Core::Router()->Redirect("Content/App/Restricted");
+			Core::Router()->Redirect($redirect);
 			
 			exit();
 		}
@@ -235,12 +237,14 @@ class ControllerApp extends Controller {
 		
 		} else {
 			
+			$next = Core::String()->EncodeUrlString($data['info']['location']);
+			
 			$redirect = "Users/App/Account/next/{$next}";
 		}
 		
 		if (TRUE !== $allow) {
 			
-			Core::Router()->Redirect("Content/App/Restricted");
+			Core::Router()->Redirect($redirect);
 			
 			exit();
 		}
