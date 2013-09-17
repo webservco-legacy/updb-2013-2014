@@ -1,14 +1,22 @@
 <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 <script>window.jQuery || document.write('<script src="<?php echo $url['scripts']; ?>vendor/jquery-1.10.2.min.js"><\/script>')</script>
-<script src="<?php echo $url['scripts']; ?>main.js"></script>
 
-<?php /* ?>
 <script src="<?php echo $url['scripts']; ?>vendor/jquery-ui-1.10.3.custom.min.js"></script>
+<?php /* ?>
 <script src="<?php echo $url['scripts']; ?>vendor/jquery.ui.datepicker-it.js"></script>
 <script src="<?php echo $url['scripts']; ?>vendor/klass.min.js"></script>
 <script src="<?php echo $url['scripts']; ?>vendor/code.photoswipe.jquery-3.0.5.min.js"></script>
 <?php */ ?>
 
+<script>
+//<![CDATA[
+
+var url_www = '<?php echo $url['www']; ?>';
+
+//]]> 
+</script>
+
+<script src="<?php echo $url['scripts']; ?>main.js"></script>
 
 		<?php /*
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

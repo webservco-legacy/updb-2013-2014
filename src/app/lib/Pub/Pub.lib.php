@@ -418,7 +418,6 @@ class Pub extends Library {
 			VALUES ('{$pubIssueId}', '{$pubContentTypeId}', '{$pubIssueContentValue}')";
 		
 		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
-	
 	}
 
 	public function PubIssueContentAddData($pubIssueId, $pubContentTypeId, $pubIssueContentData) {
@@ -443,6 +442,98 @@ class Pub extends Library {
 		}
 		
 		return $affected_rows;
+	}
+
+	public function PubImagesGet($itemId, $itemType) {
+
+		$data = array();
+		
+		$q = "SELECT image_id, image_file FROM up_pub_images
+			WHERE item_id = '{$itemId}' AND item_type = '{$itemType}'
+			ORDER BY image_order";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['image_id']] = $r['image_file'];
+			}
+		}
+		
+		return $data;
+	}
+
+	public function PubImageGet($imageId) {
+
+		$q = "SELECT item_id, item_type, image_file, image_order FROM up_pub_images WHERE image_id = '{$imageId}' LIMIT 1";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (1 == $t) {
+			
+			return $rs->fetch_assoc();
+		}
+		
+		return FALSE;
+	}
+
+	public function PubImageGetNextOrder($itemId, $itemType) {
+
+		$q = "SELECT COALESCE(MAX(image_order), 0) + 1 AS next FROM up_pub_images WHERE item_id = '{$itemId}' AND item_type = '{$itemType}'";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (1 == $t) {
+			
+			$r = $rs->fetch_assoc();
+			
+			return $r['next'];
+		}
+		
+		return FALSE;
+	}
+
+	public function PubImageAdd($itemId, $itemType, $imageFile, $imageOrder) {
+
+		$q = "INSERT INTO up_pub_images (item_id, item_type, image_file, image_order) VALUES
+			('{$itemId}', '{$itemType}', '{$imageFile}', '{$imageOrder}')";
+		
+		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
+	}
+
+	public function PubImageChangeOrder($imageId, $imageOrder) {
+
+		$q = "UPDATE up_pub_images SET image_order = '{$imageOrder}' WHERE image_id = '{$imageId}' LIMIT 1";
+		
+		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
+	}
+
+	public function PubImageDelete($imageId, $pathWww) {
+
+		$image = $this->PubImageGet($imageId);
+		
+		if (!empty($image)) {
+			
+			$q = "DELETE FROM up_pub_images WHERE image_id = '{$imageId}' LIMIT 1";
+			
+			if (Core::Database()->Query($q)) {
+				
+				if (unlink("{$pathWww}usr/media/{$image['item_type']}/{$image['image_file']}")) {
+					
+					return Core::Database()->GetAffectedRows();
+				}
+			}
+		}
+		
+		return FALSE;
 	}
 }
 ?>

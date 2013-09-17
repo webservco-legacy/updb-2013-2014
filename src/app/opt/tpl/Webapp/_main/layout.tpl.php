@@ -20,9 +20,9 @@
 		<link rel="stylesheet" href="<?php echo $url['skin']; ?>css/main.css">
 		<link rel="stylesheet" href="<?php echo $url['skin']; ?>css/layout.css">
 		
-		<?php /* ?>
-		<link rel="stylesheet" href="<?php echo $url['skin']; ?>ui-lightness/jquery-ui-1.10.3.custom.css">
 		
+		<link rel="stylesheet" href="<?php echo $url['skin']; ?>ui-lightness/jquery-ui-1.10.3.custom.css">
+		<?php /* ?>
 		<link rel="stylesheet" href="<?php echo $url['skin']; ?>css/photoswipe.css">
 		<?php */ ?>
 		

@@ -80,7 +80,7 @@ class Controller_Pub_Edit extends ControllerApp {
 		if (!empty($data['pub_id'])) {
 			
 			$data['pub'] = $this->Pub()->GetPublication($data['pub_id']);
-
+			
 			$data['strings']['title'] = "{$data['pub']['pub_title']}: " . __('Add issue');
 			
 			$data['form'] = $this->Module()->GetPubIssueAddForm($data['user']['Id'], $data['pub_id']);
@@ -108,6 +108,51 @@ class Controller_Pub_Edit extends ControllerApp {
 		echo $this->GetOutput($data, 'pub_edit');
 		
 		return TRUE;
+	}
+
+	public function PubImagesEdit() {
+
+		$this->Init();
+		
+		$data = $this->Module()->GetData($this->_mRequest);
+		
+		$this->CheckEditorAccess($data);
+		
+		$data['item_id'] = !empty($data['query']['id']) ? $data['query']['id'] : NULL;
+		
+		$data['item_type'] = !empty($data['query']['type']) ? $data['query']['type'] : NULL;
+		
+		$data['images'] = $this->Pub()->PubImagesGet($data['item_id'], $data['item_type']);
+		
+		$data['form'] = $this->Module()->GetPubImagesForm($data['item_id'], $data['item_type'], $data['path']['www']);
+		
+		$data['delete_next'] = $data['next'] = Core::String()->EncodeUrlString("Pub/Edit/PubImagesEdit/id/{$data['item_id']}/type/{$data['item_type']}");
+		
+		echo $this->GetOutput($data);
+		
+		return TRUE;
+	}
+
+	public function PubImageDelete() {
+
+		$this->Init();
+		
+		$data = $this->Module()->GetData($this->_mRequest);
+		
+		$this->CheckEditorAccess($data);
+		
+		$data['image_id'] = !empty($data['query']['id']) ? $data['query']['id'] : NULL;
+		
+		$redirect = !empty($data['query']['next']) ? Core::String()->DecodeUrlString($data['query']['next']) : '/';
+		
+		if (!empty($data['image_id'])) {
+			
+			$this->Pub()->PubImageDelete($data['image_id'], $data['path']['www']);
+		}
+		
+		Core::Router()->Redirect($redirect);
+		
+		exit();
 	}
 
 	public function Success() {

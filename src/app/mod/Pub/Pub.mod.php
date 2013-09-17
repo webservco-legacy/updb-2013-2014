@@ -520,5 +520,55 @@ class Module_Pub extends ModuleApp {
 		
 		return $form;
 	}
+
+	public function GetPubImagesForm($itemId, $itemType = 'pub', $pathWww) {
+
+		if (!empty($_FILES['images'])) {
+			
+			$file_types = array(
+				'image/jpeg' => 'jpg',
+				'image/png' => 'png'
+			);
+			
+			$upload_dir = "{$pathWww}usr/media/{$itemType}/";
+			
+			$next_order = $this->Pub()->PubImageGetNextOrder($itemId, $itemType);
+			
+			if (is_array($_FILES['images']['name'])) {
+				
+				$t = count($_FILES['images']['name']);
+				
+				for ($i = 0; $i < $t; $i ++) {
+					
+					if (0 == $_FILES['images']['error'][$i]) {
+						
+						if (array_key_exists($_FILES['images']['type'][$i], $file_types)) {
+							
+							$file_name = "{$itemId}_" . md5($_FILES['images']['name'][$i]) . ".{$file_types[$_FILES['images']['type'][$i]]}";
+							
+							move_uploaded_file($_FILES['images']['tmp_name'][$i], $upload_dir . $file_name);
+							
+							$this->Pub()->PubImageAdd($itemId, $itemType, $file_name, $next_order);
+							
+							$next_order ++;
+						}
+					}
+				}
+			} else {
+				
+				$file_name = "{$itemId}_" . md5($_FILES['images']['name']) . ".{$file_types[$_FILES['images']['type']]}";
+				
+				move_uploaded_file($_FILES['images']['tmp_name'], $upload_dir . $file_name);
+				
+				$this->Pub()->PubImageAdd($itemId, $itemType, $file_name, $next_order);
+			}
+			
+			Core::Router()->Redirect("Pub/Edit/PubImagesEdit/id/{$itemId}/type/{$itemType}");
+			
+			exit();
+		}
+		
+		return FALSE;
+	}
 }
 ?>

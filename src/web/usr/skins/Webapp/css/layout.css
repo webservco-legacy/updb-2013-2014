@@ -45,7 +45,8 @@ section,aside {
 section {
 	background: #ffe;
 	text-align: left;
-	border: 1px dashed #777; border-radius : 10px;
+	border: 1px dashed #777;
+	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
@@ -221,6 +222,15 @@ table.items th,table.items td {
 	border-bottom: 1px dotted #777;
 }
 
-.ui-datepicker-noday .ui-datepicker-calendar {
-	display: none;
+ul.sortable {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.sortable li {
+	background: #eee;
+	margin: 5px 0 0 0;
+	padding: 0.3em;
+	border: 1px dashed #777;
 }
