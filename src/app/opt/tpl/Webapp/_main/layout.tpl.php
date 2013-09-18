@@ -35,6 +35,8 @@
 	<?php echo $tpl_header; ?>
 	
 	<main>
+	
+		<?php echo $tpl_right; ?>
 
 		<?php echo $tpl_left; ?>
 		
@@ -43,8 +45,6 @@
 	
 		</section>
 		
-		<?php echo $tpl_right; ?>
-	
 	</main>
 
 	<?php echo $tpl_footer; ?>

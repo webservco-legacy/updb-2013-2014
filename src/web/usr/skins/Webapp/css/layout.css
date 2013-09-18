@@ -69,6 +69,10 @@ aside {
 	width: 240px;
 }
 
+aside#right {
+	float: right;
+}
+
 section#content {
 	float: left;
 	width: 540px;
