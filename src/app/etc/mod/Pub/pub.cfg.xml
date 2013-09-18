@@ -58,6 +58,15 @@
 					</pub_description>
 				</pub>
 				<pub_issue>
+				    <pub_list>
+				        <type>select</type>
+						<title>Publications</title>
+						<description>Select one or more publications this issue belongs to.</description>
+						<required>1</required>
+						<filters></filters>
+						<conditions></conditions>
+						<custom>multiple</custom>
+				    </pub_list>
 				    <pub_format_id>
 				        <type>select</type>
 						<title>Format</title>
@@ -66,14 +75,14 @@
 						<filters></filters>
 						<conditions></conditions>
 				    </pub_format_id>
-				    <pub_issue_number>
+				    <pub_issue_title>
 				        <type>text</type>
-						<title>Number</title>
-						<description>Issue number.</description>
+						<title>Issue title</title>
+						<description>Title and number eg "Profane Existence #13".</description>
 						<required>1</required>
-						<filters>StripTags|RemoveBadChars</filters>
+						<filters>StripTags</filters>
 						<conditions></conditions>
-				    </pub_issue_number>
+				    </pub_issue_title>
 				    <pub_issue_year>
 				        <type>text</type>
 						<title>Year</title>

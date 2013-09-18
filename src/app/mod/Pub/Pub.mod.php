@@ -235,7 +235,7 @@ class Module_Pub extends ModuleApp {
 		return $form;
 	}
 
-	public function GetPubIssueAddForm($userId, $pubId) {
+	public function GetPubIssueAddForm($userId, $pubId = NULL) {
 
 		Core::Form()->SetMethod('post');
 		
@@ -268,6 +268,13 @@ class Module_Pub extends ModuleApp {
 		
 		Core::Form()->SetData($form_config);
 		
+		$pub_list = $this->Pub()->GetPubList();
+		
+		if (!empty($pub_list)) {
+			
+			Core::Form()->SetMeta('pub_list', 'options', $pub_list);
+		}
+		
 		$pub_format_list = $this->Pub()->GetPubFormats();
 		
 		if (!empty($pub_format_list)) {
@@ -289,7 +296,9 @@ class Module_Pub extends ModuleApp {
 				
 				if (empty($form['errors'])) {
 					
-					$pub_issue_id = $this->Pub()->PubIssueMainAdd($pubId, $form['data']);
+					$pub_issue_id = $this->Pub()->PubIssueMainAdd($form['data']);
+					
+					$this->Pub()->PubIssuePubsAddModify($pub_issue_id, $form['data']['pub_list']);
 					
 					if (!empty($pub_issue_id)) {
 						
@@ -355,6 +364,11 @@ class Module_Pub extends ModuleApp {
 		} else {
 			
 			$form['data'] = Core::Form()->GetData();
+			
+			if (!empty($pubId)) {
+				
+				$form['data']['pub_list'][$pubId] = 1;
+			}
 		}
 		
 		return $form;
@@ -393,6 +407,13 @@ class Module_Pub extends ModuleApp {
 		
 		Core::Form()->SetData($form_config);
 		
+		$pub_list = $this->Pub()->GetPubList();
+		
+		if (!empty($pub_list)) {
+			
+			Core::Form()->SetMeta('pub_list', 'options', $pub_list);
+		}
+		
 		$pub_format_list = $this->Pub()->GetPubFormats();
 		
 		if (!empty($pub_format_list)) {
@@ -416,14 +437,15 @@ class Module_Pub extends ModuleApp {
 					
 					$this->Pub()->PubIssueMainModify($pubIssueId, $form['data']);
 					
+					$this->Pub()->PubIssuePubsDelete($pubIssueId);
+					
+					$this->Pub()->PubIssuePubsAddModify($pubIssueId, $form['data']['pub_list']);
+					
 					foreach ($app_langs as $lang => $locale) {
 						
 						$pub_issue_description = !empty($form['data']["pub_issue_description_{$lang}"]) ? $form['data']["pub_issue_description_{$lang}"] : NULL;
 						
-						if (!$this->Pub()->PubIssueDetailsAddModify($pubIssueId, $locale, $pub_issue_description)) {
-							
-							$form['errors']['_result'][] = __('Error saving details data.');
-						}
+						$this->Pub()->PubIssueDetailsAddModify($pubIssueId, $locale, $pub_issue_description);
 					}
 					
 					foreach ($pub_content_types as $pub_content_type) {
@@ -438,18 +460,11 @@ class Module_Pub extends ModuleApp {
 								
 								$pub_issue_content_data = array_map('trim', explode(',', $data));
 								
-								if (!$this->Pub()->PubIssueContentAddData($pubIssueId, $pub_content_type['pub_content_type_id'], $pub_issue_content_data)) {
-									
-									$form['errors']['_result'][] = __('Error saving content data.');
-								}
+								$this->Pub()->PubIssueContentAddData($pubIssueId, $pub_content_type['pub_content_type_id'], $pub_issue_content_data);
 							
 							} else {
 								
-								if (!$this->Pub()->PubIssueContentAddValue($pubIssueId, $pub_content_type['pub_content_type_id'], $form['data']["pub_issue_content_{$pub_content_type['pub_content_type_id']}"])) {
-									
-									$form['errors']['_result'][] = __('Error saving content data.');
-								}
-							
+								$this->Pub()->PubIssueContentAddValue($pubIssueId, $pub_content_type['pub_content_type_id'], $form['data']["pub_issue_content_{$pub_content_type['pub_content_type_id']}"]);
 							}
 						}
 					}
@@ -480,6 +495,16 @@ class Module_Pub extends ModuleApp {
 		} else {
 			
 			$form['data'] = Core::Form()->GetData();
+			
+			$pub_list = $this->Pub()->GetPubList($pubIssueId);
+			
+			if (!empty($pub_list)) {
+				
+				foreach ($pub_list as $pub_id => $pub_title) {
+					
+					$form['data']['pub_list'][$pub_id] = 1;
+				}
+			}
 			
 			$pub_issue_main = $this->Pub()->GetPubIssueMain($pubIssueId);
 			

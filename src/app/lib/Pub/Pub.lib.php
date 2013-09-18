@@ -197,31 +197,35 @@ class Pub extends Library {
 		
 		return $data;
 	}
-	
+
 	public function GetPubIssuesSummary($pubId) {
+
+		$q = "SELECT COUNT(J.pub_issue_id) AS total, MIN(I.pub_issue_year) AS start, MAX(I.pub_issue_year) AS end
+				FROM up_pub_issues AS J
+				LEFT JOIN up_pub_issues_main AS I ON (I.pub_issue_id = J.pub_issue_id)
+				WHERE J.pub_id = '{$pubId}'";
 		
-		$q = "SELECT COUNT(pub_issue_id) AS total, MIN(pub_issue_year) AS start, MAX(pub_issue_year) AS end
-				FROM up_pub_issues_main WHERE pub_id = '{$pubId}'";
-				
 		$rs = Core::Database()->Query($q);
 		
 		$t = $rs->num_rows;
 		
 		return (1 == $t) ? $rs->fetch_assoc() : FALSE;
-		
+	
 	}
 
 	public function GetPubIssues($pubId) {
 
 		$data = array();
 		
-		$q = "SELECT M.pub_issue_id, M.pub_id, P.pub_title, F.pub_format_title, M.pub_issue_number, M.pub_issue_year, M.pub_issue_pages
-		FROM up_pub_issues_main AS M
-		LEFT JOIN up_pub_main AS P ON (P.pub_id = M.pub_id)
+		$q = "SELECT M.pub_issue_id, P.pub_title, F.pub_format_title, M.pub_issue_title, M.pub_issue_year, M.pub_issue_pages
+		FROM
+		up_pub_issues AS J
+		LEFT JOIN up_pub_issues_main AS M ON (M.pub_issue_id = J.pub_issue_id)
+		LEFT JOIN up_pub_main AS P ON (P.pub_id = J.pub_id)
 		LEFT JOIN up_pub_formats_main AS F ON (F.pub_format_id = M.pub_format_id)
 		WHERE 1
-		AND M.pub_id = '{$pubId}'
-		ORDER BY P.pub_title_sort";
+		AND J.pub_id = '{$pubId}'
+		ORDER BY M.pub_issue_title";
 		
 		$rs = Core::Database()->Query($q);
 		
@@ -240,14 +244,49 @@ class Pub extends Library {
 		return $data;
 	}
 
-	public function GetPubIssue($pubIssueId, $i18nLocale = NULL) {
+	public function GetPubList($pubIssueId = NULL) {
+
+		$data = array();
+		
+		if (!empty($pubIssueId)) {
+			$q = "SELECT J.pub_id, P.pub_title
+			FROM up_pub_issues AS J
+			LEFT JOIN up_pub_main AS P ON (P.pub_id = J.pub_id)
+			WHERE J.pub_issue_id = '{$pubIssueId}'
+			ORDER BY P.pub_title";
+			
+		} else {
+			
+			$q = "SELECT P.pub_id, P.pub_title
+			FROM up_pub_main AS P
+			WHERE 1
+			ORDER BY P.pub_title";
+		}
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['pub_id']] = $r['pub_title'];
+			
+			}
+		}
+		
+		return $data;
+	}
+	
+	public function GetPubIssue($pubIssueId, $i18nLocale = NULL) { //XXX
 
 		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
 		
-		$q = "SELECT M.pub_issue_id, M.pub_id, P.pub_title, F.pub_format_title, M.pub_issue_number, M.pub_issue_year, M.pub_issue_pages
+		$q = "SELECT M.pub_issue_id, F.pub_format_title, M.pub_issue_title, M.pub_issue_year, M.pub_issue_pages
 		, D.pub_issue_description
 		FROM up_pub_issues_main AS M
-		LEFT JOIN up_pub_main AS P ON (P.pub_id = M.pub_id)
+		
 		LEFT JOIN up_pub_issues_details AS D ON (D.pub_issue_id = M.pub_issue_id AND D.i18n_locale = '{$i18n_locale}')
 		LEFT JOIN up_pub_formats_main AS F ON (F.pub_format_id = M.pub_format_id)
 		WHERE  M.pub_issue_id = '{$pubIssueId}'
@@ -260,6 +299,8 @@ class Pub extends Library {
 		if (0 < $t) {
 			
 			$issue = $rs->fetch_assoc();
+			
+			$issue['pub_list'] = $this->GetPubList($issue['pub_issue_id']);
 			
 			$issue['content_data'] = array();
 			
@@ -292,7 +333,7 @@ class Pub extends Library {
 
 	public function GetPubIssueMain($pubIssueId) {
 
-		$q = "SELECT pub_id, pub_format_id, pub_issue_number, pub_issue_year, pub_issue_pages
+		$q = "SELECT pub_format_id, pub_issue_title, pub_issue_year, pub_issue_pages
 		FROM up_pub_issues_main
 		WHERE pub_issue_id = '{$pubIssueId}' LIMIT 1";
 		
@@ -403,20 +444,47 @@ class Pub extends Library {
 		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
 	}
 
-	public function PubIssueMainAdd($pubId, $data) {
+	public function PubIssueMainAdd($data) {
 
-		$q = "INSERT INTO up_pub_issues_main (pub_id, pub_format_id, pub_issue_number, pub_issue_year, pub_issue_pages) VALUES
-				('{$pubId}', '{$data['pub_format_id']}', '{$data['pub_issue_number']}'
-				, '{$data['pub_issue_year']}', '{$data['pub_issue_pages']}')";
+		$q = "INSERT INTO up_pub_issues_main (pub_format_id, pub_issue_title, pub_issue_year, pub_issue_pages) VALUES
+				('{$data['pub_format_id']}', '{$data['pub_issue_title']}', '{$data['pub_issue_year']}', '{$data['pub_issue_pages']}')";
 		
 		return Core::Database()->Query($q) ? Core::Database()->GetInsertId() : FALSE;
+	}
+
+	public function PubIssuePubsDelete($pubIssueId) { // XXX
+		
+		$q = "DELETE FROM up_pub_issues WHERE pub_issue_id = '{$pubIssueId}'";
+		
+		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
+	}
+
+	public function PubIssuePubsAddModify($pubIssueId, $pubList = array()) { // XXX
+		
+		$affected_rows = 0;
+		
+		if (!empty($pubList)) {
+			
+			foreach ($pubList as $pub_id) {
+				
+				$q = "INSERT IGNORE INTO up_pub_issues (pub_id, pub_issue_id) VALUES
+				('{$pub_id}', '{$pubIssueId}')";
+				
+				if (Core::Database()->Query($q)) {
+					
+					$affected_rows += Core::Database()->GetAffectedRows();
+				}
+			}
+		}
+		
+		return $affected_rows;
 	}
 
 	public function PubIssueMainModify($pubIssueId, $data) {
 
 		$q = "UPDATE up_pub_issues_main SET
 				pub_format_id = '{$data['pub_format_id']}',
-				pub_issue_number = '{$data['pub_issue_number']}',
+				pub_issue_title = '{$data['pub_issue_title']}',
 				pub_issue_year = '{$data['pub_issue_year']}',
 				pub_issue_pages = '{$data['pub_issue_pages']}'
 				WHERE pub_issue_id = '{$pubIssueId}' LIMIT 1";

@@ -34,6 +34,7 @@ INSERT INTO up_pub_content_types_details (pub_content_type_id, i18n_locale, pub_
 TRUNCATE TABLE up_pub_issues_main;
 TRUNCATE TABLE up_pub_issues_details;
 TRUNCATE TABLE up_pub_issues_content;
+TRUNCATE TABLE up_pub_images;
 
 
 SET FOREIGN_KEY_CHECKS=1;

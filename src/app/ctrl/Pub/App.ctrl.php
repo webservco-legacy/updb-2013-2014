@@ -73,17 +73,17 @@ class Controller_Pub_App extends ControllerApp {
 		
 		$data = $this->Module()->GetData($this->_mRequest);
 		
+		$data['pub_id'] = !empty($data['query']['pub']) ? $data['query']['pub'] : NULL;
+		
 		$data['pub_issue_id'] = !empty($data['query']['issue']) ? $data['query']['issue'] : NULL;
 		
 		$data['pub_issue'] = $this->Pub()->GetPubIssue($data['pub_issue_id']);
 		
 		if (!empty($data['pub_issue']['pub_issue_id'])) {
 			
-			$data['pub'] = $this->Pub()->GetPublication($data['pub_issue']['pub_id']);
-			
 			$data['pub_issue_images'] = $this->Pub()->PubImagesGet($data['pub_issue_id'], 'pub_issue');
 			
-			$data['strings']['title'] = $data['pub']['pub_title'];
+			$data['strings']['title'] = $data['pub_issue']['pub_issue_title'];
 		}
 		
 		echo $this->GetOutput($data);

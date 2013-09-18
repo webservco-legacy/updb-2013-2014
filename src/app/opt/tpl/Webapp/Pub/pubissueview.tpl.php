@@ -1,11 +1,11 @@
 <article>
 
 <?php
-if (!empty($pub)) {
+if (!empty($pub_issue)) {
 	
-	echo "<div class=\"pub_subtitle\"><i>{$pub['pub_type_title']}</i> ({$pub['country_name']})</div>";
+	//echo "<div class=\"pub_subtitle\"><i>{$pub['pub_type_title']}</i> ({$pub['country_name']})</div>";
 	
-	echo "<h2>{$pub['pub_title']} #{$pub_issue['pub_issue_number']}</h2>";
+	echo "<h2>{$pub_issue['pub_issue_title']}</h2>";
 	
 	echo "<div class=\"pub_content pub_box\">{$pub_issue['pub_issue_description']}</div>";
 	
@@ -59,13 +59,13 @@ if (!empty($pub)) {
 		
 		echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueModify/issue/{$pub_issue['pub_issue_id']}\">" . __('Modify issue') . "</a></p>";
 		
-		echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueAdd/pub/{$pub['pub_id']}\">" . __('Add issue') . "</a></p>";
+		echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueAdd/pub/{$pub_id}\">" . __('Add issue') . "</a></p>";
 		
 		echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueImagesEdit/id/{$pub_issue['pub_issue_id']}\">" . __('Manage issue images') . "</a></p>";
 	
 	}
 	
-	echo "<p><a href=\"{$url['www']}Pub/App/PubView/pub/{$pub['pub_id']}\">" . __('View all issues') . "</a></p>";
+	echo "<p><a href=\"{$url['www']}Pub/App/PubView/pub/{$pub_id}\">" . __('View all issues') . "</a></p>";
 	
 	echo "<p><a href=\"{$url['www']}Pub/App/PubList\">" . __('View all publications') . "</a></p>";
 	

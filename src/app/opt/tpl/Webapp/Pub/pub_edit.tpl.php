@@ -50,7 +50,13 @@ if (!empty($form)) {
 			
 			case 'select' :
 				
-				echo "<select name=\"{$field_id}\" id=\"{$field_id}\">";
+				$select_multiple = ('multiple' == $meta['custom']) ? ' multiple="multiple"' : NULL;
+				
+				echo "<select name=\"{$field_id}";
+				if (!empty($select_multiple)) {
+					echo '[]';
+				}
+				echo "\" id=\"{$field_id}\"{$select_multiple}>";
 				
 				echo '	<option value="">' . __('Please select') . '</option>';
 				
@@ -60,9 +66,18 @@ if (!empty($form)) {
 						
 						echo "<option value=\"{$value}\"";
 						
-						if ($form['data'][$field_id] == $value) {
+						if (!empty($select_multiple)) {
 							
-							echo ' selected="selected"';
+							if (!empty($form['data'][$field_id][$value])) {
+								echo ' selected="selected"';
+							}
+						
+						} else {
+							
+							if ($form['data'][$field_id] == $value) {
+								
+								echo ' selected="selected"';
+							}
 						}
 						
 						echo ">{$title}</option>";
