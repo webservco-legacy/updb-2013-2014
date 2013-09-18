@@ -717,7 +717,7 @@ class Pub extends Library {
 		$q = "INSERT INTO up_pub_images (item_id, item_type, image_file, image_thumb, image_order) VALUES
 			('{$itemId}', '{$itemType}', '{$imageFile}', '{$imageThumb}', '{$imageOrder}')";
 		
-		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
+		return Core::Database()->Query($q) ? Core::Database()->GetInsertId() : FALSE;
 	}
 
 	public function PubImageChangeOrder($imageId, $imageOrder) {

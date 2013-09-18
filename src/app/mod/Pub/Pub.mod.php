@@ -594,7 +594,7 @@ class Module_Pub extends ModuleApp {
 		return $form;
 	}
 
-	public function GetPubImagesForm($itemId, $itemType = 'pub', $pathWww, $pubId = NULL) {
+	public function GetPubImagesForm($userId, $itemId, $itemType = 'pub', $pathWww, $pubId = NULL) {
 
 		if (!empty($_FILES['images'])) {
 			
@@ -624,7 +624,9 @@ class Module_Pub extends ModuleApp {
 							
 							$thumbnail_name = Core::Graphics()->GetThumbnail($upload_dir, $file_name, $upload_dir_t);
 							
-							$this->Pub()->PubImageAdd($itemId, $itemType, $file_name, $thumbnail_name, $next_order);
+							$image_id = $this->Pub()->PubImageAdd($itemId, $itemType, $file_name, $thumbnail_name, $next_order);
+							
+							$this->UpdateEditLog($userId, $image_id, 'pub_image', 'add');
 							
 							$next_order ++;
 						}
@@ -638,7 +640,9 @@ class Module_Pub extends ModuleApp {
 				
 				$thumbnail_name = Core::Graphics()->GetThumbnail($upload_dir, $file_name, $upload_dir_t);
 				
-				$this->Pub()->PubImageAdd($itemId, $itemType, $file_name, $thumbnail_name, $next_order);
+				$image_id = $this->Pub()->PubImageAdd($itemId, $itemType, $file_name, $thumbnail_name, $next_order);
+				
+				$this->UpdateEditLog($userId, $image_id, 'pub_image', 'add');
 			}
 			
 			$redirect_action = 'pub_issue' == $itemType ? 'PubIssueImagesEdit' : 'PubImagesEdit';

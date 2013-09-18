@@ -183,6 +183,8 @@ class Controller_Pub_Edit extends ControllerApp {
 		if (!empty($data['image_id'])) {
 			
 			$this->Pub()->PubImageDelete($data['image_id'], $data['path']['www']);
+			
+			$this->UpdateEditLog($data['user_id'], $data['image_id'], 'pub_image', 'delete');
 		}
 		
 		Core::Router()->Redirect($redirect);
