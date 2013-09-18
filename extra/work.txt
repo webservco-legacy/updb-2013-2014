@@ -9,18 +9,11 @@ http://archive.org/details/digitalfanzinepreservationsociety
 underground press database (UPDb) yupeee! Db!
 --------------------------------------------------------------------------------
 _issues_
-type?print/copy
+duplication: print/copy
+languages: 
 
-_pub_images_
-order (1st=main)
-
-_pb_issues_imagges_
-order (1st=main)
+split zines?
 
 _authors_?
 
-_issuetopics_?
 
-_issuebands_?
-
-_keywords_
