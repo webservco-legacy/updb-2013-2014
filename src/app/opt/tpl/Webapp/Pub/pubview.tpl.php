@@ -23,6 +23,8 @@ if (!empty($pub)) {
 		echo '</div>';
 	}
 	
+	echo '<h4>' . __('Publication issues') . '</h4>';
+	
 	if (!empty($pub_issues)) {
 		
 		foreach ($pub_issues as $issue) {
@@ -33,10 +35,9 @@ if (!empty($pub)) {
 			echo "\" />";
 			echo '</a>';
 			echo '<div class="pub_list_details">';
-			echo "<strong><a href=\"{$url['www']}Pub/App/PubIssueView/issue/{$issue['pub_issue_id']}/pub/{$pub['pub_id']}\">{$issue['pub_issue_title']}</a></strong><br />";
-			echo "{$issue['pub_issue_year']}<br />";
-			echo "{$issue['pub_format_title']}<br />";
-			echo "{$issue['pub_issue_pages']} " . __('pages');
+			echo "<strong><a href=\"{$url['www']}Pub/App/PubIssueView/issue/{$issue['pub_issue_id']}/pub/{$pub['pub_id']}\">{$issue['pub_issue_title']}</a></strong>";
+			echo " {$issue['pub_issue_year']}<br />";
+			echo "{$issue['pub_format_title']}, {$issue['pub_duplication_type_title']}, {$issue['pub_issue_pages']}" . __('pages');
 			echo "</div>";
 			echo "</div>";
 		}

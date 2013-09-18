@@ -67,14 +67,6 @@
 						<conditions></conditions>
 						<custom>multiple</custom>
 				    </pub_list>
-				    <pub_format_id>
-				        <type>select</type>
-						<title>Format</title>
-						<description>Issue format.</description>
-						<required>1</required>
-						<filters></filters>
-						<conditions></conditions>
-				    </pub_format_id>
 				    <pub_issue_title>
 				        <type>text</type>
 						<title>Issue title</title>
@@ -91,6 +83,22 @@
 						<filters>StripTags|RemoveBadChars</filters>
 						<conditions></conditions>
 				    </pub_issue_year>
+				    <pub_duplication_type_id>
+				        <type>select</type>
+						<title>Duplication type</title>
+						<description></description>
+						<required>1</required>
+						<filters></filters>
+						<conditions></conditions>
+				    </pub_duplication_type_id>
+				     <pub_format_id>
+				        <type>select</type>
+						<title>Format</title>
+						<description>Issue format.</description>
+						<required>1</required>
+						<filters></filters>
+						<conditions></conditions>
+				    </pub_format_id>
 				    <pub_issue_pages>
 				        <type>text</type>
 						<title>Number of pages</title>
@@ -99,6 +107,15 @@
 						<filters>StripTags|RemoveBadChars</filters>
 						<conditions></conditions>
 				    </pub_issue_pages>
+				    <pub_languages>
+				        <type>select</type>
+						<title>Languages</title>
+						<description>Languages content is written in.</description>
+						<required></required>
+						<filters></filters>
+						<conditions></conditions>
+						<custom>multiple</custom>
+				    </pub_languages>
 				    <pub_issue_description>
 						<type>textarea</type>
 						<title>Description</title>

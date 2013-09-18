@@ -3,17 +3,31 @@
 <?php
 if (!empty($pub_issue)) {
 	
-	//echo "<div class=\"pub_subtitle\"><i>{$pub['pub_type_title']}</i> ({$pub['country_name']})</div>";
-	
 	echo "<h2>{$pub_issue['pub_issue_title']}</h2>";
 	
 	echo "<div class=\"pub_content pub_box\">{$pub_issue['pub_issue_description']}</div>";
 	
 	echo '<div class="pub_content pub_box">';
 	echo "<p><strong>" . __('Format') . "</strong>: {$pub_issue['pub_format_title']}</p>";
+	echo "<p><strong>" . __('Duplication') . "</strong>: {$pub_issue['pub_duplication_type_title']}</p>";
 	echo "<p><strong>" . __('Year') . "</strong>: {$pub_issue['pub_issue_year']}</p>";
 	echo "<p><strong>" . __('Pages') . "</strong>: {$pub_issue['pub_issue_pages']}</p>";
 	echo '</div>';
+	
+	if (!empty($pub_issue['pub_languages'])) {
+		
+		echo '<div class="pub_content pub_box">';
+		
+		echo '<p>';
+		
+		echo '<strong>' . __('Languages') . '</strong>: ';
+		
+		echo implode(', ', $pub_issue['pub_languages']);
+		
+		echo '</p>';
+		
+		echo '</div>';
+	}
 	
 	echo '<div class="pub_content pub_box">';
 	
@@ -57,15 +71,20 @@ if (!empty($pub_issue)) {
 	
 	if (!empty($user['isEditor'])) {
 		
-		echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueModify/issue/{$pub_issue['pub_issue_id']}\">" . __('Modify issue') . "</a></p>";
-		
-		echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueAdd/pub/{$pub_id}\">" . __('Add issue') . "</a></p>";
-		
-		echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueImagesEdit/id/{$pub_issue['pub_issue_id']}\">" . __('Manage issue images') . "</a></p>";
+		if (!empty($pub_id)) {
+			
+			echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueModify/issue/{$pub_issue['pub_issue_id']}\">" . __('Modify issue') . "</a></p>";
+			
+			echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueAdd/pub/{$pub_id}\">" . __('Add issue') . "</a></p>";
+			
+			echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueImagesEdit/id/{$pub_issue['pub_issue_id']}/pub/{$pub_id}\">" . __('Manage issue images') . "</a></p>";
+		}
 	
 	}
 	
-	echo "<p><a href=\"{$url['www']}Pub/App/PubView/pub/{$pub_id}\">" . __('View all issues') . "</a></p>";
+	if (!empty($pub_id)) {
+		echo "<p><a href=\"{$url['www']}Pub/App/PubView/pub/{$pub_id}\">" . __('View all issues') . "</a></p>";
+	}
 	
 	echo "<p><a href=\"{$url['www']}Pub/App/PubList\">" . __('View all publications') . "</a></p>";
 	

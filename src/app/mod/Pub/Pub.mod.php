@@ -282,6 +282,19 @@ class Module_Pub extends ModuleApp {
 			Core::Form()->SetMeta('pub_format_id', 'options', $pub_format_list);
 		}
 		
+		$pub_duplication_types = $this->Pub()->GetPubDuplicationTypes();
+		
+		if (!empty($pub_duplication_types)) {
+			Core::Form()->SetMeta('pub_duplication_type_id', 'options', $pub_duplication_types);
+		}
+		
+		$language_list = Core::Geo()->GetLanguages(1);
+		
+		if (!empty($language_list)) {
+			
+			Core::Form()->SetMeta('pub_languages', 'options', $language_list);
+		}
+		
 		$form['meta'] = Core::Form()->GetMeta();
 		
 		$form['errors'] = array();
@@ -298,9 +311,11 @@ class Module_Pub extends ModuleApp {
 					
 					$pub_issue_id = $this->Pub()->PubIssueMainAdd($form['data']);
 					
-					$this->Pub()->PubIssuePubsAddModify($pub_issue_id, $form['data']['pub_list']);
-					
 					if (!empty($pub_issue_id)) {
+						
+						$this->Pub()->PubIssuePubsAddModify($pub_issue_id, $form['data']['pub_list']);
+						
+						$this->Pub()->AddModifyPubIssueLanguages($pub_issue_id, $form['data']['pub_languages']);
 						
 						foreach ($app_langs as $lang => $locale) {
 							
@@ -310,7 +325,6 @@ class Module_Pub extends ModuleApp {
 								
 								$form['errors']['_result'][] = __('Error saving details data.');
 							}
-						
 						}
 						
 						foreach ($pub_content_types as $pub_content_type) {
@@ -374,7 +388,7 @@ class Module_Pub extends ModuleApp {
 		return $form;
 	}
 
-	public function GetPubIssueModifyForm($userId, $pubIssueId) {
+	public function GetPubIssueModifyForm($userId, $pubIssueId, $pubId) {
 
 		Core::Form()->SetMethod('post');
 		
@@ -414,11 +428,24 @@ class Module_Pub extends ModuleApp {
 			Core::Form()->SetMeta('pub_list', 'options', $pub_list);
 		}
 		
+		$language_list = Core::Geo()->GetLanguages(1);
+		
+		if (!empty($language_list)) {
+			
+			Core::Form()->SetMeta('pub_languages', 'options', $language_list);
+		}
+		
 		$pub_format_list = $this->Pub()->GetPubFormats();
 		
 		if (!empty($pub_format_list)) {
 			
 			Core::Form()->SetMeta('pub_format_id', 'options', $pub_format_list);
+		}
+		
+		$pub_duplication_types = $this->Pub()->GetPubDuplicationTypes();
+		
+		if (!empty($pub_duplication_types)) {
+			Core::Form()->SetMeta('pub_duplication_type_id', 'options', $pub_duplication_types);
 		}
 		
 		$form['meta'] = Core::Form()->GetMeta();
@@ -440,6 +467,10 @@ class Module_Pub extends ModuleApp {
 					$this->Pub()->PubIssuePubsDelete($pubIssueId);
 					
 					$this->Pub()->PubIssuePubsAddModify($pubIssueId, $form['data']['pub_list']);
+					
+					$this->Pub()->DeletePubIssueLanguages($pubIssueId);
+					
+					$this->Pub()->AddModifyPubIssueLanguages($pubIssueId, $form['data']['pub_languages']);
 					
 					foreach ($app_langs as $lang => $locale) {
 						
@@ -476,7 +507,14 @@ class Module_Pub extends ModuleApp {
 						return $form;
 					}
 					
-					Core::Router()->Redirect("Pub/App/PubIssueView/issue/{$pubIssueId}");
+					$redirect = "Pub/App/PubIssueView/issue/{$pubIssueId}";
+					
+					if (!empty($pubId)) {
+						
+						$redirect .= "/pub/{$pubId}";
+					}
+					
+					Core::Router()->Redirect($redirect);
 					
 					exit();
 				
@@ -503,6 +541,16 @@ class Module_Pub extends ModuleApp {
 				foreach ($pub_list as $pub_id => $pub_title) {
 					
 					$form['data']['pub_list'][$pub_id] = 1;
+				}
+			}
+			
+			$pub_languages = $this->Pub()->GetPubIssueLanguages($pubIssueId);
+			
+			if (!empty($pub_languages)) {
+				
+				foreach ($pub_languages as $language_code => $language_name) {
+					
+					$form['data']['pub_languages'][$language_code] = 1;
 				}
 			}
 			
@@ -546,7 +594,7 @@ class Module_Pub extends ModuleApp {
 		return $form;
 	}
 
-	public function GetPubImagesForm($itemId, $itemType = 'pub', $pathWww) {
+	public function GetPubImagesForm($itemId, $itemType = 'pub', $pathWww, $pubId = NULL) {
 
 		if (!empty($_FILES['images'])) {
 			
@@ -595,7 +643,9 @@ class Module_Pub extends ModuleApp {
 			
 			$redirect_action = 'pub_issue' == $itemType ? 'PubIssueImagesEdit' : 'PubImagesEdit';
 			
-			Core::Router()->Redirect("Pub/Edit/{$redirect_action}/id/{$itemId}/type/{$itemType}");
+			$redirect_extra = ('pub_issue' == $itemType && !empty($pubId)) ? "/pub/{$pubId}" : NULL;
+			
+			Core::Router()->Redirect("Pub/Edit/{$redirect_action}/id/{$itemId}{$redirect_extra}");
 			
 			exit();
 		}

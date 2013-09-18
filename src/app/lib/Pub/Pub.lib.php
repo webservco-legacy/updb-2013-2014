@@ -47,6 +47,33 @@ class Pub extends Library {
 		return $data;
 	}
 
+	public function GetPubDuplicationTypes($i18nLocale = NULL) {
+
+		$data = array();
+		
+		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
+		
+		$q = "SELECT M.pub_duplication_type_id, D.pub_duplication_type_title
+		FROM up_pub_duplication_types_main AS M
+		LEFT JOIN up_pub_duplication_types_details AS D ON
+		(D.pub_duplication_type_id = M.pub_duplication_type_id AND D.i18n_locale = '{$i18n_locale}')
+		ORDER BY D.pub_duplication_type_title";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['pub_duplication_type_id']] = $r['pub_duplication_type_title'];
+			}
+		}
+		
+		return $data;
+	}
+
 	public function GetPubContentTypes($i18nLocale = NULL) {
 
 		$data = array();
@@ -213,16 +240,20 @@ class Pub extends Library {
 	
 	}
 
-	public function GetPubIssues($pubId) {
+	public function GetPubIssues($pubId, $i18nLocale = NULL) {
 
 		$data = array();
 		
-		$q = "SELECT M.pub_issue_id, P.pub_title, F.pub_format_title, M.pub_issue_title, M.pub_issue_year, M.pub_issue_pages
+		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
+		
+		$q = "SELECT M.pub_issue_id, P.pub_title, F.pub_format_title, D.pub_duplication_type_title, 
+		M.pub_issue_title, M.pub_issue_year, M.pub_issue_pages
 		FROM
 		up_pub_issues AS J
 		LEFT JOIN up_pub_issues_main AS M ON (M.pub_issue_id = J.pub_issue_id)
 		LEFT JOIN up_pub_main AS P ON (P.pub_id = J.pub_id)
 		LEFT JOIN up_pub_formats_main AS F ON (F.pub_format_id = M.pub_format_id)
+		LEFT JOIN up_pub_duplication_types_details AS D ON (D.pub_duplication_type_id = M.pub_duplication_type_id AND D.i18n_locale = '{$i18n_locale}')
 		WHERE 1
 		AND J.pub_id = '{$pubId}'
 		ORDER BY M.pub_issue_title";
@@ -254,7 +285,7 @@ class Pub extends Library {
 			LEFT JOIN up_pub_main AS P ON (P.pub_id = J.pub_id)
 			WHERE J.pub_issue_id = '{$pubIssueId}'
 			ORDER BY P.pub_title";
-			
+		
 		} else {
 			
 			$q = "SELECT P.pub_id, P.pub_title
@@ -278,17 +309,18 @@ class Pub extends Library {
 		
 		return $data;
 	}
-	
-	public function GetPubIssue($pubIssueId, $i18nLocale = NULL) { //XXX
+
+	public function GetPubIssue($pubIssueId, $i18nLocale = NULL) {
 
 		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
 		
-		$q = "SELECT M.pub_issue_id, F.pub_format_title, M.pub_issue_title, M.pub_issue_year, M.pub_issue_pages
+		$q = "SELECT M.pub_issue_id, F.pub_format_title, DT.pub_duplication_type_title, 
+		M.pub_issue_title, M.pub_issue_year, M.pub_issue_pages
 		, D.pub_issue_description
 		FROM up_pub_issues_main AS M
-		
 		LEFT JOIN up_pub_issues_details AS D ON (D.pub_issue_id = M.pub_issue_id AND D.i18n_locale = '{$i18n_locale}')
 		LEFT JOIN up_pub_formats_main AS F ON (F.pub_format_id = M.pub_format_id)
+		LEFT JOIN up_pub_duplication_types_details AS DT ON (DT.pub_duplication_type_id = M.pub_duplication_type_id AND DT.i18n_locale = '{$i18n_locale}')
 		WHERE  M.pub_issue_id = '{$pubIssueId}'
 		LIMIT 1";
 		
@@ -301,6 +333,8 @@ class Pub extends Library {
 			$issue = $rs->fetch_assoc();
 			
 			$issue['pub_list'] = $this->GetPubList($issue['pub_issue_id']);
+			
+			$issue['pub_languages'] = $this->GetPubIssueLanguages($issue['pub_issue_id']);
 			
 			$issue['content_data'] = array();
 			
@@ -333,7 +367,7 @@ class Pub extends Library {
 
 	public function GetPubIssueMain($pubIssueId) {
 
-		$q = "SELECT pub_format_id, pub_issue_title, pub_issue_year, pub_issue_pages
+		$q = "SELECT pub_format_id, pub_duplication_type_id, pub_issue_title, pub_issue_year, pub_issue_pages
 		FROM up_pub_issues_main
 		WHERE pub_issue_id = '{$pubIssueId}' LIMIT 1";
 		
@@ -415,6 +449,59 @@ class Pub extends Library {
 		return $data;
 	}
 
+	public function GetPubIssueLanguages($pubIssueId) {
+
+		$data = array();
+		
+		$q = "SELECT P.language_code, L.language_name
+		 		FROM up_pub_issues_languages AS P
+				LEFT JOIN up_geo_languages AS L ON (L.language_code = P.language_code)
+				WHERE P. pub_issue_id = '{$pubIssueId}'
+				ORDER BY L.language_name";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['language_code']] = $r['language_name'];
+			}
+		}
+		
+		return $data;
+	}
+
+	public function DeletePubIssueLanguages($pubIssueId) {
+
+		$q = "DELETE FROM up_pub_issues_languages WHERE pub_issue_id = '{$pubIssueId}'";
+		
+		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
+	}
+
+	public function AddModifyPubIssueLanguages($pubIssueId, $languagesList) {
+
+		$affected_rows = 0;
+		
+		if (!empty($languagesList)) {
+			
+			foreach ($languagesList as $language_code) {
+				
+				$q = "INSERT IGNORE INTO up_pub_issues_languages (pub_issue_id, language_code) VALUES
+				('{$pubIssueId}', '{$language_code}')";
+				
+				if (Core::Database()->Query($q)) {
+					
+					$affected_rows += Core::Database()->GetAffectedRows();
+				}
+			}
+		}
+		
+		return $affected_rows;
+	}
+
 	public function PubMainAdd($data) {
 
 		$q = "INSERT INTO up_pub_main (pub_title, pub_title_sort, pub_type_id, country_code) VALUES
@@ -446,21 +533,21 @@ class Pub extends Library {
 
 	public function PubIssueMainAdd($data) {
 
-		$q = "INSERT INTO up_pub_issues_main (pub_format_id, pub_issue_title, pub_issue_year, pub_issue_pages) VALUES
-				('{$data['pub_format_id']}', '{$data['pub_issue_title']}', '{$data['pub_issue_year']}', '{$data['pub_issue_pages']}')";
+		$q = "INSERT INTO up_pub_issues_main (pub_format_id, pub_duplication_type_id, pub_issue_title, pub_issue_year, pub_issue_pages) VALUES
+				('{$data['pub_format_id']}', '{$data['pub_duplication_type_id']}', '{$data['pub_issue_title']}', '{$data['pub_issue_year']}', '{$data['pub_issue_pages']}')";
 		
 		return Core::Database()->Query($q) ? Core::Database()->GetInsertId() : FALSE;
 	}
 
-	public function PubIssuePubsDelete($pubIssueId) { // XXX
-		
+	public function PubIssuePubsDelete($pubIssueId) {
+
 		$q = "DELETE FROM up_pub_issues WHERE pub_issue_id = '{$pubIssueId}'";
 		
 		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
 	}
 
-	public function PubIssuePubsAddModify($pubIssueId, $pubList = array()) { // XXX
-		
+	public function PubIssuePubsAddModify($pubIssueId, $pubList = array()) {
+
 		$affected_rows = 0;
 		
 		if (!empty($pubList)) {
@@ -484,6 +571,7 @@ class Pub extends Library {
 
 		$q = "UPDATE up_pub_issues_main SET
 				pub_format_id = '{$data['pub_format_id']}',
+				pub_duplication_type_id = '{$data['pub_duplication_type_id']}',
 				pub_issue_title = '{$data['pub_issue_title']}',
 				pub_issue_year = '{$data['pub_issue_year']}',
 				pub_issue_pages = '{$data['pub_issue_pages']}'
