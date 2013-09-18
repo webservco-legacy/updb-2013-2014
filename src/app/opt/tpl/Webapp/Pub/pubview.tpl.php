@@ -3,36 +3,64 @@
 <?php
 if (!empty($pub)) {
 	
+	echo "<div class=\"pub_subtitle\"><i>{$pub['pub_type_title']}</i> ({$pub['country_name']})</div>";
+	
 	echo "<h2>{$pub['pub_title']}</h2>";
 	
-	echo "<p><i>{$pub['pub_type_title']}</i> / {$pub['country_name']}</p>";
+	echo "<div class=\"pub_content\">{$pub['pub_description']}</div>";
 	
-	echo "<p>{$pub['pub_description']}</p>";
-	
-	
-	
-	echo '<h3>' . __('Issues') . '</h3>';
+	if (!empty($pub_images)) {
+		
+		echo '<h4>' . __('Publication images') . '</h4>';
+		echo '<div class="pub_gallery pub_content">';
+		
+		foreach ($pub_images as $image_id => $image_data) {
+			echo "<a class=\"gallery_item\" href=\"{$url['www']}usr/media/pub/{$image_data['image_file']}\">";
+			echo "<img src=\"{$url['www']}usr/media/pub_t/{$image_data['image_thumb']}\" />";
+			echo "</a>";
+		}
+		
+		echo '</div>';
+	}
 	
 	if (!empty($pub_issues)) {
 		
 		foreach ($pub_issues as $issue) {
-			
-			echo "<p><strong><a href=\"{$url['www']}Pub/App/PubIssueView/issue/{$issue['pub_issue_id']}\">{$pub['pub_title']}</a></strong> #{$issue['pub_issue_number']} / {$issue['pub_format_title']}";
-			echo " / {$issue['pub_issue_year']} / {$issue['pub_issue_pages']} " . __('pages');
-			echo " (<a href=\"{$url['www']}Pub/Edit/PubIssueModify/issue/{$issue['pub_issue_id']}\">edit</a>)";
-			echo "</p>";
+			echo '<div class="pub_list">';
+			echo "<a class=\"pub_list_thumb\" href=\"{$url['www']}Pub/App/PubIssueView/issue/{$issue['pub_issue_id']}\">";
+			echo "<img src=\"";
+			echo !empty($issue['thumbnail']) ? "{$url['www']}usr/media/pub_issue_t/{$issue['thumbnail']}" : "{$url['skin']}img/no_image.jpg";
+			echo "\" />";
+			echo '</a>';
+			echo '<div class="pub_list_details">';
+			echo "<strong><a href=\"{$url['www']}Pub/App/PubIssueView/issue/{$issue['pub_issue_id']}\">{$pub['pub_title']} #{$issue['pub_issue_number']}</a></strong><br />";
+			echo "{$issue['pub_issue_year']}<br />";
+			echo "{$issue['pub_format_title']}<br />";
+			echo "{$issue['pub_issue_pages']} " . __('pages');
+			echo "</div>";
+			echo "</div>";
 		}
 	} else {
 		
-		echo "<p>{$strings['no_data']}</p>";
+		echo '<p>' . __('No issues') . '</p>';
 	}
 	
-	echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueAdd/pub/{$pub['pub_id']}\">" . __('Add issue') . "<a></p>";
+	echo '<div class="content_nav">';
 	
-	echo "<p><a href=\"{$url['www']}Pub/Edit/PubModify/pub/{$pub['pub_id']}\">" . __('Modify publication') . "</a></p>";
+	if (!empty($user['isEditor'])) {
+		
+		echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueAdd/pub/{$pub['pub_id']}\">" . __('Add issue') . "</a></p>";
+		
+		echo "<p><a href=\"{$url['www']}Pub/Edit/PubModify/pub/{$pub['pub_id']}\">" . __('Modify publication') . "</a></p>";
+		
+		echo "<p><a href=\"{$url['www']}Pub/Edit/PubImagesEdit/id/{$pub['pub_id']}\">" . __('Manage publication images') . "</a></p>";
 	
-	echo "<p><a href=\"{$url['www']}Pub/App/PubList\">" . __('Publications list') . "<a></p>";
+	}
 	
+	echo "<p><a href=\"{$url['www']}Pub/App/PubList\">" . __('View all publications') . "</a></p>";
+	
+	echo '</div>';
+
 } else {
 	
 	echo "<p class=\"ko\">{$strings['no_data']}</p>";

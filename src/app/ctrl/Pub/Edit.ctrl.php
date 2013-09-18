@@ -120,15 +120,42 @@ class Controller_Pub_Edit extends ControllerApp {
 		
 		$data['item_id'] = !empty($data['query']['id']) ? $data['query']['id'] : NULL;
 		
-		$data['item_type'] = !empty($data['query']['type']) ? $data['query']['type'] : NULL;
+		$data['item_type'] = 'pub';
 		
-		$data['images'] = $this->Pub()->PubImagesGet($data['item_id'], $data['item_type']);
+		$data['pub_images'] = $this->Pub()->PubImagesGet($data['item_id'], 'pub');
 		
 		$data['form'] = $this->Module()->GetPubImagesForm($data['item_id'], $data['item_type'], $data['path']['www']);
 		
-		$data['delete_next'] = $data['next'] = Core::String()->EncodeUrlString("Pub/Edit/PubImagesEdit/id/{$data['item_id']}/type/{$data['item_type']}");
+		$data['delete_next'] = Core::String()->EncodeUrlString("Pub/Edit/PubImagesEdit/id/{$data['item_id']}");
 		
-		echo $this->GetOutput($data);
+		$data['back_location'] = "Pub/App/PubView/pub/{$data['item_id']}";
+		
+		echo $this->GetOutput($data, 'pub_images_edit');
+		
+		return TRUE;
+	}
+
+	public function PubIssueImagesEdit() {
+
+		$this->Init();
+		
+		$data = $this->Module()->GetData($this->_mRequest);
+		
+		$this->CheckEditorAccess($data);
+		
+		$data['item_id'] = !empty($data['query']['id']) ? $data['query']['id'] : NULL;
+		
+		$data['item_type'] = 'pub_issue';
+		
+		$data['pub_images'] = $this->Pub()->PubImagesGet($data['item_id'], $data['item_type']);
+		
+		$data['form'] = $this->Module()->GetPubImagesForm($data['item_id'], $data['item_type'], $data['path']['www']);
+		
+		$data['delete_next'] = Core::String()->EncodeUrlString("Pub/Edit/PubIssueImagesEdit/id/{$data['item_id']}");
+		
+		$data['back_location'] = "Pub/App/PubIssueView/issue/{$data['item_id']}";
+		
+		echo $this->GetOutput($data, 'pub_images_edit');
 		
 		return TRUE;
 	}

@@ -73,13 +73,6 @@
 					<url></url>
 					<resource></resource>
 				</item>
-				<item>
-					<title>Admin</title>
-					<link>Content/Admin/Home</link>
-					<url></url>
-					<submenu></submenu>
-					<resource>Admin</resource>
-				</item>
 			</web>
 			<web_admin>
 				<item>

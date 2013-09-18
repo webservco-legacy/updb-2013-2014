@@ -531,6 +531,7 @@ class Module_Pub extends ModuleApp {
 			);
 			
 			$upload_dir = "{$pathWww}usr/media/{$itemType}/";
+			$upload_dir_t = "{$pathWww}usr/media/{$itemType}_t/";
 			
 			$next_order = $this->Pub()->PubImageGetNextOrder($itemId, $itemType);
 			
@@ -548,7 +549,9 @@ class Module_Pub extends ModuleApp {
 							
 							move_uploaded_file($_FILES['images']['tmp_name'][$i], $upload_dir . $file_name);
 							
-							$this->Pub()->PubImageAdd($itemId, $itemType, $file_name, $next_order);
+							$thumbnail_name = Core::Graphics()->GetThumbnail($upload_dir, $file_name, $upload_dir_t);
+							
+							$this->Pub()->PubImageAdd($itemId, $itemType, $file_name, $thumbnail_name, $next_order);
 							
 							$next_order ++;
 						}
@@ -560,10 +563,14 @@ class Module_Pub extends ModuleApp {
 				
 				move_uploaded_file($_FILES['images']['tmp_name'], $upload_dir . $file_name);
 				
-				$this->Pub()->PubImageAdd($itemId, $itemType, $file_name, $next_order);
+				$thumbnail_name = Core::Graphics()->GetThumbnail($upload_dir, $file_name, $upload_dir_t);
+				
+				$this->Pub()->PubImageAdd($itemId, $itemType, $file_name, $thumbnail_name, $next_order);
 			}
 			
-			Core::Router()->Redirect("Pub/Edit/PubImagesEdit/id/{$itemId}/type/{$itemType}");
+			$redirect_action = 'pub_issue' == $itemType ? 'PubIssueImagesEdit' : 'PubImagesEdit';
+			
+			Core::Router()->Redirect("Pub/Edit/{$redirect_action}/id/{$itemId}/type/{$itemType}");
 			
 			exit();
 		}

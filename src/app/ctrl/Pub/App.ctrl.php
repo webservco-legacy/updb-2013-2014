@@ -60,6 +60,8 @@ class Controller_Pub_App extends ControllerApp {
 		
 		$data['pub_issues'] = $this->Pub()->GetPubIssues($data['pub_id']);
 		
+		$data['pub_images'] = $this->Pub()->PubImagesGet($data['pub_id'], 'pub');
+		
 		echo $this->GetOutput($data);
 		
 		return TRUE;
@@ -71,15 +73,17 @@ class Controller_Pub_App extends ControllerApp {
 		
 		$data = $this->Module()->GetData($this->_mRequest);
 		
-		$data['strings']['title'] = __('Issues list');
-		
 		$data['pub_issue_id'] = !empty($data['query']['issue']) ? $data['query']['issue'] : NULL;
 		
-		$data['issue'] = $this->Pub()->GetPubIssue($data['pub_issue_id']);
+		$data['pub_issue'] = $this->Pub()->GetPubIssue($data['pub_issue_id']);
 		
-		if (!empty($data['issue']['pub_issue_id'])) {
+		if (!empty($data['pub_issue']['pub_issue_id'])) {
 			
-			$data['pub'] = $this->Pub()->GetPublication($data['issue']['pub_issue_id']);
+			$data['pub'] = $this->Pub()->GetPublication($data['pub_issue']['pub_id']);
+			
+			$data['pub_issue_images'] = $this->Pub()->PubImagesGet($data['pub_issue_id'], 'pub_issue');
+			
+			$data['strings']['title'] = $data['pub']['pub_title'];
 		}
 		
 		echo $this->GetOutput($data);

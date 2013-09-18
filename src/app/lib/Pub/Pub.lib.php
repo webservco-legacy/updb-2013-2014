@@ -119,6 +119,10 @@ class Pub extends Library {
 			while ($r = $rs->fetch_assoc()) {
 				
 				$data[$r['pub_id']] = $r;
+				
+				$data[$r['pub_id']]['thumbnail'] = $this->PubThumbnailGet($r['pub_id'], 'pub');
+				
+				$data[$r['pub_id']]['issues_summary'] = $this->GetPubIssuesSummary($r['pub_id']);
 			}
 		}
 		
@@ -193,6 +197,19 @@ class Pub extends Library {
 		
 		return $data;
 	}
+	
+	public function GetPubIssuesSummary($pubId) {
+		
+		$q = "SELECT COUNT(pub_issue_id) AS total, MIN(pub_issue_year) AS start, MAX(pub_issue_year) AS end
+				FROM up_pub_issues_main WHERE pub_id = '{$pubId}'";
+				
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		return (1 == $t) ? $rs->fetch_assoc() : FALSE;
+		
+	}
 
 	public function GetPubIssues($pubId) {
 
@@ -215,6 +232,8 @@ class Pub extends Library {
 			while ($r = $rs->fetch_assoc()) {
 				
 				$data[$r['pub_issue_id']] = $r;
+				
+				$data[$r['pub_issue_id']]['thumbnail'] = $this->PubThumbnailGet($r['pub_issue_id'], 'pub_issue');
 			}
 		}
 		
@@ -242,6 +261,10 @@ class Pub extends Library {
 			
 			$issue = $rs->fetch_assoc();
 			
+			$issue['content_data'] = array();
+			
+			$issue['content_values'] = array();
+			
 			$pub_content_types = $this->GetPubContentTypes();
 			
 			foreach ($pub_content_types as $pub_content_type) {
@@ -252,7 +275,12 @@ class Pub extends Library {
 				
 				} else {
 					
-					$issue['content_values'][$pub_content_type['pub_content_type_title']] = $this->GetPubIssueContentValue($pubIssueId, $pub_content_type['pub_content_type_id']);
+					$content_value = $this->GetPubIssueContentValue($pubIssueId, $pub_content_type['pub_content_type_id']);
+					
+					if (!empty($content_value)) {
+						
+						$issue['content_values'][] = $pub_content_type['pub_content_type_title'];
+					}
 				}
 			}
 			
@@ -425,20 +453,29 @@ class Pub extends Library {
 		$affected_rows = 0;
 		
 		if (is_array($pubIssueContentData)) {
+			
 			foreach ($pubIssueContentData as $data) {
 				
-				$q = "INSERT INTO up_pub_issues_content (pub_issue_id, pub_content_type_id, pub_issue_content_data)
-							VALUES ('{$pubIssueId}', '{$pubContentTypeId}', '{$data}')";
-				
-				Core::Database()->Query($q);
-				
-				$affected_rows += Core::Database()->GetAffectedRows();
+				if (!empty($data)) {
+					
+					$q = "INSERT INTO up_pub_issues_content (pub_issue_id, pub_content_type_id, pub_issue_content_data)
+					VALUES ('{$pubIssueId}', '{$pubContentTypeId}', '{$data}')";
+					
+					Core::Database()->Query($q);
+					
+					$affected_rows += Core::Database()->GetAffectedRows();
+				}
 			}
 		} else {
 			
+			if (empty($pubIssueContentData)) {
+				
+				return $affected_rows;
+			}
+			
 			$pub_issue_content_data = array_map('trim', explode(',', $pubIssueContentData));
 			
-			return $this->PubIssueContentAddModifyData($pubIssueId, $pubContentTypeId, $pub_issue_content_data);
+			return $this->PubIssueContentAddData($pubIssueId, $pubContentTypeId, $pub_issue_content_data);
 		}
 		
 		return $affected_rows;
@@ -448,7 +485,7 @@ class Pub extends Library {
 
 		$data = array();
 		
-		$q = "SELECT image_id, image_file FROM up_pub_images
+		$q = "SELECT image_id, image_file, image_thumb, image_order FROM up_pub_images
 			WHERE item_id = '{$itemId}' AND item_type = '{$itemType}'
 			ORDER BY image_order";
 		
@@ -460,16 +497,34 @@ class Pub extends Library {
 			
 			while ($r = $rs->fetch_assoc()) {
 				
-				$data[$r['image_id']] = $r['image_file'];
+				$data[$r['image_id']] = $r;
 			}
 		}
 		
 		return $data;
 	}
 
+	public function PubThumbnailGet($itemId, $itemType) {
+
+		$q = "SELECT image_thumb FROM up_pub_images WHERE item_id = '{$itemId}' AND item_type = '{$itemType}' ORDER BY image_order ASC LIMIT 1";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (1 == $t) {
+			
+			$r = $rs->fetch_assoc();
+			
+			return $r['image_thumb'];
+		}
+		
+		return FALSE;
+	}
+
 	public function PubImageGet($imageId) {
 
-		$q = "SELECT item_id, item_type, image_file, image_order FROM up_pub_images WHERE image_id = '{$imageId}' LIMIT 1";
+		$q = "SELECT item_id, item_type, image_file, image_thumb, image_order FROM up_pub_images WHERE image_id = '{$imageId}' LIMIT 1";
 		
 		$rs = Core::Database()->Query($q);
 		
@@ -501,10 +556,10 @@ class Pub extends Library {
 		return FALSE;
 	}
 
-	public function PubImageAdd($itemId, $itemType, $imageFile, $imageOrder) {
+	public function PubImageAdd($itemId, $itemType, $imageFile, $imageThumb, $imageOrder) {
 
-		$q = "INSERT INTO up_pub_images (item_id, item_type, image_file, image_order) VALUES
-			('{$itemId}', '{$itemType}', '{$imageFile}', '{$imageOrder}')";
+		$q = "INSERT INTO up_pub_images (item_id, item_type, image_file, image_thumb, image_order) VALUES
+			('{$itemId}', '{$itemType}', '{$imageFile}', '{$imageThumb}', '{$imageOrder}')";
 		
 		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
 	}
@@ -526,10 +581,17 @@ class Pub extends Library {
 			
 			if (Core::Database()->Query($q)) {
 				
-				if (unlink("{$pathWww}usr/media/{$image['item_type']}/{$image['image_file']}")) {
+				if (!unlink("{$pathWww}usr/media/{$image['item_type']}/{$image['image_file']}")) {
 					
-					return Core::Database()->GetAffectedRows();
+					return FALSE;
 				}
+				
+				if (!unlink("{$pathWww}usr/media/{$image['item_type']}_t/{$image['image_thumb']}")) {
+					
+					return FALSE;
+				}
+				
+				return Core::Database()->GetAffectedRows();
 			}
 		}
 		

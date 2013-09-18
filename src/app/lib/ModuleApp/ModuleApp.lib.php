@@ -241,9 +241,11 @@ class ModuleApp extends Module {
 		 * Example: performm additional initializations for logged in users.
 		 */
 		if (!empty($data['user']['Logged'])) {
-		/**
-		 * Do stuff.
-		 */
+			
+			if (Core::Acl()->CheckAclRelation($data['user']['Id'], 2)) {
+				
+				$data['user']['isEditor'] = TRUE;
+			}
 		}
 		
 		/**

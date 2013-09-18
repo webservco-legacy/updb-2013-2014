@@ -1,7 +1,6 @@
 <article>
 
 	<h2>Images</h2>
-	
 <?php
 
 if (!empty($form['errors']['_result'])) {
@@ -41,19 +40,23 @@ echo "</div></fieldset>";
 
 echo "</form>";
 
-if (!empty($images)) {
+if (!empty($pub_images)) {
 	
 	echo '<ul class="sortable">';
 	
-	foreach ($images as $image_id => $image_file) {
+	foreach ($pub_images as $image_id => $image_data) {
 		echo "<li id=\"{$image_id}\">";
-		echo "<img width=\"100\" src=\"{$url['www']}usr/media/{$item_type}/{$image_file}\" />";
+		echo "<img src=\"{$url['www']}usr/media/{$item_type}_t/{$image_data['image_thumb']}\" />";
 		echo " <a href=\"{$url['www']}Pub/Edit/PubImageDelete/id/{$image_id}/next/{$delete_next}\">" . __('Delete') . "</a>";
 		echo "</li>";
 	}
 	
 	echo '</ul>';
 }
+
+echo '<div class="content_nav">';
+echo "<p><a href=\"{$url['www']}{$back_location}\">" . __('Back') . "</a></p>";
+echo '</div>';
 
 ?>
 
