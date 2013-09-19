@@ -43,6 +43,8 @@ class Controller_Pub_Edit extends ControllerApp {
 		
 		$data['form'] = $this->Module()->GetPubAddForm($data['user']['Id']);
 		
+		$data['back_location'] = "Pub/App/PubList/";
+		
 		echo $this->GetOutput($data, 'pub_edit');
 		
 		return TRUE;
@@ -82,6 +84,8 @@ class Controller_Pub_Edit extends ControllerApp {
 		$data['strings']['title'] = __('Add issue');
 		
 		$data['form'] = $this->Module()->GetPubIssueAddForm($data['user']['Id'], $data['pub_id']);
+		
+		$data['back_location'] = "Pub/App/PubView/pub/{$data['pub_id']}";
 		
 		echo $this->GetOutput($data, 'pub_edit');
 		

@@ -81,7 +81,7 @@
 						<description>Year the issue was published.</description>
 						<required></required>
 						<filters>StripTags|RemoveBadChars</filters>
-						<conditions></conditions>
+						<conditions>IsInteger</conditions>
 				    </pub_issue_year>
 				    <pub_duplication_type_id>
 				        <type>select</type>

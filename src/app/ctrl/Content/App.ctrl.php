@@ -63,6 +63,11 @@ class Controller_Content_App extends ControllerApp {
 		return FALSE;
 	}
 
+	public function Contact() {
+
+		return $this->GetDefaultOutput(__('Contact'));
+	}
+
 	public function Debug() {
 
 		$this->Init();
