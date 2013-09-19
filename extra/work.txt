@@ -1,4 +1,19 @@
 --------------------------------------------------------------------------------
+todo:
+
+contact sys
+
+comment sys
+
+list + stats + search:
+- pub types
+- issue languages
+- issue content types
+- issue duplication types
+- issue formats
+
+
+--------------------------------------------------------------------------------
 http://punkzinearchive.blogspot.hu/
 http://punksishippies.blogspot.hu/
 http://ukzinelibrary.blogspot.hu/
@@ -8,8 +23,3 @@ http://archive.org/details/digitalfanzinepreservationsociety
 --------------------------------------------------------------------------------
 underground press database (UPDb) yupeee! Db!
 --------------------------------------------------------------------------------
-
-
-
-
-
