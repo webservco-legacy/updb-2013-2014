@@ -44,34 +44,22 @@
 					<resource>Pub/</resource>
 				</item>
 				<item>
-					<title>Info</title>
+					<title>Help</title>
 					<link>Content/App/Display/c/1</link>
 					<url></url>
 					<resource>Content/App/Display/c/1</resource>
+				</item>
+				<item>
+					<title>About</title>
+					<link>Content/App/Display/c/2</link>
+					<url></url>
+					<resource>Content/App/Display/c/2</resource>
 				</item>
 				<item>
 					<title>Account</title>
 					<link>Users/App/Account</link>
 					<url></url>
 					<resource>Users/App/</resource>
-				</item>
-				<item>
-					<title>Blank</title>
-					<link>index</link>
-					<url></url>
-					<resource></resource>
-				</item>
-				<item>
-					<title>Blank</title>
-					<link>index</link>
-					<url></url>
-					<resource></resource>
-				</item>
-				<item>
-					<title>Blank</title>
-					<link>index</link>
-					<url></url>
-					<resource></resource>
 				</item>
 			</web>
 			<web_admin>

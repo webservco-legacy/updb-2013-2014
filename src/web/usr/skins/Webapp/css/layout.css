@@ -66,11 +66,7 @@ header h1 {
 
 aside {
 	float: left;
-	width: 240px;
-}
-
-aside#right {
-	float: right;
+	width: 238px;
 }
 
 section#content {
@@ -87,11 +83,11 @@ section,aside {
 section {
 	background: #ffe;
 	text-align: left;
-	border: 1px dashed #777;
 	border-radius: 10px;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
+	padding-bottom: 10px;
 }
 
 aside {

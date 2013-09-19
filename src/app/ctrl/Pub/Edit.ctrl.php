@@ -62,6 +62,8 @@ class Controller_Pub_Edit extends ControllerApp {
 		
 		$data['form'] = $this->Module()->GetPubModifyForm($data['user']['Id'], $data['pub_id']);
 		
+		$data['back_location'] = "Pub/App/PubView/pub/{$data['pub_id']}";
+		
 		echo $this->GetOutput($data, 'pub_edit');
 		
 		return TRUE;
@@ -101,6 +103,13 @@ class Controller_Pub_Edit extends ControllerApp {
 		$data['strings']['title'] = __('Edit publication issue.');
 		
 		$data['form'] = $this->Module()->GetPubIssueModifyForm($data['user']['Id'], $data['pub_issue_id'], $data['pub_id']);
+		
+		$data['back_location'] = "Pub/App/PubIssueView/issue/{$data['pub_issue_id']}";
+		
+		if (!empty($data['pub_id'])) {
+			
+			$data['back_location'] .= "/pub/{$data['pub_id']}";
+		}
 		
 		echo $this->GetOutput($data, 'pub_edit');
 		
@@ -184,7 +193,7 @@ class Controller_Pub_Edit extends ControllerApp {
 			
 			$this->Pub()->PubImageDelete($data['image_id'], $data['path']['www']);
 			
-			$this->UpdateEditLog($data['user_id'], $data['image_id'], 'pub_image', 'delete');
+			$this->Module()->UpdateEditLog($data['user']['Id'], $data['image_id'], 'pub_image', 'delete');
 		}
 		
 		Core::Router()->Redirect($redirect);

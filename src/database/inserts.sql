@@ -11,11 +11,11 @@ INSERT INTO up_pub_types_details (pub_type_id, pub_type_title) VALUES
 (1, 'fanzine'), (2, 'newsletter'), (3, 'book');
 
 /* PUB DUPLICATION TYPES */
-TRUNCATE TABLE up_pub_duplication_types_main;
+-- TRUNCATE TABLE up_pub_duplication_types_main;
 INSERT INTO up_pub_duplication_types_main (pub_duplication_type_id) VALUES 
 (1), (2);
 
-TRUNCATE TABLE up_pub_duplication_types_details;
+-- TRUNCATE TABLE up_pub_duplication_types_details;
 INSERT INTO up_pub_duplication_types_details (pub_duplication_type_id, i18n_locale, pub_duplication_type_title) VALUES 
 (1, 'en_US', 'copy'), (2, 'en_US', 'print')
 ,(1, 'ro_RO.UTF8', 'copiere'), (2, 'ro_RO.UTF8', 'imprimare')

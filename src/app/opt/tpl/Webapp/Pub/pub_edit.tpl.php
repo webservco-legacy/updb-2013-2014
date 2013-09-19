@@ -177,6 +177,10 @@ if (!empty($form)) {
 	
 	echo "<p class=\"ko\">{$strings['no_data']}</p>";
 }
+
+echo '<div class="content_nav">';
+echo "<p><a href=\"{$url['www']}{$back_location}\">" . __('Back') . "</a></p>";
+echo '</div>';
 ?>
 
 </article>
