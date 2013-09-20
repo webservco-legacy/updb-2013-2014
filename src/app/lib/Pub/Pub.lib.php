@@ -147,7 +147,7 @@ class Pub extends Library {
 				
 				$data[$r['pub_id']] = $r;
 				
-				$data[$r['pub_id']]['thumbnail'] = $this->PubThumbnailGet($r['pub_id'], 'pub');
+				$data[$r['pub_id']]['thumbnail'] = $this->GetPubThumbnail($r['pub_id'], 'pub');
 				
 				$data[$r['pub_id']]['issues_summary'] = $this->GetPubIssuesSummary($r['pub_id']);
 			}
@@ -268,7 +268,7 @@ class Pub extends Library {
 				
 				$data[$r['pub_issue_id']] = $r;
 				
-				$data[$r['pub_issue_id']]['thumbnail'] = $this->PubThumbnailGet($r['pub_issue_id'], 'pub_issue');
+				$data[$r['pub_issue_id']]['thumbnail'] = $this->GetPubThumbnail($r['pub_issue_id'], 'pub_issue');
 			}
 		}
 		
@@ -502,7 +502,7 @@ class Pub extends Library {
 		return $affected_rows;
 	}
 
-	public function PubMainAdd($data) {
+	public function AddPubMain($data) {
 
 		$q = "INSERT INTO up_pub_main (pub_title, pub_title_sort, pub_type_id, country_code) VALUES
 				('{$data['pub_title']}', '{$data['pub_title_sort']}', '{$data['pub_type_id']}', '{$data['country_code']}')";
@@ -510,7 +510,7 @@ class Pub extends Library {
 		return Core::Database()->Query($q) ? Core::Database()->GetInsertId() : FALSE;
 	}
 
-	public function PubMainModify($pubId, $data) {
+	public function ModifyPubMain($pubId, $data) {
 
 		$q = "UPDATE up_pub_main SET
 				pub_title = '{$data['pub_title']}',
@@ -522,7 +522,7 @@ class Pub extends Library {
 		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
 	}
 
-	public function PubDetailsAddModify($pubId, $i18nLocale, $pubDescription) {
+	public function AddModifyPubDetails($pubId, $i18nLocale, $pubDescription) {
 
 		$q = "INSERT INTO up_pub_details (pub_id, i18n_locale, pub_description) VALUES
 				('{$pubId}', '{$i18nLocale}', '{$pubDescription}')
@@ -531,7 +531,7 @@ class Pub extends Library {
 		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
 	}
 
-	public function PubIssueMainAdd($data) {
+	public function AddPubIssueMain($data) {
 
 		$q = "INSERT INTO up_pub_issues_main (pub_format_id, pub_duplication_type_id, pub_issue_title, pub_issue_year, pub_issue_pages) VALUES
 				('{$data['pub_format_id']}', '{$data['pub_duplication_type_id']}', '{$data['pub_issue_title']}', '{$data['pub_issue_year']}', '{$data['pub_issue_pages']}')";
@@ -539,14 +539,14 @@ class Pub extends Library {
 		return Core::Database()->Query($q) ? Core::Database()->GetInsertId() : FALSE;
 	}
 
-	public function PubIssuePubsDelete($pubIssueId) {
+	public function DeletePubIssuePubs($pubIssueId) {
 
 		$q = "DELETE FROM up_pub_issues WHERE pub_issue_id = '{$pubIssueId}'";
 		
 		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
 	}
 
-	public function PubIssuePubsAddModify($pubIssueId, $pubList = array()) {
+	public function AddModifyPubIssuePubs($pubIssueId, $pubList = array()) {
 
 		$affected_rows = 0;
 		
@@ -567,7 +567,7 @@ class Pub extends Library {
 		return $affected_rows;
 	}
 
-	public function PubIssueMainModify($pubIssueId, $data) {
+	public function ModifyPubIssueMain($pubIssueId, $data) {
 
 		$q = "UPDATE up_pub_issues_main SET
 				pub_format_id = '{$data['pub_format_id']}',
@@ -580,7 +580,7 @@ class Pub extends Library {
 		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
 	}
 
-	public function PubIssueDetailsAddModify($pubIssueId, $i18nLocale, $pubIssueDescription) {
+	public function AddModifyPubIssueDetails($pubIssueId, $i18nLocale, $pubIssueDescription) {
 
 		$q = "INSERT INTO up_pub_issues_details (pub_issue_id, i18n_locale, pub_issue_description) VALUES
 				('{$pubIssueId}', '{$i18nLocale}', '{$pubIssueDescription}')
@@ -589,14 +589,14 @@ class Pub extends Library {
 		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
 	}
 
-	public function PubIssueContentDelete($pubIssueId, $pubContentTypeId) {
+	public function DeletePubIssueContent($pubIssueId, $pubContentTypeId) {
 
 		$q = "DELETE FROM up_pub_issues_content WHERE pub_issue_id = '{$pubIssueId}' AND pub_content_type_id = '{$pubContentTypeId}'";
 		
 		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
 	}
 
-	public function PubIssueContentAddValue($pubIssueId, $pubContentTypeId, $pubIssueContentValue) {
+	public function AddPubIssueContentValue($pubIssueId, $pubContentTypeId, $pubIssueContentValue) {
 
 		$q = "INSERT INTO up_pub_issues_content (pub_issue_id, pub_content_type_id, pub_issue_content_value)
 			VALUES ('{$pubIssueId}', '{$pubContentTypeId}', '{$pubIssueContentValue}')";
@@ -604,7 +604,7 @@ class Pub extends Library {
 		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
 	}
 
-	public function PubIssueContentAddData($pubIssueId, $pubContentTypeId, $pubIssueContentData) {
+	public function AddPubIssueContentData($pubIssueId, $pubContentTypeId, $pubIssueContentData) {
 
 		$affected_rows = 0;
 		
@@ -631,13 +631,13 @@ class Pub extends Library {
 			
 			$pub_issue_content_data = array_map('trim', explode(',', $pubIssueContentData));
 			
-			return $this->PubIssueContentAddData($pubIssueId, $pubContentTypeId, $pub_issue_content_data);
+			return $this->AddPubIssueContentData($pubIssueId, $pubContentTypeId, $pub_issue_content_data);
 		}
 		
 		return $affected_rows;
 	}
 
-	public function PubImagesGet($itemId, $itemType) {
+	public function GetPubImages($itemId, $itemType) {
 
 		$data = array();
 		
@@ -660,7 +660,7 @@ class Pub extends Library {
 		return $data;
 	}
 
-	public function PubThumbnailGet($itemId, $itemType) {
+	public function GetPubThumbnail($itemId, $itemType) {
 
 		$q = "SELECT image_thumb FROM up_pub_images WHERE item_id = '{$itemId}' AND item_type = '{$itemType}' ORDER BY image_order ASC LIMIT 1";
 		
@@ -678,7 +678,7 @@ class Pub extends Library {
 		return FALSE;
 	}
 
-	public function PubImageGet($imageId) {
+	public function GetPubImage($imageId) {
 
 		$q = "SELECT item_id, item_type, image_file, image_thumb, image_order FROM up_pub_images WHERE image_id = '{$imageId}' LIMIT 1";
 		
@@ -694,7 +694,7 @@ class Pub extends Library {
 		return FALSE;
 	}
 
-	public function PubImageGetNextOrder($itemId, $itemType) {
+	public function GetNextPubImageOrder($itemId, $itemType) {
 
 		$q = "SELECT COALESCE(MAX(image_order), 0) + 1 AS next FROM up_pub_images WHERE item_id = '{$itemId}' AND item_type = '{$itemType}'";
 		
@@ -712,7 +712,7 @@ class Pub extends Library {
 		return FALSE;
 	}
 
-	public function PubImageAdd($itemId, $itemType, $imageFile, $imageThumb, $imageOrder) {
+	public function AddPubImage($itemId, $itemType, $imageFile, $imageThumb, $imageOrder) {
 
 		$q = "INSERT INTO up_pub_images (item_id, item_type, image_file, image_thumb, image_order) VALUES
 			('{$itemId}', '{$itemType}', '{$imageFile}', '{$imageThumb}', '{$imageOrder}')";
@@ -720,16 +720,16 @@ class Pub extends Library {
 		return Core::Database()->Query($q) ? Core::Database()->GetInsertId() : FALSE;
 	}
 
-	public function PubImageChangeOrder($imageId, $imageOrder) {
+	public function ChangePubImageOrder($imageId, $imageOrder) {
 
 		$q = "UPDATE up_pub_images SET image_order = '{$imageOrder}' WHERE image_id = '{$imageId}' LIMIT 1";
 		
 		return Core::Database()->Query($q) ? Core::Database()->GetAffectedRows() : FALSE;
 	}
 
-	public function PubImageDelete($imageId, $pathWww) {
+	public function DeletePubImage($imageId, $pathWww) {
 
-		$image = $this->PubImageGet($imageId);
+		$image = $this->GetPubImage($imageId);
 		
 		if (!empty($image)) {
 			

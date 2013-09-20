@@ -53,7 +53,7 @@ class Controller_Pub_Ajax extends ControllerApp {
 							
 							$image_order = $index + 1;
 							
-							$this->Pub()->PubImageChangeOrder($image_id, $image_order);
+							$this->Pub()->ChangePubImageOrder($image_id, $image_order);
 						}
 						
 						echo 'ok';

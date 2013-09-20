@@ -60,7 +60,7 @@ class Controller_Pub_App extends ControllerApp {
 		
 		$data['pub_issues'] = $this->Pub()->GetPubIssues($data['pub_id']);
 		
-		$data['pub_images'] = $this->Pub()->PubImagesGet($data['pub_id'], 'pub');
+		$data['pub_images'] = $this->Pub()->GetPubImages($data['pub_id'], 'pub');
 		
 		$data['comments'] = $this->GetComments(1, $data['pub_id'], $data);
 		
@@ -83,7 +83,7 @@ class Controller_Pub_App extends ControllerApp {
 		
 		if (!empty($data['pub_issue']['pub_issue_id'])) {
 			
-			$data['pub_issue_images'] = $this->Pub()->PubImagesGet($data['pub_issue_id'], 'pub_issue');
+			$data['pub_issue_images'] = $this->Pub()->GetPubImages($data['pub_issue_id'], 'pub_issue');
 			
 			$data['strings']['title'] = $data['pub_issue']['pub_issue_title'];
 		}

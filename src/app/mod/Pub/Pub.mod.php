@@ -77,7 +77,7 @@ class Module_Pub extends ModuleApp {
 				
 				if (empty($form['errors'])) {
 					
-					$pub_id = $this->Pub()->PubMainAdd($form['data']);
+					$pub_id = $this->Pub()->AddPubMain($form['data']);
 					
 					if (!empty($pub_id)) {
 						
@@ -85,7 +85,7 @@ class Module_Pub extends ModuleApp {
 							
 							$pub_description = $form['data']["pub_description_{$lang}"];
 							
-							if (!$this->Pub()->PubDetailsAddModify($pub_id, $locale, $pub_description)) {
+							if (!$this->Pub()->AddModifyPubDetails($pub_id, $locale, $pub_description)) {
 								
 								$form['errors']['_result'][] = __('Error saving details data.');
 							}
@@ -175,13 +175,13 @@ class Module_Pub extends ModuleApp {
 						$form['data']['pub_title_sort'] = $form['data']['pub_title'];
 					}
 					
-					$this->Pub()->PubMainModify($pubId, $form['data']);
+					$this->Pub()->ModifyPubMain($pubId, $form['data']);
 					
 					foreach ($app_langs as $lang => $locale) {
 						
 						$pub_description = $form['data']["pub_description_{$lang}"];
 						
-						$this->Pub()->PubDetailsAddModify($pubId, $locale, $pub_description);
+						$this->Pub()->AddModifyPubDetails($pubId, $locale, $pub_description);
 					}
 					
 					$this->UpdateEditLog($userId, $pubId, 'pub', 'modify');
@@ -309,11 +309,11 @@ class Module_Pub extends ModuleApp {
 				
 				if (empty($form['errors'])) {
 					
-					$pub_issue_id = $this->Pub()->PubIssueMainAdd($form['data']);
+					$pub_issue_id = $this->Pub()->AddPubIssueMain($form['data']);
 					
 					if (!empty($pub_issue_id)) {
 						
-						$this->Pub()->PubIssuePubsAddModify($pub_issue_id, $form['data']['pub_list']);
+						$this->Pub()->AddModifyPubIssuePubs($pub_issue_id, $form['data']['pub_list']);
 						
 						$this->Pub()->AddModifyPubIssueLanguages($pub_issue_id, $form['data']['pub_languages']);
 						
@@ -321,7 +321,7 @@ class Module_Pub extends ModuleApp {
 							
 							$pub_issue_description = !empty($form['data']["pub_issue_description_{$lang}"]) ? $form['data']["pub_issue_description_{$lang}"] : NULL;
 							
-							if (!$this->Pub()->PubIssueDetailsAddModify($pub_issue_id, $locale, $pub_issue_description)) {
+							if (!$this->Pub()->AddModifyPubIssueDetails($pub_issue_id, $locale, $pub_issue_description)) {
 								
 								$form['errors']['_result'][] = __('Error saving details data.');
 							}
@@ -337,14 +337,14 @@ class Module_Pub extends ModuleApp {
 									
 									$pub_issue_content_data = array_map('trim', explode(',', $data));
 									
-									if (!$this->Pub()->PubIssueContentAddData($pub_issue_id, $pub_content_type['pub_content_type_id'], $pub_issue_content_data)) {
+									if (!$this->Pub()->AddPubIssueContentData($pub_issue_id, $pub_content_type['pub_content_type_id'], $pub_issue_content_data)) {
 										
 										$form['errors']['_result'][] = __('Error saving content data.');
 									}
 								
 								} else {
 									
-									if (!$this->Pub()->PubIssueContentAddValue($pub_issue_id, $pub_content_type['pub_content_type_id'], $form['data']["pub_issue_content_{$pub_content_type['pub_content_type_id']}"])) {
+									if (!$this->Pub()->AddPubIssueContentValue($pub_issue_id, $pub_content_type['pub_content_type_id'], $form['data']["pub_issue_content_{$pub_content_type['pub_content_type_id']}"])) {
 										
 										$form['errors']['_result'][] = __('Error saving content data.');
 									}
@@ -462,11 +462,11 @@ class Module_Pub extends ModuleApp {
 				
 				if (empty($form['errors'])) {
 					
-					$this->Pub()->PubIssueMainModify($pubIssueId, $form['data']);
+					$this->Pub()->ModifyPubIssueMain($pubIssueId, $form['data']);
 					
-					$this->Pub()->PubIssuePubsDelete($pubIssueId);
+					$this->Pub()->DeletePubIssuePubs($pubIssueId);
 					
-					$this->Pub()->PubIssuePubsAddModify($pubIssueId, $form['data']['pub_list']);
+					$this->Pub()->AddModifyPubIssuePubs($pubIssueId, $form['data']['pub_list']);
 					
 					$this->Pub()->DeletePubIssueLanguages($pubIssueId);
 					
@@ -476,14 +476,14 @@ class Module_Pub extends ModuleApp {
 						
 						$pub_issue_description = !empty($form['data']["pub_issue_description_{$lang}"]) ? $form['data']["pub_issue_description_{$lang}"] : NULL;
 						
-						$this->Pub()->PubIssueDetailsAddModify($pubIssueId, $locale, $pub_issue_description);
+						$this->Pub()->AddModifyPubIssueDetails($pubIssueId, $locale, $pub_issue_description);
 					}
 					
 					foreach ($pub_content_types as $pub_content_type) {
 						
 						if (isset($form['data']["pub_issue_content_{$pub_content_type['pub_content_type_id']}"])) {
 							
-							$this->Pub()->PubIssueContentDelete($pubIssueId, $pub_content_type['pub_content_type_id']);
+							$this->Pub()->DeletePubIssueContent($pubIssueId, $pub_content_type['pub_content_type_id']);
 							
 							if (!empty($pub_content_type['contains_data'])) {
 								
@@ -491,11 +491,11 @@ class Module_Pub extends ModuleApp {
 								
 								$pub_issue_content_data = array_map('trim', explode(',', $data));
 								
-								$this->Pub()->PubIssueContentAddData($pubIssueId, $pub_content_type['pub_content_type_id'], $pub_issue_content_data);
+								$this->Pub()->AddPubIssueContentData($pubIssueId, $pub_content_type['pub_content_type_id'], $pub_issue_content_data);
 							
 							} else {
 								
-								$this->Pub()->PubIssueContentAddValue($pubIssueId, $pub_content_type['pub_content_type_id'], $form['data']["pub_issue_content_{$pub_content_type['pub_content_type_id']}"]);
+								$this->Pub()->AddPubIssueContentValue($pubIssueId, $pub_content_type['pub_content_type_id'], $form['data']["pub_issue_content_{$pub_content_type['pub_content_type_id']}"]);
 							}
 						}
 					}
@@ -606,7 +606,7 @@ class Module_Pub extends ModuleApp {
 			$upload_dir = "{$pathWww}usr/media/{$itemType}/";
 			$upload_dir_t = "{$pathWww}usr/media/{$itemType}_t/";
 			
-			$next_order = $this->Pub()->PubImageGetNextOrder($itemId, $itemType);
+			$next_order = $this->Pub()->GetNextPubImageOrder($itemId, $itemType);
 			
 			if (is_array($_FILES['images']['name'])) {
 				
@@ -624,7 +624,7 @@ class Module_Pub extends ModuleApp {
 							
 							$thumbnail_name = Core::Graphics()->GetThumbnail($upload_dir, $file_name, $upload_dir_t);
 							
-							$image_id = $this->Pub()->PubImageAdd($itemId, $itemType, $file_name, $thumbnail_name, $next_order);
+							$image_id = $this->Pub()->AddPubImage($itemId, $itemType, $file_name, $thumbnail_name, $next_order);
 							
 							$this->UpdateEditLog($userId, $image_id, 'pub_image', 'add');
 							
@@ -640,7 +640,7 @@ class Module_Pub extends ModuleApp {
 				
 				$thumbnail_name = Core::Graphics()->GetThumbnail($upload_dir, $file_name, $upload_dir_t);
 				
-				$image_id = $this->Pub()->PubImageAdd($itemId, $itemType, $file_name, $thumbnail_name, $next_order);
+				$image_id = $this->Pub()->AddPubImage($itemId, $itemType, $file_name, $thumbnail_name, $next_order);
 				
 				$this->UpdateEditLog($userId, $image_id, 'pub_image', 'add');
 			}

@@ -132,7 +132,7 @@ class Controller_Pub_Edit extends ControllerApp {
 		
 		$data['item_type'] = 'pub';
 		
-		$data['pub_images'] = $this->Pub()->PubImagesGet($data['item_id'], 'pub');
+		$data['pub_images'] = $this->Pub()->GetPubImages($data['item_id'], 'pub');
 		
 		$data['form'] = $this->Module()->GetPubImagesForm($data['item_id'], $data['item_type'], $data['path']['www']);
 		
@@ -159,7 +159,7 @@ class Controller_Pub_Edit extends ControllerApp {
 		
 		$data['item_type'] = 'pub_issue';
 		
-		$data['pub_images'] = $this->Pub()->PubImagesGet($data['item_id'], $data['item_type']);
+		$data['pub_images'] = $this->Pub()->GetPubImages($data['item_id'], $data['item_type']);
 		
 		$data['form'] = $this->Module()->GetPubImagesForm($data['item_id'], $data['item_type'], $data['path']['www'], $data['pub_id']);
 		
@@ -181,7 +181,7 @@ class Controller_Pub_Edit extends ControllerApp {
 		return TRUE;
 	}
 
-	public function PubImageDelete() {
+	public function DeletePubImage() {
 
 		$this->Init();
 		
@@ -195,7 +195,7 @@ class Controller_Pub_Edit extends ControllerApp {
 		
 		if (!empty($data['image_id'])) {
 			
-			$this->Pub()->PubImageDelete($data['image_id'], $data['path']['www']);
+			$this->Pub()->DeletePubImage($data['image_id'], $data['path']['www']);
 			
 			$this->Module()->UpdateEditLog($data['user']['Id'], $data['image_id'], 'pub_image', 'delete');
 		}
