@@ -54,9 +54,10 @@ a:hover {
 }
 
 header,main,footer {
-	width: 1024px;
+	width: 1014px;
 	margin: 0 auto;
 	clear: both;
+	position: relative;
 	text-align: center;
 }
 
@@ -66,13 +67,14 @@ header h1 {
 
 aside {
 	float: left;
-	width: 238px;
+	width: 235px;
 	display: inline;
+	text-align: center;
 }
 
 aside#right {
 	float: right;
-	width: 238px;
+	width: 235px;
 	display: inline;
 }
 
@@ -98,10 +100,6 @@ section {
 	padding-bottom: 10px;
 }
 
-aside {
-	
-}
-
 article {
 	margin: 0 1em;
 	padding: .3em 0;
@@ -120,10 +118,11 @@ p {
 	margin: 0.5em 0;
 }
 
-header article {
-	float: right;
-	display: inline;
-	text-align: right;
+#header_user {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	right: 0;
 }
 
 nav {

@@ -1,14 +1,16 @@
 	<header>
 	
-		<article class="clearfix">
+		<div id="header_user">
 		
 		<?php if (!empty($user['Logged'])) { ?>
 				<strong><?php echo $user['Prop']['user_nickname']; ?></strong> <a href="<?php echo $url['www']; ?>Users/App/Logout" title="<?php echo __('Logout'); ?>"><?php echo __('Logout'); ?></a>
 		<?php } else { ?>
+				<a href="<?php echo $url['www']; ?>Users/App/Register" title="<?php echo __('Register'); ?>"><?php echo __('Register'); ?></a>
+				 <?php echo __('or'); ?> 
 				<a href="<?php echo $url['www']; ?>Users/App/Account" title="<?php echo __('Login'); ?>"><?php echo __('Login'); ?></a>
 		<?php } ?>
 		
-		</article>
+		</div>
 		
 		<h1><?php echo $strings['title_app']; ?></h1>
 		
