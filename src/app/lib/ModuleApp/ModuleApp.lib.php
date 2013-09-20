@@ -263,7 +263,9 @@ class ModuleApp extends Module {
 		
 		$data['url']['next_string'] = !empty($data['query']['next']) ? "/next/{$data['query']['next']}" : NULL;
 		
-		$data['url']['items_admin'] = !empty($data['info']['url_next']) ? "{$data['url']['www']}{$data['info']['url_next']}" : "{$data['url']['www']}Items/Admin/Items";
+		// $data['url']['items_admin'] = !empty($data['info']['url_next']) ? "{$data['url']['www']}{$data['info']['url_next']}" : "{$data['url']['www']}Items/Admin/Items";
+		
+		$data['stats']['pub'] = $this->Pub()->GetPubStats();
 		
 		return $data;
 	}

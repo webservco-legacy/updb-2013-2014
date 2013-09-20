@@ -33,11 +33,15 @@ class Controller_Content_App extends ControllerApp {
 
 	public function Home() {
 
-		/**
-		 * If you need to output static data, just use this:
-		 * (alternatively you could set the title (see Info())
-		 */
-		return $this->GetDefaultOutput();
+		$this->Init();
+		
+		$data = $this->Module()->GetData($this->_mRequest);
+		
+		$data['latest_issues'] = $this->Pub()->GetLatestPubIssues();
+		
+		echo $this->GetOutput($data);
+		
+		return TRUE;
 	}
 
 	public function Restricted() {

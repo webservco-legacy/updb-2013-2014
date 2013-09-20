@@ -275,6 +275,37 @@ class Pub extends Library {
 		return $data;
 	}
 
+	public function GetLatestPubIssues($i18nLocale = NULL) {
+
+		$data = array();
+		
+		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
+		
+		$q = "SELECT M.pub_issue_id, F.pub_format_name, D.pub_duplication_type_title,
+				M.pub_issue_title, M.pub_issue_year, M.pub_issue_pages
+				FROM up_pub_issues_main AS M
+				LEFT JOIN up_pub_formats_main AS F ON (F.pub_format_id = M.pub_format_id)
+				LEFT JOIN up_pub_duplication_types_details AS D ON (D.pub_duplication_type_id = M.pub_duplication_type_id AND D.i18n_locale = '{$i18n_locale}')
+				WHERE 1
+				ORDER BY M.pub_issue_id DESC LIMIT 5";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['pub_issue_id']] = $r;
+				
+				$data[$r['pub_issue_id']]['thumbnail'] = $this->GetPubThumbnail($r['pub_issue_id'], 'pub_issue');
+			}
+		}
+		
+		return $data;
+	}
+
 	public function GetPubList($pubIssueId = NULL) {
 
 		$data = array();
@@ -752,6 +783,274 @@ class Pub extends Library {
 		}
 		
 		return FALSE;
+	}
+
+	public function GetTotalPubs() {
+
+		$q = "SELECT COUNT(pub_id) AS total FROM up_pub_main";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (1 == $t) {
+			$r = $rs->fetch_assoc();
+			
+			return $r['total'];
+		}
+		
+		return FALSE;
+	}
+
+	public function GetTotalPubIssues() {
+
+		$q = "SELECT COUNT(pub_issue_id) AS total FROM up_pub_issues_main";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (1 == $t) {
+			$r = $rs->fetch_assoc();
+			
+			return $r['total'];
+		}
+		
+		return FALSE;
+	}
+
+	public function GetExistingPubTypes($i18nLocale = NULL) {
+
+		$data = array();
+		
+		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
+		
+		$q = "SELECT P.pub_type_id AS id, T.pub_type_title AS title, COUNT(P.pub_type_id) AS total
+				FROM up_pub_main AS P
+				LEFT JOIN up_pub_types_details AS T ON (T.pub_type_id = P.pub_type_id AND T.i18n_locale = '{$i18n_locale}')
+				GROUP BY P.pub_type_id";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['id']] = $r;
+			}
+		}
+		
+		return $data;
+	}
+
+	public function GetExistingPubCountries() {
+
+		$data = array();
+		
+		$q = "SELECT P.country_code AS id, C.country_name AS title, COUNT(P.country_code) AS total
+				FROM up_pub_main AS P
+				LEFT JOIN up_geo_countries AS C ON (C.country_code = P.country_code)
+				GROUP BY P.country_code";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['id']] = $r;
+			}
+		}
+		
+		return $data;
+	}
+
+	public function GetExistingPubIssueFormats() {
+
+		$data = array();
+		
+		$q = "SELECT I.pub_format_id AS id, F.pub_format_name AS title, COUNT(pub_issue_id) AS total
+				FROM up_pub_issues_main AS I
+				LEFT JOIN up_pub_formats_main AS F ON (F.pub_format_id = I.pub_format_id)
+				GROUP BY I.pub_format_id";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['id']] = $r;
+			}
+		}
+		
+		return $data;
+	}
+
+	public function GetExistingPubIssueDuplicationTypes($i18nLocale = NULL) {
+
+		$data = array();
+		
+		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
+		
+		$q = "SELECT I.pub_duplication_type_id AS id, D.pub_duplication_type_title AS title, COUNT(I.pub_issue_id) AS total
+				FROM up_pub_issues_main AS I
+				LEFT JOIN up_pub_duplication_types_details AS D ON (D.pub_duplication_type_id = I.pub_duplication_type_id AND D.i18n_locale = '{$i18n_locale}')
+				GROUP BY I.pub_duplication_type_id";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['id']] = $r;
+			}
+		}
+		
+		return $data;
+	}
+
+	public function GetExistingPubIssueYears() {
+
+		$data = array();
+		
+		$q = "SELECT I.pub_issue_year AS id, COUNT(I.pub_issue_id) AS total
+				FROM up_pub_issues_main AS I
+				GROUP BY I.pub_issue_year";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['id']] = $r['total'];
+			}
+		}
+		
+		return $data;
+	}
+
+	public function GetExistingPubIssueLanguages() {
+
+		$data = array();
+		
+		$q = "SELECT I.language_code AS id, L.language_name AS title, COUNT(I.pub_issue_id) as total
+				FROM up_pub_issues_languages AS I
+				LEFT JOIN up_geo_languages AS L ON (L.language_code = I.language_code)
+				GROUP BY I.language_code";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['id']] = $r;
+			}
+		}
+		
+		return $data;
+	}
+
+	public function GetExistingPubIssueContentData($i18nLocale = NULL) {
+
+		$data = array();
+		
+		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
+		
+		$q = "SELECT I.pub_content_type_id AS id, C.pub_content_type_title AS title, I.pub_issue_content_data AS content, COUNT(I.pub_issue_content_data) AS total
+				FROM up_pub_issues_content AS I
+				LEFT JOIN up_pub_content_types_main AS M ON (M.pub_content_type_id = I.pub_content_type_id)
+				LEFT JOIN up_pub_content_types_details AS C ON (C.pub_content_type_id = M.pub_content_type_id AND C.i18n_locale = '{$i18n_locale}')
+				WHERE M.contains_data = '1'
+				GROUP BY I.pub_issue_content_data
+				ORDER BY title, content";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['id']]['id'] = $r['id'];
+				$data[$r['id']]['title'] = $r['title'];
+				$data[$r['id']]['content'][$r['content']] = $r['total'];
+			}
+		}
+		
+		return $data;
+	}
+
+	public function GetExistingPubIssueContentValues($i18nLocale = NULL) {
+
+		$data = array();
+		
+		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
+		
+		$q = "SELECT I.pub_content_type_id AS id, C.pub_content_type_title AS title, COUNT(I.pub_issue_content_value) AS total
+				FROM up_pub_issues_content AS I
+				LEFT JOIN up_pub_content_types_main AS M ON (M.pub_content_type_id = I.pub_content_type_id)
+				LEFT JOIN up_pub_content_types_details AS C ON (C.pub_content_type_id = M.pub_content_type_id AND C.i18n_locale = '{$i18n_locale}')
+				WHERE M.contains_data = '0' AND I.pub_issue_content_value = '1'
+				GROUP BY I.pub_content_type_id
+				ORDER BY title";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['id']] = $r;
+			}
+		}
+		
+		return $data;
+	}
+
+	public function GetPubStats($i18nLocale = NULL) {
+
+		$stats = array();
+		
+		$stats['total_pubs'] = $this->GetTotalPubs();
+		
+		$stats['total_pub_issues'] = $this->GetTotalPubIssues();
+		
+		$stats['type'] = $this->GetExistingPubTypes($i18nLocale);
+		
+		$stats['country'] = $this->GetExistingPubCountries();
+		
+		$stats['format'] = $this->GetExistingPubIssueFormats();
+		
+		$stats['duplication'] = $this->GetExistingPubIssueDuplicationTypes($i18nLocale);
+		
+		$stats['year'] = $this->GetExistingPubIssueYears();
+		
+		$stats['language'] = $this->GetExistingPubIssueLanguages();
+		
+		$stats['content']['data'] = $this->GetExistingPubIssueContentData($i18nLocale);
+		
+		$stats['content']['values'] = $this->GetExistingPubIssueContentValues($i18nLocale);
+		
+		return $stats;
 	}
 }
 ?>
