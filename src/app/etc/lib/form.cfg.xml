@@ -29,6 +29,10 @@
 					<text>The field "%s" is too long.</text>
 					<description>The field must contain at most %s chars.</description>
 				</haslengthmax>
+				<haswordsmin>
+					<text>The field "%s" is too short.</text>
+					<description>The field must contain at least %s words.</description>
+				</haswordsmin>
 				<haswordsmax>
 					<text>The field "%s" is too long.</text>
 					<description>The field must contain at most %s words.</description>

@@ -1,18 +1,4 @@
 --------------------------------------------------------------------------------
-todo:
-
-contact sys
-
-comment sys
-
-list + stats + search:
-- pub types
-- issue languages
-- issue content types
-- issue duplication types
-- issue formats
-
-
 --------------------------------------------------------------------------------
 http://punkzinearchive.blogspot.hu/
 http://punksishippies.blogspot.hu/

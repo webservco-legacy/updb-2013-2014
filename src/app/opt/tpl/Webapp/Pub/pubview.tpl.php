@@ -1,4 +1,4 @@
-<article>
+<article class="clearfix">
 
 <?php
 if (!empty($pub)) {
@@ -7,7 +7,7 @@ if (!empty($pub)) {
 	
 	echo "<h2>{$pub['pub_title']}</h2>";
 	
-	echo "<div class=\"pub_content\">{$pub['pub_description']}</div>";
+	echo "<div class=\"pub_content\">". nl2br($pub['pub_description']) . "</div>";
 	
 	if (!empty($pub_images)) {
 		
@@ -37,7 +37,7 @@ if (!empty($pub)) {
 			echo '<div class="pub_list_details">';
 			echo "<strong><a href=\"{$url['www']}Pub/App/PubIssueView/issue/{$issue['pub_issue_id']}/pub/{$pub['pub_id']}\">{$issue['pub_issue_title']}</a></strong>";
 			echo " {$issue['pub_issue_year']}<br />";
-			echo "{$issue['pub_format_title']}, {$issue['pub_duplication_type_title']}, {$issue['pub_issue_pages']} " . __('pages');
+			echo "{$issue['pub_format_name']}, {$issue['pub_duplication_type_title']}, {$issue['pub_issue_pages']} " . __('pages');
 			echo "</div>";
 			echo "</div>";
 		}

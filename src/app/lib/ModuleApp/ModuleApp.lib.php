@@ -42,6 +42,13 @@ class ModuleApp extends Module {
 	 */
 	private $_mPub = NULL;
 
+	/**
+	 * Comments library object.
+	 * 
+	 * @var mixed
+	 */
+	private $_mComments = NULL;
+
 	public $_mDbExtra = NULL;
 
 	/**
@@ -121,6 +128,7 @@ class ModuleApp extends Module {
 	 * $data['url']
 	 * Default URLs
 	 * Values:
+	 * $data['url']['current'] (http://www.example.com/location)
 	 * $data['url']['www'] (http://www.example.com)
 	 * $data['url']['skin'] (http://www.example.com/myskin/)
 	 * $data['url']['scripts'] (http://www.example.com/js/)
@@ -273,6 +281,20 @@ class ModuleApp extends Module {
 		}
 		
 		return $this->_mPub;
+	}
+
+	public function Comments() {
+
+		if (NULL == $this->_mComments) {
+			
+			$this->_mComments = Core::Get('Library_Comments');
+			
+			$app_prefix = Core::Config()->Get('app.prefix');
+			
+			$this->_mComments->Init($app_prefix);
+		}
+		
+		return $this->_mComments;
 	}
 
 	public function UpdateEditLog($userId, $itemId, $itemType, $editAction) {

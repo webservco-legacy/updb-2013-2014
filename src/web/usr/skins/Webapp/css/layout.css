@@ -67,11 +67,19 @@ header h1 {
 aside {
 	float: left;
 	width: 238px;
+	display: inline;
+}
+
+aside#right {
+	float: right;
+	width: 238px;
+	display: inline;
 }
 
 section#content {
 	float: left;
 	width: 540px;
+	display: inline;
 	min-height: 320px;
 	overflow: auto;
 }
@@ -343,4 +351,22 @@ a.pub_list_thumb {
 
 .pub_gallery {
 	
+}
+
+article.comments {
+	border-top: 1px dashed #777;
+	font-size: 0.8em;
+}
+
+article.comments .comment {
+	background: #eee;
+	padding: 5px 5px 5px 5px;
+	margin: 5px 0 5px 0;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+article.comments textarea {
+	height: 3em;
 }

@@ -594,7 +594,7 @@ CREATE TABLE IF NOT EXISTS `up_pub_details` (
 
 CREATE TABLE IF NOT EXISTS `up_pub_formats_main` (
   `pub_format_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `pub_format_title` varchar(45) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `pub_format_name` varchar(45) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`pub_format_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
@@ -602,7 +602,7 @@ CREATE TABLE IF NOT EXISTS `up_pub_formats_main` (
 -- Dumping data for table `up_pub_formats_main`
 --
 
-INSERT INTO `up_pub_formats_main` (`pub_format_id`, `pub_format_title`) VALUES
+INSERT INTO `up_pub_formats_main` (`pub_format_id`, `pub_format_name`) VALUES
 (1, 'A5'),
 (2, 'A4'),
 (3, 'A3');

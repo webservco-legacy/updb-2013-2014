@@ -51,11 +51,20 @@
 					</send>
 				</login>
 				<register>
+					<nickname>
+						<type>text</type>
+						<title>Nickname</title>
+						<description>The name you choose will be displayed on the website.</description>
+						<required>1</required>
+						<filters>StripTags|RemoveBadChars</filters>
+						<conditions>HasLengthMin[4]|HasLengthMax[90]</conditions>
+					</nickname>
+					<!-- 
 					<name_first>
 						<type>text</type>
 						<title>Name</title>
 						<description></description>
-						<required>1</required>
+						<required></required>
 						<filters>StripTags|RemoveBadChars</filters>
 						<conditions>HasLengthMin[4]|HasLengthMax[90]</conditions>
 					</name_first>
@@ -76,10 +85,13 @@
 						<conditions></conditions>
 						<content></content>
 					</country>
+					-->
+					
+					
 					<email>
 						<type>text</type>
 						<title>Email</title>
-						<description></description>
+						<description>Your email address will be used to login.</description>
 						<required>1</required>
 						<filters>StripTags</filters>
 						<conditions>IsValidEmail|HasLengthMin[4]|HasLengthMax[90]</conditions>

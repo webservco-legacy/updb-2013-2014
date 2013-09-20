@@ -24,7 +24,7 @@ INSERT INTO up_pub_duplication_types_details (pub_duplication_type_id, i18n_loca
 /* PUB FORMATS */
 
 TRUNCATE TABLE up_pub_formats_main;
-INSERT INTO up_pub_formats_main (pub_format_id, pub_format_title) VALUES 
+INSERT INTO up_pub_formats_main (pub_format_id, pub_format_name) VALUES 
 (1, 'A5'), (2, 'A4'), (3, 'A3');
 
 /* PUB CONTENT TYPES */

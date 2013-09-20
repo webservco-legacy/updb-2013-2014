@@ -62,6 +62,8 @@ class Controller_Pub_App extends ControllerApp {
 		
 		$data['pub_images'] = $this->Pub()->PubImagesGet($data['pub_id'], 'pub');
 		
+		$data['comments'] = $this->GetComments(1, $data['pub_id'], $data);
+		
 		echo $this->GetOutput($data);
 		
 		return TRUE;
@@ -85,6 +87,8 @@ class Controller_Pub_App extends ControllerApp {
 			
 			$data['strings']['title'] = $data['pub_issue']['pub_issue_title'];
 		}
+		
+		$data['comments'] = $this->GetComments(2, $data['pub_issue_id'], $data);
 		
 		echo $this->GetOutput($data);
 		

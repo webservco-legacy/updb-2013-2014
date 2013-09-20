@@ -19,9 +19,11 @@
 				<attempts>10</attempts>
 			</login>
 			<props>
+				<!-- 
 				<item>user_name_first</item>
 				<item>user_name_last</item>
 				<item>user_country</item>
+				 -->
 			</props>
 		</user>
 	</prod>

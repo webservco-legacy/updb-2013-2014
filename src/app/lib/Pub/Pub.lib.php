@@ -105,7 +105,7 @@ class Pub extends Library {
 
 		$data = array();
 		
-		$q = "SELECT M.pub_format_id, M.pub_format_title
+		$q = "SELECT M.pub_format_id, M.pub_format_name
 				FROM up_pub_formats_main AS M
 				ORDER BY M.pub_format_id";
 		
@@ -117,7 +117,7 @@ class Pub extends Library {
 			
 			while ($r = $rs->fetch_assoc()) {
 				
-				$data[$r['pub_format_id']] = $r['pub_format_title'];
+				$data[$r['pub_format_id']] = $r['pub_format_name'];
 			}
 		}
 		
@@ -246,7 +246,7 @@ class Pub extends Library {
 		
 		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
 		
-		$q = "SELECT M.pub_issue_id, P.pub_title, F.pub_format_title, D.pub_duplication_type_title, 
+		$q = "SELECT M.pub_issue_id, P.pub_title, F.pub_format_name, D.pub_duplication_type_title, 
 		M.pub_issue_title, M.pub_issue_year, M.pub_issue_pages
 		FROM
 		up_pub_issues AS J
@@ -314,7 +314,7 @@ class Pub extends Library {
 
 		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
 		
-		$q = "SELECT M.pub_issue_id, F.pub_format_title, DT.pub_duplication_type_title, 
+		$q = "SELECT M.pub_issue_id, F.pub_format_name, DT.pub_duplication_type_title, 
 		M.pub_issue_title, M.pub_issue_year, M.pub_issue_pages
 		, D.pub_issue_description
 		FROM up_pub_issues_main AS M

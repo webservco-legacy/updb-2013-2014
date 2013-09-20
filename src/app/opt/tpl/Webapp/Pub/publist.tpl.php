@@ -1,4 +1,4 @@
-<article>
+<article class="clearfix">
 
 	<h2><?php echo $strings['title']; ?></h2>
 	

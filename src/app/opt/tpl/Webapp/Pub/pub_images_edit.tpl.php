@@ -1,4 +1,4 @@
-<article>
+<article class="clearfix">
 
 	<h2>Images</h2>
 <?php

@@ -36,14 +36,15 @@
 	
 	<main>
 	
+		<?php echo $tpl_right; ?>
+	
 		<?php echo $tpl_left; ?>
 		
 		<section id="content">
 			<?php echo $tpl_content; ?>
-	
+			
+			<?php echo $tpl_comments; ?>
 		</section>
-		
-		<?php echo $tpl_right; ?>
 		
 	</main>
 

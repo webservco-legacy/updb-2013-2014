@@ -43,6 +43,13 @@ class ControllerApp extends Controller {
 	private $_mPub = NULL;
 
 	/**
+	 * Comments library object.
+	 * 
+	 * @var mixed
+	 */
+	private $_mComments = NULL;
+
+	/**
 	 * Controller initialization.
 	 * 
 	 * @return bool
@@ -314,6 +321,39 @@ class ControllerApp extends Controller {
 		}
 		
 		return $this->_mPub;
+	}
+
+	public function Comments() {
+
+		if (NULL == $this->_mComments) {
+			
+			$this->_mComments = Core::Get('Library_Comments');
+			
+			$app_prefix = Core::Config()->Get('app.prefix');
+			
+			$this->_mComments->Init($app_prefix);
+		}
+		
+		return $this->_mComments;
+	}
+
+	public function GetComments($commentTypeId, $itemId, $data) {
+
+		$comments['show'] = TRUE;
+		
+		$comments['list'] = $this->Comments()->GetList($commentTypeId, $itemId);
+		
+		$comments['next'] = Core::String()->EncodeUrlString("{$data['info']['location']}{$data['info']['path']}");
+		
+		if (!empty($data['user']['Logged'])) {
+			
+			$comments['id'] = !empty($data['query']['comment']) ? $data['query']['comment'] : NULL;
+			
+			$comments['form'] = $this->Comments()->GetForm('user', $data['user']['Id'], $commentTypeId, $itemId, $comments['id']);
+		
+		}
+		
+		return $comments;
 	}
 }
 ?>

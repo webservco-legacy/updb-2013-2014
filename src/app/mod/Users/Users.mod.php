@@ -141,12 +141,9 @@ class Module_Users extends ModuleApp {
 		
 		Core::Form()->SetData($form_config);
 		
-		$countries = Core::Geo()->GetCountries();
-		
-		if (!empty($countries)) {
-			
-			Core::Form()->SetMeta('country', 'options', $countries);
-		}
+		/*
+		 * $countries = Core::Geo()->GetCountries(); if (!empty($countries)) { Core::Form()->SetMeta('country', 'options', $countries); }
+		 */
 		
 		$form['meta'] = Core::Form()->GetMeta();
 		
@@ -162,9 +159,16 @@ class Module_Users extends ModuleApp {
 				
 				$email_exists = Core::Database()->ValueExists("{$this->_mAppPrefix}acl_users", 'user_email', $form['data']['email']);
 				
+				$nickname_exists = Core::Database()->ValueExists("{$this->_mAppPrefix}acl_users", 'user_nickname', $form['data']['nickname']);
+				
 				if ($email_exists) {
 					
 					$form['errors']['email'][] = sprintf(Core::Config()->Get('form.error.alreadyregistered.text'), $form['meta']['email']['title']);
+				}
+				
+				if ($nickname_exists) {
+					
+					$form['errors']['nickname'][] = sprintf(Core::Config()->Get('form.error.alreadyregistered.text'), $form['meta']['nickname']['title']);
 				}
 				
 				if ($form['data']['password'] != $form['data']['password_confirm']) {
@@ -204,8 +208,8 @@ class Module_Users extends ModuleApp {
 		
 		$user_auth = Core::Security()->GetToken($user_salt, $formData['password']);
 		
-		$q = "INSERT INTO {$this->_mAppPrefix}acl_users (user_email, user_auth, owner_id, user_date_add) VALUES
-		('{$formData['email']}', '{$user_auth}', 1, NOW())";
+		$q = "INSERT INTO {$this->_mAppPrefix}acl_users (user_email, user_nickname, user_auth, owner_id, user_date_add) VALUES
+		('{$formData['email']}', '{$formData['nickname']}', '{$user_auth}', 1, NOW())";
 		
 		Core::Database()->Query($q);
 		
@@ -239,49 +243,61 @@ class Module_Users extends ModuleApp {
 		return $user_id;
 	}
 
-	public function InsertCustomData($userId, $formData) {
+	public function InsertCustomData($userId, $formData = array()) {
 
 		$data = array(
 			'user_id_key' => $userId
 		);
 		
 		unset($formData['email']);
+		unset($formData['nickname']);
 		unset($formData['password']);
 		unset($formData['password_confirm']);
 		unset($formData['send']);
 		
-		foreach ($formData as $key => $value) {
+		if (!empty($formData)) {
 			
-			$data["user_{$key}"] = $value;
+			foreach ($formData as $key => $value) {
+				
+				$data["user_{$key}"] = $value;
+			}
+			
+			$qc = "INSERT INTO {$this->_mAppPrefix}acl_users_custom (";
+			$qc .= implode(', ', array_keys($data));
+			$qc .= ") VALUES (";
+			$qc .= "'" . implode("', '", array_values($data)) . "'";
+			$qc .= ")";
+			
+			return Core::Database()->Query($qc) ? TRUE : FALSE;
+		
 		}
 		
-		$qc = "INSERT INTO {$this->_mAppPrefix}acl_users_custom (";
-		$qc .= implode(', ', array_keys($data));
-		$qc .= ") VALUES (";
-		$qc .= "'" . implode("', '", array_values($data)) . "'";
-		$qc .= ")";
-		
-		return Core::Database()->Query($qc) ? TRUE : FALSE;
+		return FALSE;
 	}
 
-	public function ModifyCustomData($userId, $formData) {
+	public function ModifyCustomData($userId, $formData = array()) {
 
-		foreach ($formData as $key => $value) {
+		if (!empty($formData)) {
 			
-			$data["user_{$key}"] = $value;
+			foreach ($formData as $key => $value) {
+				
+				$data["user_{$key}"] = $value;
+			}
+			
+			$qc = "UPDATE {$this->_mAppPrefix}acl_users_custom SET ";
+			
+			foreach ($data as $key => $value) {
+				
+				$qm[] = "`{$key}` = '{$value}'";
+			}
+			
+			$qc .= implode(', ', $qm);
+			$qc .= " WHERE user_id_key = '{$userId}' LIMIT 1";
+			
+			return Core::Database()->Query($qc) ? TRUE : FALSE;
 		}
 		
-		$qc = "UPDATE {$this->_mAppPrefix}acl_users_custom SET ";
-		
-		foreach ($data as $key => $value) {
-			
-			$qm[] = "`{$key}` = '{$value}'";
-		}
-		
-		$qc .= implode(', ', $qm);
-		$qc .= " WHERE user_id_key = '{$userId}' LIMIT 1";
-		
-		return Core::Database()->Query($qc) ? TRUE : FALSE;
+		return FALSE;
 	}
 
 	public function GetResetPasswordForm() {
@@ -568,7 +584,7 @@ class Module_Users extends ModuleApp {
 		FROM {$this->_mAppPrefix}acl_object_user
 		WHERE 1
 		{$q_conditions}
-		ORDER BY user_name_last, user_name_first
+		ORDER BY user_name_last, user_name_first, user_nickname
 		{$q_limit}";
 		
 		$rs = Core::Database()->Query($q);
