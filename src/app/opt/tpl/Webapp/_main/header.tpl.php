@@ -24,7 +24,7 @@
 				
 				if (!empty($menu_item['resource'])) {
 					
-					if (0 === strpos($info['location'], $menu_item['resource']) || (empty($info['location']) && '/' == $menu_item['resource'])) {
+					if (0 === strpos("{$info['location']}{$info['path']}", $menu_item['resource']) || (empty($info['location']) && '/' == $menu_item['resource'])) {
 						$a_class = ' class="active"';	
 					}
 				}
