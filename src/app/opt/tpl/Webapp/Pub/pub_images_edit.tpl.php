@@ -47,7 +47,7 @@ if (!empty($pub_images)) {
 	foreach ($pub_images as $image_id => $image_data) {
 		echo "<li id=\"{$image_id}\">";
 		echo "<a class=\"gallery_item\" href=\"{$url['www']}usr/media/{$item_type}/{$image_data['image_file']}\">";
-		echo "<img src=\"{$url['www']}usr/media/{$item_type}_t/{$image_data['image_thumb']}\" />";
+		echo "<img src=\"{$url['www']}usr/media/{$item_type}_t/{$image_data['image_thumb']}\" alt=\"{$image_data['image_file']}\" />";
 		echo "</a>";
 		echo " <a href=\"{$url['www']}Pub/Edit/PubImageDelete/id/{$image_id}/next/{$delete_next}\">" . __('Delete') . "</a>";
 		echo "</li>";

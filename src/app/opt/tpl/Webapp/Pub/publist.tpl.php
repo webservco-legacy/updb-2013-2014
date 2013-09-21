@@ -10,7 +10,7 @@ if (!empty($publications)) {
 		echo "<a class=\"pub_list_thumb\" href=\"{$url['www']}Pub/App/PubView/pub/{$pub['pub_id']}\">";
 		echo "<img src=\"";
 		echo !empty($pub['thumbnail']) ? "{$url['www']}usr/media/pub_t/{$pub['thumbnail']}" : "{$url['skin']}img/no_image.jpg";
-		echo "\" />";
+		echo "\" alt=\"{$pub['pub_title']}\" />";
 		echo '</a>';
 		echo '<div class="pub_list_details">';
 		echo "<strong><a href=\"{$url['www']}Pub/App/PubView/pub/{$pub['pub_id']}\">{$pub['pub_title']}</a></strong><br />";

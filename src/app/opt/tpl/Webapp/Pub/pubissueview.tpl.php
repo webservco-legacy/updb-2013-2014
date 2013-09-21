@@ -5,7 +5,11 @@ if (!empty($pub_issue)) {
 	
 	echo "<h2>{$pub_issue['pub_issue_title']}</h2>";
 	
-	echo "<div class=\"pub_content pub_box\">" . nl2br($pub_issue['pub_issue_description']) . "</div>";
+	if (!empty($pub_issue['pub_issue_description'])) {
+		
+		echo "<div class=\"pub_content pub_box\">" . nl2br($pub_issue['pub_issue_description']) . "</div>";
+	
+	}
 	
 	echo '<div class="pub_content pub_box">';
 	echo "<p><strong>" . __('Format') . "</strong>: {$pub_issue['pub_format_name']}</p>";
@@ -60,7 +64,7 @@ if (!empty($pub_issue)) {
 		
 		foreach ($pub_issue_images as $image_id => $image_data) {
 			echo "<a class=\"gallery_item\" href=\"{$url['www']}usr/media/pub_issue/{$image_data['image_file']}\">";
-			echo "<img src=\"{$url['www']}usr/media/pub_issue_t/{$image_data['image_thumb']}\" />";
+			echo "<img src=\"{$url['www']}usr/media/pub_issue_t/{$image_data['image_thumb']}\" alt=\"{$pub_issue['pub_issue_title']}\" />";
 			echo "</a>";
 		}
 		

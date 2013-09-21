@@ -9,7 +9,7 @@ if (!empty($latest_issues)) {
 		echo "<a class=\"pub_list_thumb\" href=\"{$url['www']}Pub/App/PubIssueView/issue/{$issue['pub_issue_id']}\">";
 		echo "<img src=\"";
 		echo !empty($issue['thumbnail']) ? "{$url['www']}usr/media/pub_issue_t/{$issue['thumbnail']}" : "{$url['skin']}img/no_image.jpg";
-		echo "\" />";
+		echo "\" alt=\"{$issue['pub_issue_title']}\" />";
 			echo '</a>';
 				echo '<div class="pub_list_details">';
 					echo "<strong><a href=\"{$url['www']}Pub/App/PubIssueView/issue/{$issue['pub_issue_id']}\">{$issue['pub_issue_title']}</a></strong>";
