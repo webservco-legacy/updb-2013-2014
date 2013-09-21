@@ -1,0 +1,141 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: App $Id$\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-21 11:58+0100\n"
+"PO-Revision-Date: 2013-09-21 11:58+0100\n"
+"Last-Translator: Radu Maier <radu@webserv.co>\n"
+"Language-Team: WebServ.Co <radu@webserv.co>\n"
+"Language: ro_RO.UTF8\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;___:1,2;title;description;"
+"keywords;content\n"
+"X-Poedit-Basepath: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/etc/"
+"lib/\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/"
+"etc/objX-Poedit-SearchPath-2: /home/radu/Documents/Projects/Eclipse/ws_UPDb/"
+"src/app/obj/X-Poedit-SearchPath-3: /home/radu/Documents/Projects/Eclipse/"
+"ws_UPDb/src/app/libX-Poedit-SearchPath-4: /home/radu/Documents/Projects/"
+"Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main\n"
+
+#: form.cfg.xml:19
+msgid "The field \"%s\" is required."
+msgstr ""
+
+#: form.cfg.xml:22
+msgid "There is an error regarding the field \"%s\"."
+msgstr ""
+
+#: form.cfg.xml:25 form.cfg.xml:33
+msgid "The field \"%s\" is too short."
+msgstr ""
+
+#: form.cfg.xml:26
+msgid "The field must contain at least %s chars."
+msgstr ""
+
+#: form.cfg.xml:29 form.cfg.xml:37
+msgid "The field \"%s\" is too long."
+msgstr ""
+
+#: form.cfg.xml:30
+msgid "The field must contain at most %s chars."
+msgstr ""
+
+#: form.cfg.xml:34
+msgid "The field must contain at least %s words."
+msgstr ""
+
+#: form.cfg.xml:38
+msgid "The field must contain at most %s words."
+msgstr ""
+
+#: form.cfg.xml:41 form.cfg.xml:56
+msgid "The field \"%s\" doesn't mach the specified item."
+msgstr ""
+
+#: form.cfg.xml:44
+msgid "The field \"%s\" must contain both letters and numbers."
+msgstr ""
+
+#: form.cfg.xml:47
+msgid "The field \"%s\" must be numeric."
+msgstr ""
+
+#: form.cfg.xml:50
+msgid "The field \"%s\" must be an integer."
+msgstr ""
+
+#: form.cfg.xml:53
+msgid "The field \"%s\" is not a valid email address."
+msgstr ""
+
+#: form.cfg.xml:59
+msgid ""
+"\"%s\" is already registered, please choose another, or use the options to "
+"\"Login\" or \"Reset password\"."
+msgstr ""
+
+#: form.cfg.xml:62
+msgid ""
+"\"%s\" is not registered, please make sure you enter the correct address."
+msgstr ""
+
+#: form.cfg.xml:65
+msgid "Password is incorrect."
+msgstr ""
+
+#: form.cfg.xml:68
+msgid "The new password is the same as the old one."
+msgstr ""
+
+#: form.cfg.xml:71
+msgid "The passwords are not the same."
+msgstr ""
+
+#: app.cfg.xml:16
+msgid "Underground Press Database (UPDb)"
+msgstr ""
+
+#: app.cfg.xml:35 app.cfg.xml:73
+msgid "Home"
+msgstr ""
+
+#: app.cfg.xml:41
+msgid "Publications"
+msgstr "Publicații"
+
+#: app.cfg.xml:47
+msgid "My account"
+msgstr "Contul meu"
+
+#: app.cfg.xml:53
+msgid "Help"
+msgstr "Ajutor"
+
+#: app.cfg.xml:59
+msgid "About"
+msgstr "Despre"
+
+#: app.cfg.xml:65
+msgid "Contact"
+msgstr "Contact"
+
+#: app.cfg.xml:79
+msgid "Users"
+msgstr ""
+
+#: app.cfg.xml:85
+msgid "Frontend"
+msgstr ""
+
+#: comments.cfg.xml:22
+msgid "Add comment"
+msgstr ""
