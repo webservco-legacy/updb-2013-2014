@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: App $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-21 11:58+0100\n"
-"PO-Revision-Date: 2013-09-21 11:58+0100\n"
+"POT-Creation-Date: 2013-09-21 16:24+0100\n"
+"PO-Revision-Date: 2013-09-21 16:35+0100\n"
 "Last-Translator: Radu Maier <radu@webserv.co>\n"
 "Language-Team: WebServ.Co <radu@webserv.co>\n"
 "Language: ro_RO.UTF8\n"
@@ -20,10 +20,123 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/"
-"etc/objX-Poedit-SearchPath-2: /home/radu/Documents/Projects/Eclipse/ws_UPDb/"
-"src/app/obj/X-Poedit-SearchPath-3: /home/radu/Documents/Projects/Eclipse/"
-"ws_UPDb/src/app/libX-Poedit-SearchPath-4: /home/radu/Documents/Projects/"
-"Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main\n"
+"etc/obj\n"
+"X-Poedit-SearchPath-2: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/"
+"obj\n"
+"X-Poedit-SearchPath-3: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/"
+"lib\n"
+"X-Poedit-SearchPath-4: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/"
+"opt/tpl/Webapp/_main\n"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/lib/ModuleApp/ModuleApp.lib.php:94
+msgid "No data to display"
+msgstr "Nu există date de afișat"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/right.tpl.php:32
+msgid "Other"
+msgstr "Altele"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:11
+msgid "Statistics"
+msgstr "Statistici"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:15
+#: app.cfg.xml:41
+msgid "Publications"
+msgstr "Publicații"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:17
+msgid "Issues"
+msgstr "Ediții"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:25
+msgid "Types"
+msgstr "Tipuri"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:40
+msgid "Countries"
+msgstr "Țări"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:55
+msgid "Formats"
+msgstr "Formate"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:70
+msgid "Duplication"
+msgstr "Duplicare"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:85
+msgid "Years"
+msgstr "Ani"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:100
+msgid "Languages"
+msgstr "Limbi"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/admin_header.tpl.php:8
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/header.tpl.php:6
+msgid "Logout"
+msgstr "Deconectare"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/admin_header.tpl.php:9
+msgid "Administration area"
+msgstr "Zona de administrare"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/admin_header.tpl.php:11
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/comments.tpl.php:200
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/header.tpl.php:10
+msgid "Login"
+msgstr "Autentificare"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/admin_header.tpl.php:17
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/admin_layout.tpl.php:12
+msgid "Admin"
+msgstr "Admin"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/comments.tpl.php:4
+msgid "Comments"
+msgstr "Comentarii"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/comments.tpl.php:14
+msgid "edit"
+msgstr "editează"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/comments.tpl.php:21
+msgid "No comments yet"
+msgstr "Nu sunt comentarii încă"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/comments.tpl.php:31
+msgid "Error"
+msgstr "Eroare"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/comments.tpl.php:81
+msgid "Please select"
+msgstr "Selectează"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/comments.tpl.php:186
+msgid "Submit"
+msgstr "Trimite"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/comments.tpl.php:190
+msgid "Reset"
+msgstr "Resetează"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/comments.tpl.php:200
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/header.tpl.php:9
+msgid "or"
+msgstr "sau"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/comments.tpl.php:201
+msgid "register"
+msgstr "înregistrează-te"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/comments.tpl.php:201
+msgid "to post comments"
+msgstr "pentru a posta comentarii"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/header.tpl.php:8
+msgid "Register"
+msgstr "Înregistrare"
 
 #: form.cfg.xml:19
 msgid "The field \"%s\" is required."
@@ -108,10 +221,6 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: app.cfg.xml:41
-msgid "Publications"
-msgstr "Publicații"
-
 #: app.cfg.xml:47
 msgid "My account"
 msgstr "Contul meu"
@@ -130,7 +239,7 @@ msgstr "Contact"
 
 #: app.cfg.xml:79
 msgid "Users"
-msgstr ""
+msgstr "Utilizatori"
 
 #: app.cfg.xml:85
 msgid "Frontend"
@@ -138,4 +247,4 @@ msgstr ""
 
 #: comments.cfg.xml:22
 msgid "Add comment"
-msgstr ""
+msgstr "Adaugă comentariu"

@@ -1,7 +1,7 @@
 <?php if (!empty($comments['show'])) { ?>
 <article class="comments clearfix">
 
-	<h4><?php echo __('Comments'); ?></h4>
+	<h4><?php echo __('Comments', 'App'); ?></h4>
 	
 	<?php
 	if (!empty($comments['list'])) {
@@ -11,14 +11,14 @@
 			echo '<div class="comment">';
 			echo "<strong>{$comment['user_name']} (" . date("H:i d.m 'y", strtotime($comment['comment_date'])) . ')</strong>';
 			if (!empty($user['Logged']) && $comment['user_id'] == $user['Id']) {
-				echo " (<a href=\"{$url['current']}/comment/{$comment['comment_id']}\">" . __('edit') . "</a>)";
+				echo " (<a href=\"{$url['current']}/comment/{$comment['comment_id']}\">" . __('edit', 'App') . "</a>)";
 			}
 			echo '<br />' . nl2br($comment['comment_content']);
 			echo '</div>';
 		}
 	} else {
 		
-		echo '<p>' . __('No comments yet') . '</p>';
+		echo '<p>' . __('No comments yet', 'App') . '</p>';
 	}
 	
 	if (!empty($comments['form'])) {
@@ -28,7 +28,7 @@
 		if (!empty($comments['form']['errors']['_result'])) {
 			
 			echo '<p class="ko">';
-			echo '' . __('Error') . '!<br />';
+			echo '' . __('Error', 'App') . '!<br />';
 			
 			foreach ($comments['form']['errors']['_result'] as $message) {
 				
@@ -78,7 +78,7 @@
 					}
 					echo "\" id=\"{$field_id}\"{$select_multiple}>";
 					
-					echo '	<option value="">' . __('Please select') . '</option>';
+					echo '	<option value="">' . __('Please select', 'App') . '</option>';
 					
 					if (!empty($meta['options'])) {
 						
@@ -183,11 +183,11 @@
 		
 		echo "<fieldset><div>";
 		
-		echo '<input type="submit" name="submit" value="' . __('Submit') . '" />';
+		echo '<input type="submit" name="submit" value="' . __('Submit', 'App') . '" />';
 		
 		echo '&#160;&#160;&#160;';
 		
-		echo '<input type="reset" name="reset" value="' . __('Reset') . '" />';
+		echo '<input type="reset" name="reset" value="' . __('Reset', 'App') . '" />';
 		
 		echo "</div></fieldset>";
 		
@@ -197,8 +197,8 @@
 	
 	} else {
 		
-		echo "<a href=\"{$url['www']}Users/App/Account/next/{$comments['next']}\">" . __('Login') . '</a> ' . __('or') . ' ';
-		echo "<a href=\"{$url['www']}Users/App/Register{$comments['next']}\">" . __('register') . '</a> ' . __('to post comments');
+		echo "<a href=\"{$url['www']}Users/App/Account/next/{$comments['next']}\">" . __('Login', 'App') . '</a> ' . __('or', 'App') . ' ';
+		echo "<a href=\"{$url['www']}Users/App/Register{$comments['next']}\">" . __('register', 'App') . '</a> ' . __('to post comments', 'App');
 	}
 	?>
 	</article>

@@ -29,7 +29,7 @@ if (!empty($stats)) {
 		
 		echo '	<div class="stats_issue_content stats_box stats_box_right">';
 		
-		echo '		<h4>' . __('Other') . '</h4>';
+		echo '		<h4>' . __('Other', 'App') . '</h4>';
 		
 		echo '		<ul>';
 		

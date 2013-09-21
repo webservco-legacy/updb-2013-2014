@@ -8,13 +8,13 @@ if (!empty($stats)) {
 		
 		echo '	<div class="stats_issue_total stats_box stats_box_left">';
 		
-		echo '		<h4>' . __('Statistics') . '</h4>';
+		echo '		<h4>' . __('Statistics', 'App') . '</h4>';
 		
 		echo '	<ul>';
 		
-		echo '		<li>' . __('Publications') . ': ' . $stats['pub']['total_pubs'] . '</li>';
+		echo '		<li>' . __('Publications', 'App') . ': ' . $stats['pub']['total_pubs'] . '</li>';
 		
-		echo '		<li>' . __('Issues') . ': ' . $stats['pub']['total_pub_issues'] . '</li>';
+		echo '		<li>' . __('Issues', 'App') . ': ' . $stats['pub']['total_pub_issues'] . '</li>';
 		
 		echo '	</ul>';
 		
@@ -22,7 +22,7 @@ if (!empty($stats)) {
 		
 		echo '	<div class="stats_issue_type stats_box stats_box_left">';
 		
-		echo '		<h4>' . __('Types') . '</h4>';
+		echo '		<h4>' . __('Types', 'App') . '</h4>';
 		
 		echo '		<ul>';
 		
@@ -37,7 +37,7 @@ if (!empty($stats)) {
 		
 		echo '	<div class="stats_issue_country stats_box stats_box_left">';
 		
-		echo '		<h4>' . __('Countries') . '</h4>';
+		echo '		<h4>' . __('Countries', 'App') . '</h4>';
 		
 		echo '		<ul>';
 		
@@ -52,7 +52,7 @@ if (!empty($stats)) {
 		
 		echo '	<div class="stats_issue_format stats_box stats_box_left">';
 		
-		echo '		<h4>' . __('Formats') . '</h4>';
+		echo '		<h4>' . __('Formats', 'App') . '</h4>';
 		
 		echo '		<ul>';
 		
@@ -67,7 +67,7 @@ if (!empty($stats)) {
 		
 		echo '	<div class="stats_issue_duplication stats_box stats_box_left">';
 		
-		echo '		<h4>' . __('Duplication') . '</h4>';
+		echo '		<h4>' . __('Duplication', 'App') . '</h4>';
 		
 		echo '		<ul>';
 		
@@ -82,7 +82,7 @@ if (!empty($stats)) {
 		
 		echo '	<div class="stats_issue_year stats_box stats_box_left">';
 		
-		echo '		<h4>' . __('Years') . '</h4>';
+		echo '		<h4>' . __('Years', 'App') . '</h4>';
 		
 		echo '		<ul>';
 		
@@ -97,7 +97,7 @@ if (!empty($stats)) {
 		
 		echo '	<div class="stats_issue_language stats_box stats_box_left">';
 		
-		echo '		<h4>' . __('Languages') . '</h4>';
+		echo '		<h4>' . __('Languages', 'App') . '</h4>';
 		
 		echo '		<ul>';
 		

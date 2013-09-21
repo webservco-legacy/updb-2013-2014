@@ -3,11 +3,11 @@
 		<div id="header_user">
 		
 		<?php if (!empty($user['Logged'])) { ?>
-				<strong><?php echo $user['Prop']['user_nickname']; ?></strong> <a href="<?php echo $url['www']; ?>Users/App/Logout" title="<?php echo __('Logout'); ?>"><?php echo __('Logout'); ?></a>
+				<strong><?php echo $user['Prop']['user_nickname']; ?></strong> <a href="<?php echo $url['www']; ?>Users/App/Logout" title="<?php echo __('Logout', 'App'); ?>"><?php echo __('Logout', 'App'); ?></a>
 		<?php } else { ?>
-				<a href="<?php echo $url['www']; ?>Users/App/Register" title="<?php echo __('Register'); ?>"><?php echo __('Register'); ?></a>
-				 <?php echo __('or'); ?> 
-				<a href="<?php echo $url['www']; ?>Users/App/Account" title="<?php echo __('Login'); ?>"><?php echo __('Login'); ?></a>
+				<a href="<?php echo $url['www']; ?>Users/App/Register" title="<?php echo __('Register', 'App'); ?>"><?php echo __('Register', 'App'); ?></a>
+				 <?php echo __('or', 'App'); ?> 
+				<a href="<?php echo $url['www']; ?>Users/App/Account" title="<?php echo __('Login', 'App'); ?>"><?php echo __('Login', 'App'); ?></a>
 		<?php } ?>
 		
 		</div>
