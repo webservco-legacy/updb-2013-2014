@@ -134,7 +134,7 @@ class Controller_Pub_Edit extends ControllerApp {
 		
 		$data['pub_images'] = $this->Pub()->GetPubImages($data['item_id'], 'pub');
 		
-		$data['form'] = $this->Module()->GetPubImagesForm($data['item_id'], $data['item_type'], $data['path']['www']);
+		$data['form'] = $this->Module()->GetPubImagesForm($data['user']['Id'], $data['item_id'], $data['item_type'], $data['path']['www']);
 		
 		$data['delete_next'] = Core::String()->EncodeUrlString("Pub/Edit/PubImagesEdit/id/{$data['item_id']}");
 		
@@ -161,7 +161,7 @@ class Controller_Pub_Edit extends ControllerApp {
 		
 		$data['pub_images'] = $this->Pub()->GetPubImages($data['item_id'], $data['item_type']);
 		
-		$data['form'] = $this->Module()->GetPubImagesForm($data['item_id'], $data['item_type'], $data['path']['www'], $data['pub_id']);
+		$data['form'] = $this->Module()->GetPubImagesForm($data['user']['Id'], $data['item_id'], $data['item_type'], $data['path']['www'], $data['pub_id']);
 		
 		$data['back_location'] = "Pub/App/PubIssueView/issue/{$data['item_id']}";
 		

@@ -374,8 +374,8 @@ a.pub_list_thumb {
 .pub_list_details {
 	float: left;
 	display: block;
-	width: auto;
-	padding-left: 10px;
+	width: 400px;
+	margin-left: 10px;
 }
 
 .pub_gallery {

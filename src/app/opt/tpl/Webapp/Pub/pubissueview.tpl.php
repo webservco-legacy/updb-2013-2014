@@ -77,7 +77,7 @@ if (!empty($pub_issue)) {
 		
 		if (!empty($pub_id)) {
 			
-			echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueModify/issue/{$pub_issue['pub_issue_id']}\">" . __('Modify issue') . "</a></p>";
+			echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueModify/issue/{$pub_issue['pub_issue_id']}/pub/{$pub_id}\">" . __('Modify issue') . "</a></p>";
 			
 			echo "<p><a href=\"{$url['www']}Pub/Edit/PubIssueAdd/pub/{$pub_id}\">" . __('Add issue') . "</a></p>";
 			

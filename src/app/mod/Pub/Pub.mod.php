@@ -359,7 +359,14 @@ class Module_Pub extends ModuleApp {
 						$form['errors']['_result'][] = __('Error saving main data.');
 					}
 					
-					Core::Router()->Redirect("Pub/App/PubIssueView/issue/{$pub_issue_id}");
+					$redirect = "Pub/App/PubIssueView/issue/{$pub_issue_id}";
+					
+					if (!empty($pubId)) {
+						
+						$redirect .= "/pub/{$pubId}";
+					}
+					
+					Core::Router()->Redirect($redirect);
 					
 					exit();
 				
