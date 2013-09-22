@@ -44,16 +44,22 @@
 					<resource>Pub/</resource>
 				</item>
 				<item>
+					<title>Community</title>
+					<link>Content/App/Community</link>
+					<url></url>
+					<resource>Content/App/Community</resource>
+				</item>
+				<item>
+					<title>Lists</title>
+					<link>Lists/App/All</link>
+					<url></url>
+					<resource>Lists/App</resource>
+				</item>
+				<item>
 					<title>My account</title>
 					<link>Users/App/Account</link>
 					<url></url>
 					<resource>Users/App/</resource>
-				</item>
-				<item>
-					<title>Help</title>
-					<link>Content/App/Display/c/1</link>
-					<url></url>
-					<resource>Content/App/Display/c/1</resource>
 				</item>
 				<item>
 					<title>About</title>

@@ -112,6 +112,28 @@ if (!empty($stats)) {
 		
 		echo '</div>';
 	}
+	
+	if (!empty($stats['list'])) {
+		
+		echo '<div class="stats_list">';
+		
+		echo '	<div class="stats_box stats_box_left">';
+		
+		echo '		<h4>' . __('User lists', 'App') . '</h4>';
+		
+		echo '		<ul>';
+		
+		foreach ($stats['list']['types'] as $item) {
+			
+			echo "		<li>{$item['title']}: {$item['total']}</li>";
+		}
+		
+		echo '		</ul>';
+		
+		echo '	</div>';
+		
+		echo '</div>';
+	}
 }
 ?>
 </aside>

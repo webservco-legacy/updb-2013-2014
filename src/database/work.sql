@@ -61,3 +61,29 @@ WHERE M.contains_data = '0' AND I.pub_issue_content_value = '1'
 GROUP BY I.pub_content_type_id
 ORDER BY title
 ;
+
+
+-- GetItemLists($itemId, $i18nLocale = NULL)
+SELECT L.list_id, L.user_id, U.user_nickname AS user_name, L.list_title, T.list_type_title, I.item_notes
+FROM up_list_items AS I
+LEFT JOIN up_lists AS L ON (L.list_id = I.list_id)
+LEFT JOIN up_acl_users AS U ON (U.user_id = L.user_id)
+LEFT JOIN up_list_types_details AS T ON (T.list_type_id = L.list_type_id AND T.i18n_locale = 'en_US')
+WHERE I.item_id = '6'
+ORDER BY user_name;
+
+-- GetUserLists($userId, $itemId)
+SELECT L.list_id, L.list_title
+, IF(I.item_id IS NOT NULL, '1', '0') AS item_in_list
+FROM up_lists AS L
+LEFT JOIN up_list_items AS I ON (I.list_id = L.list_id AND I.item_id = '5')
+WHERE L.user_id = '1'
+ORDER BY L.list_title
+
+-- GetListTypeStats($i18nLocale = NULL)
+SELECT L.list_type_id AS id, T.list_type_title AS title, COUNT(L.list_type_id) AS total
+FROM up_lists AS L
+LEFT JOIN up_list_types_details AS T ON (T.list_type_id = L.list_type_id AND T.i18n_locale = 'en_US')
+GROUP BY id
+ORDER BY title
+;

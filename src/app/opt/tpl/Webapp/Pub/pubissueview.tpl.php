@@ -93,6 +93,63 @@ if (!empty($pub_issue)) {
 	echo "<p><a href=\"{$url['www']}Pub/App/PubList\">" . __('View all publications') . "</a></p>";
 	
 	echo '</div>';
+	
+	echo "<div class=\"issue_lists\">";
+	
+	echo "	<h4>" . __('Lists') . "</h4>";
+	
+	if (!empty($item_lists)) {
+		
+		echo __('This issue is in the following lists') . ':';
+		
+		foreach ($item_lists as $list) {
+			
+			echo '<div class="list_item">';
+			echo "{$list['list_type_title']}: ";
+			echo "<strong><a href=\"{$url['www']}Lists/App/Details/list/{$list['list_id']}\"> {$list['list_title']}</a></strong> ";
+			echo "(<strong>{$list['user_name']}</strong>)";
+			echo "</div>";
+		}
+	} else {
+		
+		echo '<p>' . __('No lists') . '</p>';
+	}
+	
+	echo "	<h4>" . __('Your lists') . "</h4>";
+	
+	if (!empty($user['Logged'])) {
+		
+		if (!empty($user_lists)) {
+			
+			foreach ($user_lists as $list) {
+				
+				echo '<div class="list_item">';
+				echo "{$list['list_type_title']}: ";
+				echo "<strong><a href=\"{$url['www']}Lists/App/Details/list/{$list['list_id']}\"> {$list['list_title']}</a></strong>";
+				echo ' (';
+				if (!empty($list['item_in_list'])) {
+					echo __('already in list');
+				} else {
+					echo "<a href=\"{$url['www']}Lists/App/Additem/list/{$list['list_id']}/item/{$pub_issue_id}\"> ";
+					echo __('add');
+					echo '</a>';
+				}
+				echo ')';
+				echo "</div>";
+			}
+		
+		} else {
+			
+			echo '<p>' . __('No lists') . '</p>';
+		}
+	
+	} else {
+		
+		echo "<a href=\"{$url['www']}Users/App/Account\">" . __('Login', 'App') . '</a> ' . __('or', 'App') . ' ';
+		echo "<a href=\"{$url['www']}Users/App/Register\">" . __('register', 'App') . '</a> ' . __('to manage your lists', 'App');
+	}
+	
+	echo '</div>';
 
 } else {
 	

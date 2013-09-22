@@ -198,7 +198,7 @@
 	} else {
 		
 		echo "<a href=\"{$url['www']}Users/App/Account/next/{$comments['next']}\">" . __('Login', 'App') . '</a> ' . __('or', 'App') . ' ';
-		echo "<a href=\"{$url['www']}Users/App/Register{$comments['next']}\">" . __('register', 'App') . '</a> ' . __('to post comments', 'App');
+		echo "<a href=\"{$url['www']}Users/App/Register/next/{$comments['next']}\">" . __('register', 'App') . '</a> ' . __('to post comments', 'App');
 	}
 	?>
 	</article>

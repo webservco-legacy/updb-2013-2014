@@ -43,6 +43,13 @@ class ControllerApp extends Controller {
 	private $_mPub = NULL;
 
 	/**
+	 * Lists library object.
+	 * 
+	 * @var mixed
+	 */
+	private $_mLists = NULL;
+
+	/**
 	 * Comments library object.
 	 * 
 	 * @var mixed
@@ -271,6 +278,27 @@ class ControllerApp extends Controller {
 		return TRUE;
 	}
 
+	public function CheckUserListAccess($user, $listId) {
+
+		if (empty($user['Logged'])) {
+			
+			Core::Router()->Redirect("Users/App/Account");
+			
+			exit();
+		}
+		
+		$check = $this->Lists()->GetUser($listId);
+		
+		if ($user['Id'] != $check) {
+			
+			Core::Router()->Redirect("Content/App/Restricted");
+			
+			exit();
+		}
+		
+		return TRUE;
+	}
+
 	public function GetDefaultOutput($title = NULL) {
 
 		$this->Init();
@@ -321,6 +349,21 @@ class ControllerApp extends Controller {
 		}
 		
 		return $this->_mPub;
+	}
+
+	/**
+	 * Lists library object.
+	 * 
+	 * @return mixed
+	 */
+	public function Lists() {
+
+		if (NULL == $this->_mLists) {
+			
+			$this->_mLists = Core::Get('Library_Lists');
+		}
+		
+		return $this->_mLists;
 	}
 
 	public function Comments() {

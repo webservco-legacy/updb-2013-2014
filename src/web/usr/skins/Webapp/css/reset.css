@@ -63,6 +63,10 @@ table{
     border-spacing:0;
 }
 
+strong {
+	font-weight: bold;
+}
+
 /*
  * Clearfix: contain floats
  *

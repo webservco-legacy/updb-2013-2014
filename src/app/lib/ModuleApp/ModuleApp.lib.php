@@ -43,6 +43,13 @@ class ModuleApp extends Module {
 	private $_mPub = NULL;
 
 	/**
+	 * Lists library object.
+	 * 
+	 * @var mixed
+	 */
+	private $_mLists = NULL;
+
+	/**
 	 * Comments library object.
 	 * 
 	 * @var mixed
@@ -267,6 +274,8 @@ class ModuleApp extends Module {
 		
 		$data['stats']['pub'] = $this->Pub()->GetPubStats();
 		
+		$data['stats']['list'] = $this->Lists()->GetListStats();
+		
 		return $data;
 	}
 
@@ -283,6 +292,21 @@ class ModuleApp extends Module {
 		}
 		
 		return $this->_mPub;
+	}
+
+	/**
+	 * Lists library object.
+	 * 
+	 * @return mixed
+	 */
+	public function Lists() {
+
+		if (NULL == $this->_mLists) {
+			
+			$this->_mLists = Core::Get('Library_Lists');
+		}
+		
+		return $this->_mLists;
 	}
 
 	public function Comments() {

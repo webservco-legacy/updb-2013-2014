@@ -22,12 +22,12 @@ if (!defined('_WEB')) {
 }
 
 /**
- * Controller_Content_App
- * App Controller for Content module.
+ * Controller_Pub_App
+ * App Controller for Pub module.
  * 
  * @author Radu Maier <radu@webserv.co>
  * @package UpdbApp
- * @subpackage ContentModule
+ * @subpackage PubModule
  */
 class Controller_Pub_App extends ControllerApp {
 
@@ -89,6 +89,14 @@ class Controller_Pub_App extends ControllerApp {
 		}
 		
 		$data['comments'] = $this->GetComments(2, $data['pub_issue_id'], $data);
+		
+		$data['item_lists'] = $this->Lists()->GetItemLists($data['pub_issue_id']);
+		
+		if (!empty($data['user']['Logged'])) {
+			
+			$data['user_lists'] = $this->Lists()->GetUserLists($data['user']['Id'], $data['pub_issue_id']);
+		
+		}
 		
 		echo $this->GetOutput($data);
 		

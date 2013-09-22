@@ -87,5 +87,18 @@ class Controller_Content_App extends ControllerApp {
 		
 		return TRUE;
 	}
+
+	public function Community() {
+
+		$this->Init();
+		
+		$data = $this->Module()->GetData($this->_mRequest);
+		
+		$data['list_types'] = $this->Lists()->GetTypes();
+		
+		echo $this->GetOutput($data);
+		
+		return TRUE;
+	}
 }
 ?>

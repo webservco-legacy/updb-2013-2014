@@ -115,6 +115,7 @@ article {
 h1,h2,h3,h4 {
 	margin: 5px 0 5px 0;
 	letter-spacing: 1px;
+	font-weight: bold;
 }
 
 h1 {
@@ -435,4 +436,19 @@ article.comments textarea {
 	list-style-type: none;
 	margin: 0;
 	padding: 0 0 0 0;
+}
+
+.list_item {
+	float: left;
+	display: block;
+	width: 97%;
+	margin: 0 0 0 0;
+	padding: 7px;
+}
+
+.issue_lists {
+	clear: both;
+	font-size: 0.9em;
+	border-top: 1px dashed #777;
+	padding: 0 0 10px 0;
 }
