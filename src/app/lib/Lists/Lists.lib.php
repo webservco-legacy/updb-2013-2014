@@ -263,7 +263,7 @@ class Lists extends Library {
 		FROM up_list_items AS I
 		LEFT JOIN up_pub_issues_main AS P ON (P.pub_issue_id = I.item_id)
 		WHERE I.list_id = '{$listId}'
-		ORDER BY item_title";
+		ORDER BY P.pub_issue_year, P.pub_issue_title";
 		
 		$rs = Core::Database()->Query($q);
 		
