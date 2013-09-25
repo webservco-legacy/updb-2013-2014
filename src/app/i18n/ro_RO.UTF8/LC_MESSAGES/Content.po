@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Content $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-21 11:59+0100\n"
-"PO-Revision-Date: 2013-09-21 11:59+0100\n"
+"POT-Creation-Date: 2013-09-25 09:39+0100\n"
+"PO-Revision-Date: 2013-09-25 09:40+0100\n"
 "Last-Translator: Radu Maier <radu@webserv.co>\n"
 "Language-Team: WebServ.Co <radu@webserv.co>\n"
 "Language: en_US\n"
@@ -38,13 +38,25 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/Content/community.tpl.php:3
+msgid "Community"
+msgstr "Comunitate"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/Content/community.tpl.php:5
+msgid "Lists"
+msgstr "Liste"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/Content/community.tpl.php:16
+msgid "My lists"
+msgstr "Listele mele"
+
 #: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/Content/user.tpl.php:2
 msgid "Get data from another module"
 msgstr ""
 
 #: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/Content/restricted.tpl.php:3
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 #: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/Content/restricted.tpl.php:3
 msgid "You don't have permission to access the selected resource."

@@ -47,6 +47,33 @@ class Pub extends Library {
 		return $data;
 	}
 
+	public function GetPubLayoutTypes($i18nLocale = NULL) {
+
+		$data = array();
+		
+		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
+		
+		$q = "SELECT M.pub_layout_type_id, D.pub_layout_type_title
+		FROM up_pub_layout_types_main AS M
+		LEFT JOIN up_pub_layout_types_details AS D ON
+		(D.pub_layout_type_id = M.pub_layout_type_id AND D.i18n_locale = '{$i18n_locale}')
+		ORDER BY D.pub_layout_type_title";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['pub_layout_type_id']] = $r['pub_layout_type_title'];
+			}
+		}
+		
+		return $data;
+	}
+
 	public function GetPubDuplicationTypes($i18nLocale = NULL) {
 
 		$data = array();
@@ -246,7 +273,7 @@ class Pub extends Library {
 		
 		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
 		
-		$q = "SELECT M.pub_issue_id, P.pub_title, F.pub_format_name, D.pub_duplication_type_title, 
+		$q = "SELECT M.pub_issue_id, P.pub_title, F.pub_format_name, D.pub_duplication_type_title, L.pub_layout_type_title,
 		M.pub_issue_title, M.pub_issue_year, M.pub_issue_pages
 		FROM
 		up_pub_issues AS J
@@ -254,6 +281,7 @@ class Pub extends Library {
 		LEFT JOIN up_pub_main AS P ON (P.pub_id = J.pub_id)
 		LEFT JOIN up_pub_formats_main AS F ON (F.pub_format_id = M.pub_format_id)
 		LEFT JOIN up_pub_duplication_types_details AS D ON (D.pub_duplication_type_id = M.pub_duplication_type_id AND D.i18n_locale = '{$i18n_locale}')
+		LEFT JOIN up_pub_layout_types_details AS L ON (L.pub_layout_type_id = M.pub_layout_type_id AND L.i18n_locale = '{$i18n_locale}')
 		WHERE 1
 		AND J.pub_id = '{$pubId}'
 		ORDER BY M.pub_issue_year, M.pub_issue_title";
@@ -281,11 +309,12 @@ class Pub extends Library {
 		
 		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
 		
-		$q = "SELECT M.pub_issue_id, F.pub_format_name, D.pub_duplication_type_title,
+		$q = "SELECT M.pub_issue_id, F.pub_format_name, D.pub_duplication_type_title, L.pub_layout_type_title,
 				M.pub_issue_title, M.pub_issue_year, M.pub_issue_pages
 				FROM up_pub_issues_main AS M
 				LEFT JOIN up_pub_formats_main AS F ON (F.pub_format_id = M.pub_format_id)
 				LEFT JOIN up_pub_duplication_types_details AS D ON (D.pub_duplication_type_id = M.pub_duplication_type_id AND D.i18n_locale = '{$i18n_locale}')
+				LEFT JOIN up_pub_layout_types_details AS L ON (L.pub_layout_type_id = M.pub_layout_type_id AND L.i18n_locale = '{$i18n_locale}')
 				WHERE 1
 				ORDER BY M.pub_issue_id DESC LIMIT 10";
 		
@@ -345,13 +374,14 @@ class Pub extends Library {
 
 		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
 		
-		$q = "SELECT M.pub_issue_id, F.pub_format_name, DT.pub_duplication_type_title, 
+		$q = "SELECT M.pub_issue_id, F.pub_format_name, DT.pub_duplication_type_title, L.pub_layout_type_title,
 		M.pub_issue_title, M.pub_issue_year, M.pub_issue_pages
 		, D.pub_issue_description
 		FROM up_pub_issues_main AS M
 		LEFT JOIN up_pub_issues_details AS D ON (D.pub_issue_id = M.pub_issue_id AND D.i18n_locale = '{$i18n_locale}')
 		LEFT JOIN up_pub_formats_main AS F ON (F.pub_format_id = M.pub_format_id)
 		LEFT JOIN up_pub_duplication_types_details AS DT ON (DT.pub_duplication_type_id = M.pub_duplication_type_id AND DT.i18n_locale = '{$i18n_locale}')
+		LEFT JOIN up_pub_layout_types_details AS L ON (L.pub_layout_type_id = M.pub_layout_type_id AND L.i18n_locale = '{$i18n_locale}')
 		WHERE  M.pub_issue_id = '{$pubIssueId}'
 		LIMIT 1";
 		
@@ -398,7 +428,7 @@ class Pub extends Library {
 
 	public function GetPubIssueMain($pubIssueId) {
 
-		$q = "SELECT pub_format_id, pub_duplication_type_id, pub_issue_title, pub_issue_year, pub_issue_pages
+		$q = "SELECT pub_format_id, pub_layout_type_id, pub_duplication_type_id, pub_issue_title, pub_issue_year, pub_issue_pages
 		FROM up_pub_issues_main
 		WHERE pub_issue_id = '{$pubIssueId}' LIMIT 1";
 		
@@ -564,8 +594,8 @@ class Pub extends Library {
 
 	public function AddPubIssueMain($data) {
 
-		$q = "INSERT INTO up_pub_issues_main (pub_format_id, pub_duplication_type_id, pub_issue_title, pub_issue_year, pub_issue_pages) VALUES
-				('{$data['pub_format_id']}', '{$data['pub_duplication_type_id']}', '{$data['pub_issue_title']}', '{$data['pub_issue_year']}', '{$data['pub_issue_pages']}')";
+		$q = "INSERT INTO up_pub_issues_main (pub_format_id, pub_layout_type_id, pub_duplication_type_id, pub_issue_title, pub_issue_year, pub_issue_pages) VALUES
+				('{$data['pub_format_id']}', '{$data['pub_layout_type_id']}', '{$data['pub_duplication_type_id']}', '{$data['pub_issue_title']}', '{$data['pub_issue_year']}', '{$data['pub_issue_pages']}')";
 		
 		return Core::Database()->Query($q) ? Core::Database()->GetInsertId() : FALSE;
 	}
@@ -602,6 +632,7 @@ class Pub extends Library {
 
 		$q = "UPDATE up_pub_issues_main SET
 				pub_format_id = '{$data['pub_format_id']}',
+				pub_layout_type_id = '{$data['pub_layout_type_id']}',
 				pub_duplication_type_id = '{$data['pub_duplication_type_id']}',
 				pub_issue_title = '{$data['pub_issue_title']}',
 				pub_issue_year = '{$data['pub_issue_year']}',
@@ -893,6 +924,32 @@ class Pub extends Library {
 		return $data;
 	}
 
+	public function GetExistingPubIssueLayoutTypes($i18nLocale = NULL) {
+
+		$data = array();
+		
+		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
+		
+		$q = "SELECT I.pub_layout_type_id AS id, D.pub_layout_type_title AS title, COUNT(I.pub_issue_id) AS total
+				FROM up_pub_issues_main AS I
+				LEFT JOIN up_pub_layout_types_details AS D ON (D.pub_layout_type_id = I.pub_layout_type_id AND D.i18n_locale = '{$i18n_locale}')
+				GROUP BY I.pub_layout_type_id";
+		
+		$rs = Core::Database()->Query($q);
+		
+		$t = $rs->num_rows;
+		
+		if (0 < $t) {
+			
+			while ($r = $rs->fetch_assoc()) {
+				
+				$data[$r['id']] = $r;
+			}
+		}
+		
+		return $data;
+	}
+
 	public function GetExistingPubIssueDuplicationTypes($i18nLocale = NULL) {
 
 		$data = array();
@@ -1039,6 +1096,8 @@ class Pub extends Library {
 		$stats['country'] = $this->GetExistingPubCountries();
 		
 		$stats['format'] = $this->GetExistingPubIssueFormats();
+		
+		$stats['layout'] = $this->GetExistingPubIssueLayoutTypes($i18nLocale);
 		
 		$stats['duplication'] = $this->GetExistingPubIssueDuplicationTypes($i18nLocale);
 		

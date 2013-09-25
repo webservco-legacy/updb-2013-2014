@@ -13,6 +13,7 @@ if (!empty($pub_issue)) {
 	
 	echo '<div class="pub_content pub_box">';
 	echo "<p><strong>" . __('Format') . "</strong>: {$pub_issue['pub_format_name']}</p>";
+	echo "<p><strong>" . __('Layout') . "</strong>: {$pub_issue['pub_layout_type_title']}</p>";
 	echo "<p><strong>" . __('Duplication') . "</strong>: {$pub_issue['pub_duplication_type_title']}</p>";
 	echo "<p><strong>" . __('Year') . "</strong>: {$pub_issue['pub_issue_year']}</p>";
 	echo "<p><strong>" . __('Pages') . "</strong>: {$pub_issue['pub_issue_pages']}</p>";

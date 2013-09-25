@@ -65,6 +65,21 @@ if (!empty($stats)) {
 		
 		echo '	</div>';
 		
+		echo '	<div class="stats_issue_layout stats_box stats_box_left">';
+		
+		echo '		<h4>' . __('Layout', 'App') . '</h4>';
+		
+		echo '		<ul>';
+		
+		foreach ($stats['pub']['layout'] as $item) {
+			
+			echo "		<li>{$item['title']}: {$item['total']}</li>";
+		}
+		
+		echo '		</ul>';
+		
+		echo '	</div>';
+		
 		echo '	<div class="stats_issue_duplication stats_box stats_box_left">';
 		
 		echo '		<h4>' . __('Duplication', 'App') . '</h4>';

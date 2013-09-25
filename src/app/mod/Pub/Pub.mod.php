@@ -282,9 +282,17 @@ class Module_Pub extends ModuleApp {
 			Core::Form()->SetMeta('pub_format_id', 'options', $pub_format_list);
 		}
 		
+		$pub_layout_types = $this->Pub()->GetPubLayoutTypes();
+		
+		if (!empty($pub_layout_types)) {
+			
+			Core::Form()->SetMeta('pub_layout_type_id', 'options', $pub_layout_types);
+		}
+		
 		$pub_duplication_types = $this->Pub()->GetPubDuplicationTypes();
 		
 		if (!empty($pub_duplication_types)) {
+			
 			Core::Form()->SetMeta('pub_duplication_type_id', 'options', $pub_duplication_types);
 		}
 		
@@ -449,9 +457,17 @@ class Module_Pub extends ModuleApp {
 			Core::Form()->SetMeta('pub_format_id', 'options', $pub_format_list);
 		}
 		
+		$pub_layout_types = $this->Pub()->GetPubLayoutTypes();
+		
+		if (!empty($pub_layout_types)) {
+			
+			Core::Form()->SetMeta('pub_layout_type_id', 'options', $pub_layout_types);
+		}
+		
 		$pub_duplication_types = $this->Pub()->GetPubDuplicationTypes();
 		
 		if (!empty($pub_duplication_types)) {
+			
 			Core::Form()->SetMeta('pub_duplication_type_id', 'options', $pub_duplication_types);
 		}
 		

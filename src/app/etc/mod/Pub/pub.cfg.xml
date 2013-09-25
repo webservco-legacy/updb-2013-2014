@@ -83,6 +83,14 @@
 						<filters>StripTags|RemoveBadChars</filters>
 						<conditions>IsInteger</conditions>
 				    </pub_issue_year>
+				    <pub_layout_type_id>
+				        <type>select</type>
+						<title>Layout type</title>
+						<description></description>
+						<required>1</required>
+						<filters></filters>
+						<conditions></conditions>
+				    </pub_layout_type_id>
 				    <pub_duplication_type_id>
 				        <type>select</type>
 						<title>Duplication type</title>

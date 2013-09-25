@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: App $Id$\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-21 16:36+0100\n"
-"PO-Revision-Date: 2013-09-21 16:36+0100\n"
+"POT-Creation-Date: 2013-09-25 09:36+0100\n"
+"PO-Revision-Date: 2013-09-25 09:36+0100\n"
 "Last-Translator: Radu Maier <radu@webserv.co>\n"
 "Language-Team: WebServ.Co <radu@webserv.co>\n"
 "Language: en_US\n"
@@ -27,7 +27,7 @@ msgstr ""
 "X-Poedit-SearchPath-4: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/"
 "opt/tpl/Webapp/_main\n"
 
-#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/lib/ModuleApp/ModuleApp.lib.php:94
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/lib/ModuleApp/ModuleApp.lib.php:101
 msgid "No data to display"
 msgstr "No data to display"
 
@@ -61,16 +61,24 @@ msgid "Formats"
 msgstr "Formats"
 
 #: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:70
+msgid "Layout"
+msgstr "Layout"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:85
 msgid "Duplication"
 msgstr "Duplication"
 
-#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:85
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:100
 msgid "Years"
 msgstr "Years"
 
-#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:100
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:115
 msgid "Languages"
 msgstr "Languages"
+
+#: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/left.tpl.php:137
+msgid "User lists"
+msgstr "User lists"
 
 #: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/admin_header.tpl.php:8
 #: /home/radu/Documents/Projects/Eclipse/ws_UPDb/src/app/opt/tpl/Webapp/_main/header.tpl.php:6
@@ -219,34 +227,41 @@ msgstr "The passwords are not the same."
 msgid "Underground Press Database (UPDb)"
 msgstr "Underground Press Database (UPDb)"
 
-#: app.cfg.xml:35 app.cfg.xml:73
+#: app.cfg.xml:35 app.cfg.xml:79
 msgid "Home"
 msgstr "Home"
 
 #: app.cfg.xml:47
+msgid "Community"
+msgstr "Community"
+
+#: app.cfg.xml:53
+msgid "Lists"
+msgstr "Lists"
+
+#: app.cfg.xml:59
 msgid "My account"
 msgstr "My account"
 
-#: app.cfg.xml:53
-msgid "Help"
-msgstr "Help"
-
-#: app.cfg.xml:59
+#: app.cfg.xml:65
 msgid "About"
 msgstr "About"
 
-#: app.cfg.xml:65
+#: app.cfg.xml:71
 msgid "Contact"
 msgstr "Contact"
 
-#: app.cfg.xml:79
+#: app.cfg.xml:85
 msgid "Users"
 msgstr "Users"
 
-#: app.cfg.xml:85
+#: app.cfg.xml:91
 msgid "Frontend"
 msgstr "Frontend"
 
 #: comments.cfg.xml:22
 msgid "Add comment"
 msgstr "Add comment"
+
+#~ msgid "Help"
+#~ msgstr "Help"
