@@ -100,5 +100,16 @@ class Controller_Content_App extends ControllerApp {
 		
 		return TRUE;
 	}
+
+	public function Test() {
+
+		$this->Init();
+		
+		$data = $this->Module()->GetData($this->_mRequest);
+		
+		var_dump(Core::Mail()->SendSimple('radu@italiamultimedia.com', 'test WEb smtp mail', 'ehlo?'));
+		
+		return;
+	}
 }
 ?>

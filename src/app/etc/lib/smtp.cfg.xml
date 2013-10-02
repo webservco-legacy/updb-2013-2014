@@ -14,8 +14,8 @@
 	<prod>
 		<!-- SMTP Settings -->
 		<smtp>
-			<!-- Enable SSL? -->
-			<ssl>1</ssl>
+			<!-- SMTP security (ssl, tls, none) ONLY SSL SUPPORT AT THE MOMENT -->
+			<security>ssl</security>
 			<!-- SMTP Server hostname ( defaults to localhost ) -->
 			<server>smtp.gmail.com</server>
 			<!-- SMTP Server Port ( defaults to 25) -->

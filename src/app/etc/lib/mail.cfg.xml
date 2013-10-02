@@ -37,7 +37,7 @@
 				<name></name>
 			</bcc>
 			<!-- Use SMTP to send mail? -->
-			<smtp>0</smtp>
+			<smtp>1</smtp>
 			<!-- Allowed attachment types -->
 			<attach>gif,jpg,png,zip,text,pdf</attach>
 		</mail>
