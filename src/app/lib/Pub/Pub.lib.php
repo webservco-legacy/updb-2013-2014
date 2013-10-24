@@ -316,7 +316,7 @@ class Pub extends Library {
 				LEFT JOIN up_pub_duplication_types_details AS D ON (D.pub_duplication_type_id = M.pub_duplication_type_id AND D.i18n_locale = '{$i18n_locale}')
 				LEFT JOIN up_pub_layout_types_details AS L ON (L.pub_layout_type_id = M.pub_layout_type_id AND L.i18n_locale = '{$i18n_locale}')
 				WHERE 1
-				ORDER BY M.pub_issue_id DESC LIMIT 10";
+				ORDER BY M.pub_issue_updated DESC LIMIT 10";
 		
 		$rs = Core::Database()->Query($q);
 		
