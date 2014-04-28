@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- $Id$ -->
 
 <!-- Configuration -->
 <config>
@@ -19,12 +18,9 @@
 				<attempts>10</attempts>
 			</login>
 			<props>
-				<!-- 
-				<item>user_name_first</item>
-				<item>user_name_last</item>
-				<item>user_country</item>
-				 -->
+				<item>user_nickname</item>
 			</props>
 		</user>
 	</prod>
 </config>
+<!-- $Id: user.cfg.xml 54 2014-04-28 07:24:24Z radu $ -->

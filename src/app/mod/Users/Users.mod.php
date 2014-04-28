@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id$
+ * $Id: Users.mod.php 55 2014-04-28 07:37:00Z radu $
  *
  * Users module.
  *
@@ -9,7 +9,7 @@
  * @license    http://www.opensource.org/licenses/bsd-license.php
  * @package    UpdbApp
  * @subpackage UsersModule
- * @version    $Revision$
+ * @version    $Revision: 55 $
  * @since      Version 7
  * @access     public
  * @filesource
@@ -28,7 +28,7 @@ if (!defined('_WEB')) {
 /**
  * Module_Users
  * Model class for Users module.
- * 
+ *
  * @author Radu Maier <radu@webserv.co>
  * @package UpdbApp
  * @subpackage UsersModule
@@ -37,7 +37,7 @@ class Module_Users extends ModuleApp {
 
 	/**
 	 * Handles login functionality.
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function GetLoginForm($nextUrl = NULL) {
@@ -89,7 +89,6 @@ class Module_Users extends ModuleApp {
 					Core::Router()->Redirect('Users/App/LoginError');
 					
 					exit();
-				
 				} else {
 					/**
 					 * perform any aditional user initialization.
@@ -101,7 +100,6 @@ class Module_Users extends ModuleApp {
 					
 					exit();
 				}
-			
 			} else {
 				Core::Captcha()->GetNewToken();
 				
@@ -183,7 +181,6 @@ class Module_Users extends ModuleApp {
 					Core::Router()->Redirect('Users/App/Account');
 					
 					exit();
-				
 				} else {
 					
 					$form['data'] = Core::Form()->GetData();
@@ -246,7 +243,7 @@ class Module_Users extends ModuleApp {
 	public function InsertCustomData($userId, $formData = array()) {
 
 		$data = array(
-			'user_id_key' => $userId
+				'user_id_key' => $userId 
 		);
 		
 		unset($formData['email']);
@@ -269,7 +266,6 @@ class Module_Users extends ModuleApp {
 			$qc .= ")";
 			
 			return Core::Database()->Query($qc) ? TRUE : FALSE;
-		
 		}
 		
 		return FALSE;
@@ -355,7 +351,6 @@ class Module_Users extends ModuleApp {
 					Core::Router()->Redirect('Users/App/PasswordDone');
 					
 					exit();
-				
 				} else {
 					
 					$form['data'] = Core::Form()->GetData();
@@ -433,7 +428,6 @@ class Module_Users extends ModuleApp {
 					Core::Router()->Redirect('Users/App/PasswordDone');
 					
 					exit();
-				
 				} else {
 					
 					$form['data'] = Core::Form()->GetData();
@@ -454,7 +448,7 @@ class Module_Users extends ModuleApp {
 
 	/**
 	 * Verify if the input password is correct.
-	 * 
+	 *
 	 * @param string $userEmail        	
 	 * @param string $password        	
 	 *
@@ -505,12 +499,9 @@ class Module_Users extends ModuleApp {
 		
 		Core::Form()->SetData($form_config);
 		
-		$countries = Core::Geo()->GetCountries();
-		
-		if (!empty($countries)) {
-			
-			Core::Form()->SetMeta('country', 'options', $countries);
-		}
+		/*
+		 * $countries = Core::Geo()->GetCountries(); if (!empty($countries)) { Core::Form()->SetMeta('country', 'options', $countries); }
+		 */
 		
 		$form['meta'] = Core::Form()->GetMeta();
 		
@@ -533,7 +524,6 @@ class Module_Users extends ModuleApp {
 					Core::Router()->Redirect('Users/App/Account');
 					
 					exit();
-				
 				} else {
 					
 					$form['data'] = Core::Form()->GetData();

@@ -11,8 +11,8 @@
 	<!-- Production Environment -->
 	<prod>
 	    <path>
-			<core>/var/www/developer.webserv.co/opt/WEb7/</core>
-			<app>/var/www/updb.webserv.co/opt/app/</app>
+			<core>/usr/share/php/WEb7/</core>
+			<app>/var/www/updb.webserv.co/private/app/</app>
 			<www>/var/www/updb.webserv.co/web/</www>
 		</path>
 		<url>
@@ -20,4 +20,4 @@
 		</url>
 	</prod>
 </config>
-<!-- $Id$ -->
+<!-- $Id: settings.cfg.xml 52 2014-04-09 05:26:36Z radu $ -->
