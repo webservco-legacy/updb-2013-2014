@@ -16,7 +16,7 @@
  */
 
 if (!defined('_WEB')) {
-	exit();
+    exit();
 }
 
 /**
@@ -29,22 +29,22 @@ if (!defined('_WEB')) {
  */
 class Module_Content extends ModuleApp {
 
-	public function GetAppContent($contentId, $i18nLocale = NULL) {
+    public function GetAppContent($contentId, $i18nLocale = NULL) {
 
-		$i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
-		
-		$q = "SELECT content_title, content_data FROM up_content WHERE content_id = '{$contentId}' AND i18n_locale = '{$i18n_locale}' LIMIT 1";
-		
-		$rs = Core::Database()->Query($q);
-		
-		$t = $rs->num_rows;
-		
-		if (1 == $t) {
-			
-			return $rs->fetch_assoc();
-		}
-		
-		return FALSE;
-	}
+        $i18n_locale = !empty($i18nLocale) ? $i18nLocale : Core::I18n()->GetLocale();
+        
+        $q = "SELECT content_title, content_data FROM up_content WHERE content_id = '{$contentId}' AND i18n_locale = '{$i18n_locale}' LIMIT 1";
+        
+        $rs = Core::Database()->Query($q);
+        
+        $t = $rs->num_rows;
+        
+        if (1 == $t) {
+            
+            return $rs->fetch_assoc();
+        }
+        
+        return FALSE;
+    }
 }
 ?>

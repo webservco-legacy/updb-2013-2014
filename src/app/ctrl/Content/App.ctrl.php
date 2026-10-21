@@ -18,7 +18,7 @@
  */
 
 if (!defined('_WEB')) {
-	exit();
+    exit();
 }
 
 /**
@@ -31,85 +31,85 @@ if (!defined('_WEB')) {
  */
 class Controller_Content_App extends ControllerApp {
 
-	public function Home() {
+    public function Home() {
 
-		$this->Init();
-		
-		$data = $this->Module()->GetData($this->_mRequest);
-		
-		$data['latest_issues'] = $this->Pub()->GetLatestPubIssues();
-		
-		echo $this->GetOutput($data);
-		
-		return TRUE;
-	}
+        $this->Init();
+        
+        $data = $this->Module()->GetData($this->_mRequest);
+        
+        $data['latest_issues'] = $this->Pub()->GetLatestPubIssues();
+        
+        echo $this->GetOutput($data);
+        
+        return TRUE;
+    }
 
-	public function Restricted() {
+    public function Restricted() {
 
-		return $this->GetDefaultOutput(__('Restricted'));
-	}
+        return $this->GetDefaultOutput(__('Restricted'));
+    }
 
-	public function Display() {
+    public function Display() {
 
-		$this->Init();
-		
-		$data = $this->Module()->GetData($this->_mRequest);
-		
-		$content_id = !empty($data['query']['c']) ? $data['query']['c'] : NULL;
-		
-		if (!empty($content_id)) {
-			
-			$content = $this->Module()->GetAppContent($content_id);
-			
-			return $this->GetDefaultContentOutput($content);
-		}
-		
-		return FALSE;
-	}
+        $this->Init();
+        
+        $data = $this->Module()->GetData($this->_mRequest);
+        
+        $content_id = !empty($data['query']['c']) ? $data['query']['c'] : NULL;
+        
+        if (!empty($content_id)) {
+            
+            $content = $this->Module()->GetAppContent($content_id);
+            
+            return $this->GetDefaultContentOutput($content);
+        }
+        
+        return FALSE;
+    }
 
-	public function Contact() {
+    public function Contact() {
 
-		return $this->GetDefaultOutput(__('Contact'));
-	}
+        return $this->GetDefaultOutput(__('Contact'));
+    }
 
-	public function Debug() {
+    public function Debug() {
 
-		$this->Init();
-		
-		$data = $this->Module()->GetData($this->_mRequest);
-		
-		/**
-		 * Debug using the log instead of output in browser (useful for live apps).
-		 */
-		Core::Log()->Debug('Debugging $data', $data, 'info');
-		
-		echo $this->GetOutput($data);
-		
-		return TRUE;
-	}
+        $this->Init();
+        
+        $data = $this->Module()->GetData($this->_mRequest);
+        
+        /**
+         * Debug using the log instead of output in browser (useful for live apps).
+         */
+        Core::Log()->Debug('Debugging $data', $data, 'info');
+        
+        echo $this->GetOutput($data);
+        
+        return TRUE;
+    }
 
-	public function Community() {
+    public function Community() {
 
-		$this->Init();
-		
-		$data = $this->Module()->GetData($this->_mRequest);
-		
-		$data['list_types'] = $this->Lists()->GetTypes();
-		
-		echo $this->GetOutput($data);
-		
-		return TRUE;
-	}
+        $this->Init();
+        
+        $data = $this->Module()->GetData($this->_mRequest);
+        
+        $data['list_types'] = $this->Lists()->GetTypes();
+        
+        echo $this->GetOutput($data);
+        
+        return TRUE;
+    }
 
-	public function Test() {
+    public function Test() {
 
-		$this->Init();
-		
-		$data = $this->Module()->GetData($this->_mRequest);
-		
-		var_dump(Core::Mail()->SendSimple('radu@italiamultimedia.com', 'test WEb smtp mail', 'ehlo?'));
-		
-		return;
-	}
+        $this->Init();
+        
+        $data = $this->Module()->GetData($this->_mRequest);
+        
+        var_dump(Core::Mail()->SendSimple('radu@italiamultimedia.com', 'test WEb smtp mail', 'ehlo?'));
+        
+        return;
+    }
 }
 ?>
