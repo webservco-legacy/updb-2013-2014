@@ -22,7 +22,7 @@ var url_www = '<?php echo $url['www']; ?>';
 
 <script src="<?php echo $url['scripts']; ?>main.js"></script>
 
-		<?php /*
+        <?php /*
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];

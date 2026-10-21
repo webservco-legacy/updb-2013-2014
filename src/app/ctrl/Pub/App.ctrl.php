@@ -18,7 +18,7 @@
  */
 
 if (!defined('_WEB')) {
-	exit();
+    exit();
 }
 
 /**
@@ -31,76 +31,76 @@ if (!defined('_WEB')) {
  */
 class Controller_Pub_App extends ControllerApp {
 
-	public function PubList() {
+    public function PubList() {
 
-		$this->Init();
-		
-		$data = $this->Module()->GetData($this->_mRequest);
-		
-		$data['strings']['title'] = __('Publications list');
-		
-		$data['publications'] = $this->Pub()->GetPublications();
-		
-		echo $this->GetOutput($data);
-		
-		return TRUE;
-	}
+        $this->Init();
+        
+        $data = $this->Module()->GetData($this->_mRequest);
+        
+        $data['strings']['title'] = __('Publications list');
+        
+        $data['publications'] = $this->Pub()->GetPublications();
+        
+        echo $this->GetOutput($data);
+        
+        return TRUE;
+    }
 
-	public function PubView() {
+    public function PubView() {
 
-		$this->Init();
-		
-		$data = $this->Module()->GetData($this->_mRequest);
-		
-		$data['strings']['title'] = __('Issues list');
-		
-		$data['pub_id'] = !empty($data['query']['pub']) ? $data['query']['pub'] : NULL;
-		
-		$data['pub'] = $this->Pub()->GetPublication($data['pub_id']);
-		
-		$data['pub_issues'] = $this->Pub()->GetPubIssues($data['pub_id']);
-		
-		$data['pub_images'] = $this->Pub()->GetPubImages($data['pub_id'], 'pub');
-		
-		$data['comments'] = $this->GetComments(1, $data['pub_id'], $data);
-		
-		echo $this->GetOutput($data);
-		
-		return TRUE;
-	}
+        $this->Init();
+        
+        $data = $this->Module()->GetData($this->_mRequest);
+        
+        $data['strings']['title'] = __('Issues list');
+        
+        $data['pub_id'] = !empty($data['query']['pub']) ? $data['query']['pub'] : NULL;
+        
+        $data['pub'] = $this->Pub()->GetPublication($data['pub_id']);
+        
+        $data['pub_issues'] = $this->Pub()->GetPubIssues($data['pub_id']);
+        
+        $data['pub_images'] = $this->Pub()->GetPubImages($data['pub_id'], 'pub');
+        
+        $data['comments'] = $this->GetComments(1, $data['pub_id'], $data);
+        
+        echo $this->GetOutput($data);
+        
+        return TRUE;
+    }
 
-	public function PubIssueView() {
+    public function PubIssueView() {
 
-		$this->Init();
-		
-		$data = $this->Module()->GetData($this->_mRequest);
-		
-		$data['pub_id'] = !empty($data['query']['pub']) ? $data['query']['pub'] : NULL;
-		
-		$data['pub_issue_id'] = !empty($data['query']['issue']) ? $data['query']['issue'] : NULL;
-		
-		$data['pub_issue'] = $this->Pub()->GetPubIssue($data['pub_issue_id']);
-		
-		if (!empty($data['pub_issue']['pub_issue_id'])) {
-			
-			$data['pub_issue_images'] = $this->Pub()->GetPubImages($data['pub_issue_id'], 'pub_issue');
-			
-			$data['strings']['title'] = $data['pub_issue']['pub_issue_title'];
-		}
-		
-		$data['comments'] = $this->GetComments(2, $data['pub_issue_id'], $data);
-		
-		$data['item_lists'] = $this->Lists()->GetItemLists($data['pub_issue_id']);
-		
-		if (!empty($data['user']['Logged'])) {
-			
-			$data['user_lists'] = $this->Lists()->GetUserLists($data['user']['Id'], $data['pub_issue_id']);
-		
-		}
-		
-		echo $this->GetOutput($data);
-		
-		return TRUE;
-	}
+        $this->Init();
+        
+        $data = $this->Module()->GetData($this->_mRequest);
+        
+        $data['pub_id'] = !empty($data['query']['pub']) ? $data['query']['pub'] : NULL;
+        
+        $data['pub_issue_id'] = !empty($data['query']['issue']) ? $data['query']['issue'] : NULL;
+        
+        $data['pub_issue'] = $this->Pub()->GetPubIssue($data['pub_issue_id']);
+        
+        if (!empty($data['pub_issue']['pub_issue_id'])) {
+            
+            $data['pub_issue_images'] = $this->Pub()->GetPubImages($data['pub_issue_id'], 'pub_issue');
+            
+            $data['strings']['title'] = $data['pub_issue']['pub_issue_title'];
+        }
+        
+        $data['comments'] = $this->GetComments(2, $data['pub_issue_id'], $data);
+        
+        $data['item_lists'] = $this->Lists()->GetItemLists($data['pub_issue_id']);
+        
+        if (!empty($data['user']['Logged'])) {
+            
+            $data['user_lists'] = $this->Lists()->GetUserLists($data['user']['Id'], $data['pub_issue_id']);
+        
+        }
+        
+        echo $this->GetOutput($data);
+        
+        return TRUE;
+    }
 }
 ?>

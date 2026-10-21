@@ -18,7 +18,7 @@
  */
 
 if (!defined('_WEB')) {
-	exit();
+    exit();
 }
 
 /**
@@ -31,43 +31,43 @@ if (!defined('_WEB')) {
  */
 class Controller_Pub_Ajax extends ControllerApp {
 
-	public function Edit() {
+    public function Edit() {
 
-		$this->Init();
-		
-		$data = $this->Module()->GetData($this->_mRequest);
-		
-		$this->CheckEditorAccess($data);
-		
-		if (!empty($_POST['action'])) {
-			
-			switch ($_POST['action']) {
-				
-				case 'images_order' :
-					
-					$images = !empty($_POST['images']) ? $_POST['images'] : NULL;
-					
-					if (!empty($images)) {
-						
-						foreach ($images as $index => $image_id) {
-							
-							$image_order = $index + 1;
-							
-							$this->Pub()->ChangePubImageOrder($image_id, $image_order);
-						}
-						
-						echo 'ok';
-					} else {
-						echo 'ko';
-					}
-					
-					break;
-				
-				default :
-					
-					break;
-			}
-		}
-	}
+        $this->Init();
+        
+        $data = $this->Module()->GetData($this->_mRequest);
+        
+        $this->CheckEditorAccess($data);
+        
+        if (!empty($_POST['action'])) {
+            
+            switch ($_POST['action']) {
+                
+                case 'images_order' :
+                    
+                    $images = !empty($_POST['images']) ? $_POST['images'] : NULL;
+                    
+                    if (!empty($images)) {
+                        
+                        foreach ($images as $index => $image_id) {
+                            
+                            $image_order = $index + 1;
+                            
+                            $this->Pub()->ChangePubImageOrder($image_id, $image_order);
+                        }
+                        
+                        echo 'ok';
+                    } else {
+                        echo 'ko';
+                    }
+                    
+                    break;
+                
+                default :
+                    
+                    break;
+            }
+        }
+    }
 }
 ?>
