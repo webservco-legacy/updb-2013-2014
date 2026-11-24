@@ -33,7 +33,7 @@ Left out of the whole history: the cover images of the zines (other people's wor
 ## How it was built
 
 From my Subversion repository (r1 to r50) and a working copy with r51 to r55 (their log messages lost), turned into git in
-2026 (52 commits on all branches), the dates kept. The last commit before this README sets LF line endings and
+2026 (54 commits on all branches), the dates kept. The last commit before this README sets LF line endings and
 indents with spaces.
 
 ## Third-party code
